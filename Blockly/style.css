@@ -1,0 +1,7 @@
+body{
+    display: flex;
+}
+body button{
+    width: 5%;
+    height: 20%;
+}
