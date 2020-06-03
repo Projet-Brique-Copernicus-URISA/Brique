@@ -22,7 +22,6 @@ Blockly.Blocks['display_image'] = {
     this.appendValueInput('VALUE')
       .setCheck('String')
       .appendField('Afficher image de');
-    this.setPreviousStatement(true);
     this.setColour(160);
     this.setTooltip('Display an image from an URL in the web page.');
   }
@@ -34,7 +33,7 @@ Blockly.JavaScript['display_image'] = function (block) {
   var instruction = "var img = document.createElement(\"img\");"+
                     "img.setAttribute(\"src\","+argument0+");"+
                     "img.setAttribute(\"style\",\"width:300px;height:auto;\");"+
-                    "var body = document.getElementById(\"displayable\");"+
+                    "var body = document.getElementById(\"display\");"+
                     "while(body.hasChildNodes()){body.removeChild(body.lastChild);}"+
                     "body.appendChild(img);";
   return instruction;
@@ -49,7 +48,7 @@ Blockly.Blocks['dog_image'] = {
 };
 
 Blockly.JavaScript['dog_image']= function(){
-  var url = "\"https://www.pets4homes.co.uk/images/breeds/50/original/d248d59954bb644e4437cce1758a9ce2.jpg\"";
+  var url = "\"https://www.chien-bonheur.fr/wp-content/uploads/2017/01/j_znKKdS_9U-ROOvzosBtV0HRWc.jpg\"";
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
@@ -79,9 +78,9 @@ Blockly.JavaScript['cat_image']= function(){
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
-var button = document.getElementById("button");
+var buttonStart = document.getElementById("button-start");
 var code;
-button.onclick = function () {
+buttonStart.onclick = function () {
   code = Blockly.JavaScript.workspaceToCode(workspace)
   console.log(code)
   try{eval(code)}catch(e){alert(e)};
