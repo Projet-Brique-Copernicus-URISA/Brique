@@ -1,3 +1,40 @@
+
+/** HTTP_REQUEST */
+
+Blockly.Blocks['http_request'] = {
+  init: function () {
+    this.setOutput(false);
+    this.setColour(160);
+    this.appendDummyInput().appendField('Requête http');
+  }
+};
+
+Blockly.JavaScript['http_request'] = function (block) {
+  var instruction = "instructionHttpRequest();";
+  return instruction;
+};
+
+function instructionHttpRequest(){
+  var request = new XMLHttpRequest();
+    request.open('GET', 'http://omni2.herokuapp.com/API/1.0/?module=OMNI%20LoRa3&total=10', true);
+
+    request.onload = function () {
+        if (this.response != "[]"){
+            alert('OK');
+            console.log(this.response);
+        } else {
+            alert("KO");
+        }
+    }
+
+    request.send();
+
+}
+
+/** END HTTP_REQUEST */
+
+/** STRING_lENGTH */
+
 Blockly.Blocks['string_length'] = {
   init: function () {
     this.appendValueInput('VALUE')
@@ -17,6 +54,10 @@ Blockly.JavaScript['string_length'] = function (block) {
   return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
 };
 
+/** END STRING_LENGTH */
+
+/** DISPLAY_IMAGE */
+
 Blockly.Blocks['display_image'] = {
   init: function () {
     this.appendValueInput('VALUE')
@@ -30,14 +71,24 @@ Blockly.Blocks['display_image'] = {
 Blockly.JavaScript['display_image'] = function (block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
     Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
-  var instruction = "var img = document.createElement(\"img\");"+
-                    "img.setAttribute(\"src\","+argument0+");"+
-                    "var body = document.getElementById(\"display\");"+
-                    "body.style.padding = 0;"+
-                    "while(body.hasChildNodes()){body.removeChild(body.lastChild);}"+
-                    "body.appendChild(img);";
+  var instruction = "instructionDisplayImage("+argument0+");";
   return instruction;
 };
+
+function instructionDisplayImage(argument0){
+  var img = document.createElement("img");
+  img.setAttribute("src",argument0);
+  var body = document.getElementById("display");
+  body.style.padding = 0;
+  while(body.hasChildNodes()){
+    body.removeChild(body.lastChild);
+  }
+  body.appendChild(img);
+}
+
+/** END DISPLAY_IMAGE */
+
+/** IMAGES */
 
 Blockly.Blocks['dog_image'] = {
   init: function () {
@@ -78,6 +129,7 @@ Blockly.JavaScript['cat_image']= function(){
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
+/** END IMAGES */
 
 $( document ).ready(function() {
 
