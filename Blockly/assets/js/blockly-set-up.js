@@ -1,6 +1,17 @@
+/** 
+ * @file Blocky Set Up
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
 
-/** HTTP_REQUEST */
+/* 
+ *  HTTP REQUEST 
+ * _______________________________________________________________________________________
+ * */
 
+/**  The HTTP REQUEST block defintion */
 Blockly.Blocks['http_request'] = {
   init: function () {
     this.setOutput(false);
@@ -9,32 +20,39 @@ Blockly.Blocks['http_request'] = {
   }
 };
 
+/** The HTTP REQUEST block associated method */
 Blockly.JavaScript['http_request'] = function (block) {
   var instruction = "instructionHttpRequest();";
   return instruction;
 };
 
-function instructionHttpRequest(){
+/**
+* Make an HTTP request to an OMNI API
+*
+*/
+function instructionHttpRequest() {
   var request = new XMLHttpRequest();
-    request.open('GET', 'http://omni2.herokuapp.com/API/1.0/?module=OMNI%20LoRa3&total=10', true);
+  request.open('GET', 'http://omni2.herokuapp.com/API/1.0/?module=OMNI%20LoRa3&total=10', true);
 
-    request.onload = function () {
-        if (this.response != "[]"){
-            alert('OK');
-            console.log(this.response);
-        } else {
-            alert("KO");
-        }
+  request.onload = function () {
+    if (this.response != "[]") {
+      alert('OK');
+      console.log(this.response);
+    } else {
+      alert("KO");
     }
+  };
 
-    request.send();
-
+  request.send();
 }
 
-/** END HTTP_REQUEST */
+/* 
+ * END HTTP REQUEST 
+ * STRING LENGTH 
+ * _______________________________________________________________________________________
+ * */
 
-/** STRING_lENGTH */
-
+/** The STRING LENGTH block definition */
 Blockly.Blocks['string_length'] = {
   init: function () {
     this.appendValueInput('VALUE')
@@ -47,17 +65,20 @@ Blockly.Blocks['string_length'] = {
   }
 };
 
+/* The STRING LENGTH block associated method */
 Blockly.JavaScript['string_length'] = function (block) {
-  // String or array length.
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
     Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
   return [argument0 + '.length', Blockly.JavaScript.ORDER_MEMBER];
 };
 
-/** END STRING_LENGTH */
+/* 
+ * END STRING LENGTH 
+ * DISPLAY IMAGE
+ * _______________________________________________________________________________________
+ * */
 
-/** DISPLAY_IMAGE */
-
+/** The DISPLAY IMAGE block definition */
 Blockly.Blocks['display_image'] = {
   init: function () {
     this.appendValueInput('VALUE')
@@ -68,28 +89,31 @@ Blockly.Blocks['display_image'] = {
   }
 };
 
+/** The DISPLAY IMAGE associated method */
 Blockly.JavaScript['display_image'] = function (block) {
   var argument0 = Blockly.JavaScript.valueToCode(block, 'VALUE',
     Blockly.JavaScript.ORDER_FUNCTION_CALL) || '\'\'';
-  var instruction = "instructionDisplayImage("+argument0+");";
+  var instruction = "instructionDisplayImage(" + argument0 + ");";
   return instruction;
 };
 
-function instructionDisplayImage(argument0){
+/**
+ * A COMMENTER
+ *
+ * @param {String} argument0
+ */
+function instructionDisplayImage(argument0) {
   var img = document.createElement("img");
-  img.setAttribute("src",argument0);
+  img.setAttribute("src", argument0);
   var body = document.getElementById("display");
   body.style.padding = 0;
-  while(body.hasChildNodes()){
+  while (body.hasChildNodes()) {
     body.removeChild(body.lastChild);
   }
   body.appendChild(img);
 }
 
-/** END DISPLAY_IMAGE */
-
-/** IMAGES */
-
+/** DOG block definition */
 Blockly.Blocks['dog_image'] = {
   init: function () {
     this.setOutput(true, 'String');
@@ -98,11 +122,13 @@ Blockly.Blocks['dog_image'] = {
   }
 };
 
-Blockly.JavaScript['dog_image']= function(){
+/** DOG block associated method */
+Blockly.JavaScript['dog_image'] = function () {
   var url = "\"https://www.chien-bonheur.fr/wp-content/uploads/2017/01/j_znKKdS_9U-ROOvzosBtV0HRWc.jpg\"";
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
+/** CAT block definition */
 Blockly.Blocks['cat_image'] = {
   init: function () {
     this.setOutput(true, 'String');
@@ -111,11 +137,13 @@ Blockly.Blocks['cat_image'] = {
   }
 };
 
-Blockly.JavaScript['duck_image']= function(){
+/** CAT block associated method */
+Blockly.JavaScript['duck_image'] = function () {
   var url = "\"https://i.ytimg.com/vi/8Qvao19J7dk/maxresdefault.jpg\"";
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
+/** DUCK image block definition */
 Blockly.Blocks['duck_image'] = {
   init: function () {
     this.setOutput(true, 'String');
@@ -124,23 +152,28 @@ Blockly.Blocks['duck_image'] = {
   }
 };
 
-Blockly.JavaScript['cat_image']= function(){
+/** DUCK image block associated method */
+Blockly.JavaScript['cat_image'] = function () {
   var url = "\"http://mesamoursdemanga.m.e.pic.centerblog.net/o/162cfdba.jpg\"";
   return [url, Blockly.JavaScript.ORDER_MEMBER];
 };
 
-/** END IMAGES */
+/*
+ * END DISPLAY IMAGE
+ * _______________________________________________________________________________________
+ * */
 
-$( document ).ready(function() {
+/** Initialise the method that change the Blockly code to Javascript code and execute it */
+$(document).ready(function () {
 
   var workspace = Blockly.inject('blocklyDiv',
-  { toolbox: document.getElementById('toolbox') });
-  
+    { toolbox: document.getElementById('toolbox') });
+
   var buttonStart = document.getElementById("button-start");
   var code;
   buttonStart.onclick = function () {
     code = Blockly.JavaScript.workspaceToCode(workspace)
     console.log(code)
-    try{eval(code)}catch(e){alert(e)};
+    try { eval(code) } catch (e) { alert(e) };
   };
 });
