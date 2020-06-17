@@ -82,7 +82,7 @@ Blockly.Blocks['display_url'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Afficher")
-            .appendField(new Blockly.FieldTextInput("url/ou/chemin/de/mon/image.com"), "NAME");
+            .appendField(new Blockly.FieldTextInput("url/ou/chemin/de/mon/image.com"), "adress");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(270);
@@ -92,8 +92,24 @@ Blockly.Blocks['display_url'] = {
 };
 
 Blockly.JavaScript['display_url'] = function (block) {
-    var text_name = block.getFieldValue('NAME');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
+    var adress = block.getFieldValue('adress');
+    var code = "instructionDisplayImage(" + adress + ");";
     return code;
 };
+
+
+/**
+ * A COMMENTER
+ *
+ * @param {String} adress
+ */
+function instructionDisplayImage(adress) {
+    var img = document.createElement("img");
+    img.setAttribute("src", adress);
+    var body = document.getElementById("display");
+    body.style.padding = 0;
+    while (body.hasChildNodes()) {
+        body.removeChild(body.lastChild);
+    }
+    body.appendChild(img);
+}
