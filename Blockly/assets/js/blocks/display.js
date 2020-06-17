@@ -93,7 +93,7 @@ Blockly.Blocks['display_url'] = {
 
 Blockly.JavaScript['display_url'] = function (block) {
     var adress = block.getFieldValue('adress');
-    var code = "instructionDisplayImage(" + adress + ");";
+    var code = "instructionDisplayImage(\"" + adress + "\");";
     return code;
 };
 
