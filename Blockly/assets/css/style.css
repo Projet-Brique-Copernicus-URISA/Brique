@@ -10,7 +10,7 @@ body, .main {
 }
 
 .left-pan{
-    padding-right: 50%;
+    padding-right: 40%;
     position: fixed;
     width : 100%;
 }
@@ -67,7 +67,7 @@ body, .main {
 
 .right-pan{
     background-color: lightblue;
-    width: 50%;
+    width: 40%;
     padding: 0 45px;
     display : flex;
     flex-flow : column;

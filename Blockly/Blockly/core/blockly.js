@@ -30,6 +30,7 @@ goog.require('Blockly.Variables');
 goog.require('Blockly.WidgetDiv');
 goog.require('Blockly.WorkspaceSvg');
 goog.require('Blockly.Xml');
+goog.require('Blockly.FieldDate')
 
 
 /**

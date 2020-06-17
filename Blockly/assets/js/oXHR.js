@@ -1,3 +1,7 @@
+/** 
+ * @file GETXMLHTTPREQUEST
+ */
+
 function getXMLHttpRequest() {
     var xhr = null;
     if (window.XMLHttpRequest || window.ActiveXObject) {

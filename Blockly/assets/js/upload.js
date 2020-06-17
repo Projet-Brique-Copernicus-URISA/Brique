@@ -1,3 +1,14 @@
+/** 
+ * @file upload
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
+ // TODO : COMMENTAIRES a intégrer
+
+
 var display = document.getElementById("display")
 var input = document.getElementById("input")
 

@@ -26,6 +26,7 @@
     "build:generators": "gulp buildGenerators",
     "build:langfiles": "gulp buildLangfiles",
     "build:uncompressed": "gulp buildUncompressed",
+    "build": "gulp build --closureLibrary",
     "bump": "npm version 3.$(date +'%Y%m%d').0",
     "license": "gulp checkLicenses",
     "lint": "eslint .",
@@ -89,7 +90,8 @@
       "window",
       "document",
       "soy",
-      "XMLHttpRequest"
+      "XMLHttpRequest",
+"google-closure-library"
     ],
     "sub": true,
     "undef": true,

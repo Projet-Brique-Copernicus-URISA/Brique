@@ -6,7 +6,15 @@
  * @version 0.1
  */
 
-/** Initialise the ihm interface actions */
+/** 
+ * @file IHM management
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
+ /** Initialise the ihm interface actions */
 $( document ).ready(function() {
 
     $('.button-info').hover(
