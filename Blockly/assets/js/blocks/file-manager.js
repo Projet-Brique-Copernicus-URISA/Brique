@@ -63,8 +63,7 @@ Blockly.Blocks['read_next_file'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Lire le fichier suivant");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
+            this.setOutput(true, 'picture');
         this.setColour(225);
         this.setTooltip("");
         this.setHelpUrl("");
