@@ -38,7 +38,7 @@ Blockly.JavaScript['copernicus_request_full_parameters_1_pic'] = function (block
     var dropdown_name = block.getFieldValue('NAME');
     // TODO: Assemble JavaScript into code variable.
     var path = block.getFieldValue('path');
-    return ["\"mesImages/exemple.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
+    return ["\"mesImages/c.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
 };
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
