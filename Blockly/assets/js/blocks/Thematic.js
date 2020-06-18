@@ -1,14 +1,13 @@
 /** 
- * @file Picture Types Blocks
+ * @file Thematics Blocks
  * @author Noa Ammirati
  * @author Maxime Dumonteil
  * @author Mathis Lecoeuvre
  * @version 0.1
  */
 
-// TODO : COMMENTAIRES
-
-Blockly.Blocks['ptype_pollution'] = {
+/** POLLUTION block definition */
+Blockly.Blocks['thematic_pollution'] = {
     init: function () {
         this.setOutput(true, 'String');
         this.setColour(30);
@@ -16,7 +15,8 @@ Blockly.Blocks['ptype_pollution'] = {
     }
 };
 
-Blockly.JavaScript['ptype_pollution'] = function () {
+/** POLLUTION block associated method */
+Blockly.JavaScript['thematic_pollution'] = function () {
     var code = '...;\n';
     return code;
 };

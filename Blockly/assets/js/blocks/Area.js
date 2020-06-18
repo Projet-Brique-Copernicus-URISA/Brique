@@ -21,7 +21,7 @@ Blockly.JavaScript['area_paris'] = function () {
     return code;
 };
 
-/** PARIS block definition */
+/** NEW YORK block definition */
 Blockly.Blocks['area_newyork'] = {
     init: function () {
         this.setOutput(true, 'String');
@@ -30,8 +30,28 @@ Blockly.Blocks['area_newyork'] = {
     }
 };
 
-/** PARIS block associated method */
+/** NEW YORK block associated method */
 Blockly.JavaScript['area_newyork'] = function () {
+    var code = '...;\n';
+    return code;
+};
+
+
+/** CUSTOM AREA block definition */
+Blockly.Blocks['area_custom'] = {
+    init: function () {
+        this.setOutput(true, 'String');
+        this.setColour(100);
+        this.appendDummyInput()
+            .appendField('Longitude')
+            .appendField(new Blockly.FieldTextInput("000000"), "LONGITUDE")
+            .appendField('Latitude')
+            .appendField(new Blockly.FieldTextInput("000000"), "LONGITUDE");
+    }
+};
+
+/** CUSTOM AREA block associated method */
+Blockly.JavaScript['area_custom'] = function () {
     var code = '...;\n';
     return code;
 };

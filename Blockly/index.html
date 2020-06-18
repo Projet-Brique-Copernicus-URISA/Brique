@@ -33,7 +33,7 @@
     <script src="assets/js/blocks/copernicus.js"></script>
     <script src="assets/js/blocks/display.js"></script>
     <script src="assets/js/blocks/file-manager.js"></script>
-    <script src="assets/js/blocks/PictureType.js"></script>
+    <script src="assets/js/blocks/Thematic.js"></script>
     <script src="assets/js/ihm.js"></script>
     <script src="assets/js/upload.js"></script>
 
@@ -389,15 +389,16 @@
         <category id="catAreas" colour="100" name="Zones">
             <block type="area_paris"></block>
             <block type="area_newyork"></block>
+            <block type="area_custom"></block>
         </category>
-        <category id="catPictureTypes" colour="30" name="Type d'image">
-            <block type="ptype_pollution"></block>
+        <category id="catThematics" colour="30" name="Thématiques">
+            <block type="thematic_pollution"></block>
         </category>
         <category id="catDisplay" colour="270" name="Affichage">
             <block type="display_result_of"></block>
             <block type="display_var"></block>
             <block type="display_var_2"></block>
-            <block type="display_url"></block>
+            <block type="display_path"></block>
         </category>
         <category id="catFileManager" colour="225" name="Fichier">
             <block type="file_reader"></block>
@@ -405,27 +406,9 @@
             <block type="save_var"></block>
         </category>
         <category id="catCopernicus" colour="230" name="Copernicus">
-            <category id="catCopernicusV1" name="V1">
-                <block type="download_from_copernicus_1"></block>
-                <block type="download_from_copernicus_2"></block>
-                <block type="download_from_copernicus_3"></block>
-                <block type="copernicus_to_var"></block>
-            </category>
-            <category id="catCopernicusV2" name="V2">
-                <block type="copernicus_request_v2"></block>
-                <block type="request_to_var"></block>
-                <category id="catParameters" name="paramètres requête">
-                    <block type="date_choice"></block>
-                    <block type="zone_choice"></block>
-                    <block type="picture_type_choice"></block>
-                    <block type="nb_picture_choice"></block>
-                </category>
-            </category>
-            <category id="catCopernicusV3" name="V3">
-                <block type="copernicus_request_v3_full_parameters"></block>
-                <block type="copernicus_request_v3_full_entrance"></block>
-                <block type="request_to_var"></block>
-            </category>
+            <block type="copernicus_request_v3_full_parameters"></block>
+            <block type="copernicus_request_v3_full_entrance"></block>
+            <block type="request_to_var"></block>
         </category>
         <!--<category id="catCustom" colour="420" name="Custom">
             <block type="load_local_image"></block>
