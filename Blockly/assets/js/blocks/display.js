@@ -6,13 +6,13 @@
  * @version 0.1
  */
 
-/** DISPLAY RESULT OF block definition */
-Blockly.Blocks['display_result_of'] = {
+/** DISPLAY VAR block definition */
+Blockly.Blocks['display'] = {
     init: function () {
-        this.appendDummyInput()
-            .appendField("Afficher le résultat de");
-        this.appendStatementInput("NAME")
-            .setCheck(null);
+        this.appendValueInput("picture_to_display")
+            .setCheck(["String", "picture"])
+            .appendField("Afficher");
+        this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(270);
@@ -21,42 +21,17 @@ Blockly.Blocks['display_result_of'] = {
     }
 };
 
-/** DISPLAY RESULT OF block associated method */
-Blockly.JavaScript['display_result_of'] = function (block) {
-    var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
-    return code;
-};
-
-/** DISPLAY VAR block definition */
-Blockly.Blocks['display_var'] = {
-    init: function () {
-        this.appendValueInput("NAME")
-            .setCheck("picture")
-            .appendField("Afficher");
-        this.setInputsInline(true);
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(270);
-        this.setTooltip("AFF BRIVAR");
-        this.setHelpUrl("");
-    }
-};
-
 /** DISPLAY VAR block associated method */
-Blockly.JavaScript['display_var'] = function (block) {
-    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
-    return code;
+Blockly.JavaScript['display'] = function (block) {
+    var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
+    return "displayPicture(" + picture + ")";
 };
 
 /** DISPLAY VAR 2 block definition */
-Blockly.Blocks['display_var_2'] = {
+Blockly.Blocks['display_duration'] = {
     init: function () {
-        this.appendValueInput("NAME")
-            .setCheck("picture")
+        this.appendValueInput("picture_to_display")
+            .setCheck(["String", "picture"])
             .appendField("Afficher");
         this.appendDummyInput()
             .appendField("pendant")
@@ -66,18 +41,15 @@ Blockly.Blocks['display_var_2'] = {
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(270);
-        this.setTooltip("AFF BRIVAR");
+        this.setTooltip("");
         this.setHelpUrl("");
     }
 };
 
 /** DISPLAY VAR 2 block associated method */
-Blockly.JavaScript['display_var_2'] = function (block) {
-    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-    var number_name = block.getFieldValue('NAME');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
-    return code;
+Blockly.JavaScript['display_duration'] = function (block) {
+    var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
+    return "displayPicture(" + picture + ")";
 };
 
 /** DISPLAY PATH block definition */
@@ -85,7 +57,7 @@ Blockly.Blocks['display_path'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Afficher")
-            .appendField(new Blockly.FieldTextInput("url/ou/chemin/de/mon/image.com"), "adress");
+            .appendField(new Blockly.FieldTextInput("mesImages/exemple.jpg"), "path");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
         this.setColour(270);
@@ -96,8 +68,8 @@ Blockly.Blocks['display_path'] = {
 
 /** DISPLAY PATH block associated method */
 Blockly.JavaScript['display_path'] = function (block) {
-    var adress = block.getFieldValue('adress');
-    var code = "instructionDisplayImage(\"" + adress + "\");";
+    var path = block.getFieldValue('path');
+    var code = "displayImage(\"" + path + "\");";
     return code;
 };
 
@@ -105,11 +77,11 @@ Blockly.JavaScript['display_path'] = function (block) {
 /**
  * A COMMENTER
  *
- * @param {String} adress
+ * @param {String} path
  */
-function instructionDisplayImage(adress) {
+function displayPicture(path) {
     var img = document.createElement("img");
-    img.setAttribute("src", adress);
+    img.setAttribute("src", path);
     var body = document.getElementById("display");
     body.style.padding = 0;
     while (body.hasChildNodes()) {

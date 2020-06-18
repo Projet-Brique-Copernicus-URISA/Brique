@@ -20,8 +20,10 @@ $(document).ready(function () {
   var buttonStart = document.getElementById("button-start");
   var code;
   buttonStart.onclick = function () {
-    code = Blockly.JavaScript.workspaceToCode(workspace)
-    console.log(code)
-    try { eval(code) } catch (e) { alert(e) };
+    code = Blockly.JavaScript.workspaceToCode(workspace);
+    console.log("CODE START");
+    console.log(code);
+    console.log("CODE END");
+    try { eval(code); } catch (e) { alert(e); };
   };
 });
