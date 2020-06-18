@@ -354,10 +354,10 @@ Blockly.Blocks['request_to_var'] = {
     init: function() {
       this.appendDummyInput()
           .appendField("Placer le résultat de");
-      this.appendStatementInput("NAME")
+      this.appendStatementInput("COPER")
           .setCheck(null);
-      this.appendValueInput("NAME")
-          .setCheck("picture")
+      this.appendValueInput("VAR")
+          //.setCheck("picture")
           .appendField("dans");
       this.setPreviousStatement(true, null);
       this.setNextStatement(true, null);
@@ -370,9 +370,10 @@ Blockly.Blocks['request_to_var'] = {
 
   Blockly.JavaScript['request_to_var'] = function(block) {
     var statements_name = Blockly.JavaScript.statementToCode(block, 'NAME');
-    var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...;\n';
+    var copernicus = Blockly.JavaScript.valueToCode(block, 'COPER', Blockly.JavaScript.ORDER_ATOMIC);
+    var variable = Blockly.JavaScript.valueToCode(block, 'VAR', Blockly.JavaScript.ORDER_ATOMIC);
+    
+    var code = variable+" = "+copernicus;
     return code;
   };
 
