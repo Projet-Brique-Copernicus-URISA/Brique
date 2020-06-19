@@ -69,7 +69,7 @@ Blockly.Blocks['display_path'] = {
 /** DISPLAY PATH block associated method */
 Blockly.JavaScript['display_path'] = function (block) {
     var path = block.getFieldValue('path');
-    var code = "displayImage(\"" + path + "\");";
+    var code = "displayPicture(\"" + path + "\");";
     return code;
 };
 
