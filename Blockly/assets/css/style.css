@@ -44,10 +44,21 @@ body, .main {
 .left-pan .info-pan .button-info {
     position: absolute;
     bottom: 25px;
-    left: 25px;
     width: 45px;
     height:45px;
     z-index:1000;
+}
+
+.left-pan .info-pan #button-info-info {
+    left: 10px;
+}
+
+.left-pan .info-pan #button-info-download {
+    left: 75px;
+}
+
+.left-pan .info-pan #button-info-upload {
+    left: 140px;
 }
 
 .left-pan .info-pan .info-content {

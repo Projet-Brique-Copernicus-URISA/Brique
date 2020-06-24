@@ -36,7 +36,7 @@ $( document ).ready(function() {
 
     $('.info-content').hide();
 
-    $('.button-info').click(
+    $('#button-info-info').click(
         function(){
             $('.info-content').toggle();
         }
