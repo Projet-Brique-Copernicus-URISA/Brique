@@ -5,7 +5,7 @@
         var path = url.parse(request.url).pathname;  
         switch (path) {  
 
-            case '/script-test.js':
+            case '/assets/js/script-test.js':
                 fs.readFile(__dirname + path, function(error, data) {  
                     if (error) {  
                         response.writeHead(404);  
@@ -20,7 +20,7 @@
                         response.end(); 
                         */
                        
-                        const spawn  = require('child_process');
+                        const { spawn } = require('child_process');
                             const process = spawn('python', ['./script-test.py']);
                             process.stdout.on('data', (data) => {
                             console.log(data.toString());
@@ -282,7 +282,7 @@
                 });  
             break;
 
-            case '/script-ajax.js':
+            case '/assets/js/script-ajax.js':
                 fs.readFile(__dirname + path, function(error, data) {  
                     if (error) {  
                         response.writeHead(404);  

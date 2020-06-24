@@ -52,7 +52,7 @@ var doAjaxRequest = function () {
             //result.innerHTML = "Requete fait";
         }
 
-        console.log(httpRequest);
+        //console.log(httpRequest);
     }
 
     httpRequest.open('GET', '/script-test.js', true);
