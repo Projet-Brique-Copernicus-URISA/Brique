@@ -31,17 +31,17 @@ var getHttpRequest = function() {
         return false;
     }
 
-    return httpRequest
-}
+    return httpRequest;
+};
 
 //to get the balise where script execution goes
 //result = document.getElementById('test-ajax');
 
 
-var doAjaxRequest = function () {
+function doAjaxRequest() {
     //to show that request is loading
     //result.innerHTML = 'Chargement ...';
-
+    console.log("chargement...");
     //to get the correct httpRequest object 
     var httpRequest = getHttpRequest();
 
@@ -50,9 +50,10 @@ var doAjaxRequest = function () {
         if(httpRequest.readyState === 4 ){
             //here we can do code like get reponse text of the script
             //result.innerHTML = "Requete fait";
+            console.log("requete OK");
         }
 
-        //console.log(httpRequest);
+        console.log(httpRequest);
     }
 
     httpRequest.open('GET', '/script-test.js', true);
