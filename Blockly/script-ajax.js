@@ -35,15 +35,12 @@ var getHttpRequest = function() {
 }
 
 //to get the balise where script execution goes
-result = document.getElementById('test-ajax');
+//result = document.getElementById('test-ajax');
 
-//to get the button which declench the ajax
-var b = document.getElementById('bb');
 
-//to add an event when click on the button
-b.addEventListener('click', function(e){
+var doAjaxRequest = function () {
     //to show that request is loading
-    result.innerHTML = 'Chargement ...';
+    //result.innerHTML = 'Chargement ...';
 
     //to get the correct httpRequest object 
     var httpRequest = getHttpRequest();
@@ -52,7 +49,7 @@ b.addEventListener('click', function(e){
     httpRequest.onreadystatechange = function () {
         if(httpRequest.readyState === 4 ){
             //here we can do code like get reponse text of the script
-            result.innerHTML = "Requete fait";
+            //result.innerHTML = "Requete fait";
         }
 
         console.log(httpRequest);
@@ -60,7 +57,7 @@ b.addEventListener('click', function(e){
 
     httpRequest.open('GET', '/script-test.js', true);
     httpRequest.send();
-});
+}
 
 /*
 Note : 
