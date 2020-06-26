@@ -6,6 +6,24 @@
  * @version 0.1
  */
 
+/** COPERNICUS REQUEST FULL PARAMETERS block definition */
+Blockly.Blocks['do_request'] = {
+    init: function () {
+        this.appendDummyInput()
+            .appendField("Requete Copernicus TEST");
+        this.setPreviousStatement(true, null);
+        this.setNextStatement(true, null);
+        this.setColour(230);
+        this.setTooltip("");
+        this.setHelpUrl("");
+    }
+};
+
+
+/** COPERNICUS REQUEST FULL PARAMETERS block associated method */
+Blockly.JavaScript['do_request'] = function (block) {
+    return "doAjaxRequest();";
+};
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
 Blockly.Blocks['copernicus_request_full_parameters_1_pic'] = {
