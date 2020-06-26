@@ -40,10 +40,7 @@ var getHttpRequest = function() {
 /**
  * to do the ajax request
  */
-function doAjaxRequest_download() {
-    var fileName = "nomDuFichier";
-    var fileContent = "contenuDuFichier"
-    
+function doAjaxRequest_download(fileName, fileContent) {
     var datapassed = {name: fileName, content : fileContent};
 
     $.ajax({
@@ -61,9 +58,3 @@ function doAjaxRequest_download() {
         }
     });
 }
-
-//main 
-var button = document.getElementById("copier_button");
-button.addEventListener('click', function(){
-    doAjaxRequest_download();
-});

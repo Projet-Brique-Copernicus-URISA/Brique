@@ -41,4 +41,12 @@ $( document ).ready(function() {
             $('.info-content').toggle();
         }
     );
+
+    $('#button-info-download').click(
+        function(){
+            var workspace = Blockly.Workspace.getAll()[0]
+            var xml = Blockly.Xml.workspaceToDom(workspace).outerHTML 
+            doAjaxRequest_download("projet.txt", xml);
+        }
+    );
 });
