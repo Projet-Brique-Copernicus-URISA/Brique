@@ -73,7 +73,7 @@ app.get('/assets/js/script-test.js', function(request, response){
             response.end();  
         } else { 
             const { spawn } = require('child_process');
-            const process = spawn('python', ['./script-test.py']);
+            const process = spawn('python', ['./assets/python/script-test.py']);
             process.stdout.on('data', (data) => {
                 console.log(data.toString());
             });

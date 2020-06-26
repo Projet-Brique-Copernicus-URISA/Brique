@@ -38,7 +38,7 @@ var getHttpRequest = function() {
 //result = document.getElementById('test-ajax');
 
 
-function doAjaxRequest() {
+function doAjaxRequest_copernicus() {
     //to show that request is loading
     //result.innerHTML = 'Chargement ...';
     console.log("chargement...");

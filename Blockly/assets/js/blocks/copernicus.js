@@ -22,7 +22,7 @@ Blockly.Blocks['do_request'] = {
 
 /** COPERNICUS REQUEST FULL PARAMETERS block associated method */
 Blockly.JavaScript['do_request'] = function (block) {
-    return "doAjaxRequest();";
+    return "doAjaxRequest_copernicus();";
 };
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
