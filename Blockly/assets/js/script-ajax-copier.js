@@ -36,7 +36,6 @@ var getHttpRequest = function() {
 };
 
 //to get the balise where script execution goes
-//result = document.getElementById('test-ajax');
 
 /**
  * to do the ajax request
@@ -44,6 +43,7 @@ var getHttpRequest = function() {
 function doAjaxRequest() {
     var fileName = "nomDuFichier";
     var fileContent = "contenuDuFichier"
+    
     var datapassed = {name: fileName, content : fileContent};
 
     $.ajax({
@@ -54,8 +54,6 @@ function doAjaxRequest() {
         data : JSON.stringify(datapassed),
         contentType: "application/json",
         success: function(data) {
-            //alert(data);
-            //  ele.append(data);
             console.log("success :" + data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
