@@ -35,7 +35,7 @@ Blockly.Blocks['copernicus_request_full_parameters_1_pic'] = {
             .appendField(new Blockly.FieldTextInput("default"), "NAME");
         this.appendDummyInput()
             .appendField("thématique :")
-            .appendField(new Blockly.FieldDropdown([["option", "OPTIONNAME"], ["option", "OPTIONNAME"], ["option", "OPTIONNAME"]]), "NAME");
+            .appendField(new Blockly.FieldDropdown([["pollution", "POLLUTION"], ["Catastrophe", "CATASTROPHE"], ["Maritime", "MARITIME"]]), "THEME");
         this.appendDummyInput()
             .appendField("zone géographique :")
             .appendField(new Blockly.FieldDropdown([["option", "OPTIONNAME"], ["option", "OPTIONNAME"], ["option", "OPTIONNAME"]]), "NAME");
@@ -56,7 +56,7 @@ Blockly.JavaScript['copernicus_request_full_parameters_1_pic'] = function (block
     var dropdown_name = block.getFieldValue('NAME');
     // TODO: Assemble JavaScript into code variable.
     var path = block.getFieldValue('path');
-    return ["\"mesImages/c.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
+    return ["\"mesImages/exemple.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
 };
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */

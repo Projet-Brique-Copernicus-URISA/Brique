@@ -425,6 +425,23 @@ app.get('/assets/img/info.png', function(request, response){
     });  
 });
 
+app.get('/mesImages/exemple.jpg', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'image/png'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+});
+
 //end load png file
 
 //end GET pages

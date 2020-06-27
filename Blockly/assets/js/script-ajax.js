@@ -53,10 +53,10 @@ function doAjaxRequest_copernicus() {
             console.log("requete OK");
         }
 
-        console.log(httpRequest);
+        //console.log(httpRequest);
     }
 
-    httpRequest.open('GET', '/script-test.js', true);
+    httpRequest.open('GET', '/assets/js/script-test.js', true);
     httpRequest.send();
 }
 
