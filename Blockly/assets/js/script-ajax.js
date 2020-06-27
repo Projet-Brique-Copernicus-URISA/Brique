@@ -4,7 +4,8 @@
 var getHttpRequest = function() {
     var httpRequest = false;
 
-    if(window.XMLHttpRequest) { //if use with Firefox, Safari, Chrome, etc ...
+    //if use Firefox, Safari, Chrome, etc ...
+    if(window.XMLHttpRequest) {
         httpRequest = new XMLHttpRequest();
 
         if(httpRequest.overrideMimeType){
@@ -12,7 +13,8 @@ var getHttpRequest = function() {
         }
     }
 
-    else if (window.ActiveXObject){ //if used with Internet Explorer (different case bacause IE don't use XMLHttpRequest but ActiveXObject)
+    //if used Internet Explorer (different case bacause IE don't use XMLHttpRequest but ActiveXObject)
+    else if (window.ActiveXObject){ 
         try {
             httpRequest = new ActiveXObject("Msxml2.XMLHTTP");
         }
@@ -21,27 +23,47 @@ var getHttpRequest = function() {
                 httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
             }
             catch(e){
-                //...
+                //error message send on the navigator console
+                console.log("Error create XMLHTTP object ( maybe caused by Internert Explorer )");
             }
         }
     }
 
+    //if create the XMLHTTP completly fail
     if (!httpRequest) {
-        alert('Abandon: Impossible de créer une instance XMLHTTP, \tConsequence: requete Copernicus annulé');
+        alert('Error : Unable to create an XMLHTTP instance | Consequence : Copernicus request canceled.');
         return false;
     }
 
     return httpRequest;
 };
 
-//to get the balise where script execution goes
-//result = document.getElementById('test-ajax');
+/**
+ * to do the ajax request
+ */
+function doAjaxRequest_download(fileName, fileContent) {
+    var datapassed = {name: fileName, content : fileContent};
 
+    $.ajax({
+        url: 'http://localhost:8082/assets/js/script-copier.js',
+        async: false,
+        type: 'POST',
+        dataType: 'json',
+        data : JSON.stringify(datapassed),
+        contentType: "application/json",
+        success: function(data) {
+            console.log("success :" + data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('error ' + textStatus + " " + errorThrown);
+        }
+    });
+}
 
 function doAjaxRequest_copernicus() {
     //to show that request is loading
-    //result.innerHTML = 'Chargement ...';
-    console.log("chargement...");
+    console.log("Loading ...");
+
     //to get the correct httpRequest object 
     var httpRequest = getHttpRequest();
 
@@ -49,19 +71,10 @@ function doAjaxRequest_copernicus() {
     httpRequest.onreadystatechange = function () {
         if(httpRequest.readyState === 4 ){
             //here we can do code like get reponse text of the script
-            //result.innerHTML = "Requete fait";
-            console.log("requete OK");
+            console.log("request OK");
         }
-
-        //console.log(httpRequest);
     }
 
     httpRequest.open('GET', '/assets/js/script-test.js', true);
     httpRequest.send();
 }
-
-/*
-Note : 
- - by default, ajax can only "talk" with files which are on the same host
-*/
-  

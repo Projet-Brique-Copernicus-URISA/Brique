@@ -334,7 +334,7 @@ app.get('/assets/js/script-ajax.js', function(request, response){
     });  
      
 });
-
+/*
 app.get('/assets/js/script-ajax-copier.js', function(request, response){
     var path = url.parse(request.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
@@ -352,6 +352,7 @@ app.get('/assets/js/script-ajax-copier.js', function(request, response){
     });  
      
 });
+*/
 
 //end load js file
 
