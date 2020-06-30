@@ -1,5 +1,7 @@
 /**
- * function to forecast different browser ( mozilla, Internet explorer, ...)
+ * to forecast different browser ( mozilla, internet explorer, ... )
+ *
+ * @returns the correct XMLHttpRequest for the browser
  */
 var getHttpRequest = function() {
     var httpRequest = false;
@@ -39,7 +41,11 @@ var getHttpRequest = function() {
 };
 
 /**
- * to do the ajax request
+ * Do an ajax post request to the server to execute the python script
+ * in order to create a file
+ *
+ * @param {*} fileName file's name
+ * @param {*} fileContent file's content
  */
 function doAjaxRequest_download(fileName, fileContent) {
     var datapassed = {name: fileName, content : fileContent};
@@ -60,6 +66,11 @@ function doAjaxRequest_download(fileName, fileContent) {
     });
 }
 
+/**
+ * Do an ajax get request to the server to execute the python script
+ * in order to execute a request to the copernicus API
+ *
+ */
 function doAjaxRequest_copernicus() {
     //to show that request is loading
     console.log("Loading ...");
