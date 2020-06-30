@@ -1,6 +1,5 @@
 // app.js
 
-var app = express() ;
 var port = 8082 ;
 var bodyParser = require('body-parser');
 var express = require('express');
