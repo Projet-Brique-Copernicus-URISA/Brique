@@ -27,11 +27,18 @@ Blockly.JavaScript['block_date'] = function (block) {
     var number_day = block.getFieldValue('DAY');
     var number_month = block.getFieldValue('MONTH');
     var number_year = block.getFieldValue('YEAR');
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
-    // TODO: Change ORDER_NONE to the correct strength.
+    // TODO CHECK IF IT4S A REAL DAY
+    var code = "new DateValue(" + number_day + "," + number_month + "," + number_year + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+class DateValue {
+    constructor(day, month, year) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+    }
+}
 
 
 Blockly.Blocks['block_period'] = {
@@ -55,8 +62,15 @@ Blockly.Blocks['block_period'] = {
 Blockly.JavaScript['block_period'] = function (block) {
     var value_start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ATOMIC);
     var value_end = Blockly.JavaScript.valueToCode(block, 'END', Blockly.JavaScript.ORDER_ATOMIC);
-    // TODO: Assemble JavaScript into code variable.
-    var code = '...';
+    // TODO: CHECK IF THE START IS BEFORE THE END
+    var code = "new PeriodValue(" + value_start + "," + value_end + ")";
     // TODO: Change ORDER_NONE to the correct strength.
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
+class PeriodValue{
+    constructor(start, end){
+        this.start= start;
+        this.end = end;
+    }
+}
