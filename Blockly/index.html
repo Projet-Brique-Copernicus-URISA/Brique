@@ -34,6 +34,7 @@
     <script src="assets/js/blocks/display.js"></script>
     <script src="assets/js/blocks/file-manager.js"></script>
     <script src="assets/js/blocks/Thematic.js"></script>
+    <script src="assets/js/blocks/Date.js"></script>
     <script src="assets/js/ihm.js"></script>
     <script src="assets/js/script-ajax.js"></script>
     <script src="assets/js/upload.js"></script>
@@ -394,12 +395,26 @@
         <sep></sep>
         <category id="catMypics" colour="180" custom="VARIABLE" name="Mes images"></category>
         <category id="catAreas" colour="100" name="Zones">
+            <block type="area_world"></block>
+            <block type="area_europe"></block>
+            <block type="area_france"></block>
             <block type="area_paris"></block>
-            <block type="area_newyork"></block>
+            <block type="area_nouvelleaquitaine"></block>
+            <block type="area_gb"></block>
+            <block type="area_germany"></block>
+            <block type="area_iber"></block>
+            <block type="area_italy"></block>
+            <block type="area_scandinavia"></block>
             <block type="area_custom"></block>
         </category>
         <category id="catThematics" colour="30" name="Thématiques">
-            <block type="thematic_pollution"></block>
+            <block type="thematic_atmosphere_pollution_particulate"></block>
+            <block type="thematic_atmosphere_ozone"></block>
+            <block type="thematic_atmosphere_temperature"></block>
+        </category>
+        <category id="catDate" colour="75" name="Date">
+            <block type="block_date"></block>
+            <block type="block_period"></block>
         </category>
         <category id="catDisplay" colour="270" name="Affichage">
             <block type="display"></block>

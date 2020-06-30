@@ -64,14 +64,14 @@ Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Requete Copernicus pour 1 image");
-            this.appendValueInput("NAME")
-            .setCheck(null)
+        this.appendValueInput("NAME")
+            .setCheck('date')
             .appendField("date :");
         this.appendValueInput("NAME")
-            .setCheck("PictureType")
+            .setCheck("theme")
             .appendField("thématique :");
         this.appendValueInput("NAME")
-            .setCheck("Area")
+            .setCheck("area")
             .appendField("zone géographique :");
         this.setOutput(true, 'picture');
         this.setColour(230);
@@ -142,16 +142,13 @@ Blockly.Blocks['copernicus_request_full_entrance'] = {
             .setCheck("Number")
             .appendField("nombre d'image(s) :");
         this.appendValueInput("NAME")
-            .setCheck(null)
-            .appendField("date début :");
+            .setCheck('period')
+            .appendField("période :");
         this.appendValueInput("NAME")
-            .setCheck(null)
-            .appendField("date fin :");
-        this.appendValueInput("NAME")
-            .setCheck("PictureType")
+            .setCheck("theme")
             .appendField("thématique :");
         this.appendValueInput("NAME")
-            .setCheck("Area")
+            .setCheck("area")
             .appendField("zone géographique :");
         this.setOutput(true, 'request_result');
         this.setColour(230);
