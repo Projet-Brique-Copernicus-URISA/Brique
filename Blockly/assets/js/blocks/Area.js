@@ -18,7 +18,8 @@ Blockly.Blocks['area_paris'] = {
 /** PARIS block associated method */
 Blockly.JavaScript['area_paris'] = function () {
     // TODO
-    return "new Area(\"paris\", " + north + ", " + south + ", " + east + ", " + west + ");";
+    var code = "new Area('paris'," + 1 + "," + 2 + "," + 3 + "," + 4 + ")";
+    return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 /** NEW YORK block definition */
@@ -33,7 +34,8 @@ Blockly.Blocks['area_france'] = {
 /** NEW YORK block associated method */
 Blockly.JavaScript['area_france'] = function () {
     // TODO
-    return "new Area(\"france\", " + north + ", " + south + ", " + east + ", " + west + ");";
+    var code = "new Area('france'," + 1 + "," + 2 + "," + 3 + "," + 4 + ")";
+    return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 
@@ -64,18 +66,10 @@ Blockly.JavaScript['area_custom'] = function () {
     let input_south = block.getFieldValue('SOUTH');
     let input_east = block.getFieldValue('EAST');
     let input_west = block.getFieldValue('WEST');
-    return "doAreaCustom(" + input_name + ", " + input_north + ", " + input_south + ", " + input_east + ", " + input_west + ");";
+    // TODO : TESTER SI LA ZONE EST VALIDE nord > sud et est < ouest
+    var code = "new Area(" + input_name + "," + input_north + "," + input_south + "," + input_east + "," + input_west + ")";
+    return [code, Blockly.JavaScript.ORDER_NONE];
 };
-
-
-function doAreaCustom(name, north, south, east, west) {
-    if (north > south && east < west) {
-        return new Area(name, north, south, east, west);
-    } else {
-        // ERROR
-        alert("Zone géographique incorrecte");
-    }
-}
 
 class Area {
     constructor(name, north, south, east, west) {
