@@ -9,20 +9,19 @@
  // TODO : COMMENTAIRES a intégrer
 
 
-var display = document.getElementById("display")
-var input = document.getElementById("input")
+var input = document.getElementById("button-input-upload")
 
 input.onchange = function(){
+    var workspace = Blockly.getMainWorkspace()
+    var code = Blockly.Xml.workspaceToDom(workspace);
+    code = Blockly.Xml.domToPrettyText(code)
+    console.log(code)
+    var file = input.files[0]
     var FR = new FileReader();
+    FR.readAsText(file)
     FR.onload = function(){
-        var img = new Image();
-        console.log(img)
-        img.src = FR.result;
-        img.y = 0;
-        img.x=0;
-        if(display.childElementCount != 0)
-            display.removeChild(display.childNodes[0])
-        display.appendChild(img);
+        var xml=Blockly.Xml.textToDom(FR.result)
+        Blockly.Xml.clearWorkspaceAndLoadFromXml(xml,workspace)
+        
     }
-    FR.readAsDataURL(input.files[0]);
 }

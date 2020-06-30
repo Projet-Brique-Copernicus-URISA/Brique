@@ -37,17 +37,16 @@
     <script src="assets/js/ihm.js"></script>
     <script src="assets/js/script-ajax.js"></script>
     <script src="assets/js/script-test.js"></script>
-    <script src="assets/js/upload.js"></script>
     <script src="assets/js/script-ajax-copier.js"></script>
-
+    
     <!-- End Scripts URISA -->
-
+    
 </head>
 
 <body id="body">
-
+    
     <!-- App content-->
-
+    
     <div class="main">
         <div class="left-pan">
             <div class="head-title">
@@ -58,7 +57,9 @@
                 <div id="button-info-info" class="button-info"><img src="assets/img/info.png" alt="info"></div>
                 <div id="button-info-download"class="button-info"><img src="assets/img/download.png" alt="info"></div>
                 <div id="button-info-upload"class="button-info"><img src="assets/img/folder.png" alt="info"></div>
-
+                <input id="button-input-upload" type="file">
+                <script src="assets/js/upload.js"></script>
+                
                 <div class="info-content">
                     <p>
                         Nec sane haec sola pernicies orientem diversis cladibus adfligebat. Namque et Isauri, quibus est
@@ -89,7 +90,7 @@
 
     <!-- Blockly configuration -->
 
-     <xml id="toolbox" src="toolBox.xml" style="display: none">
+    <xml id="toolbox" src="toolBox.xml" style="display: none">
         <category id="catLogic" colour="210" name="Logique">
             <block type="controls_if"></block>
             <block type="logic_compare"></block>

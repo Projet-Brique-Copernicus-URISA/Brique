@@ -44,8 +44,9 @@ $( document ).ready(function() {
 
     $('#button-info-download').click(
         function(){
-            var workspace = Blockly.Workspace.getAll()[0]
-            var xml = Blockly.Xml.workspaceToDom(workspace).outerHTML 
+            var workspace = Blockly.getMainWorkspace();
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            xml = Blockly.Xml.domToPrettyText(xml);
             doAjaxRequest_download("projet.txt", xml);
         }
     );
