@@ -1,15 +1,9 @@
-// app.js
-
 var port = 8082 ;
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
 var fs = require('fs'); 
-//var http = require('http');  
-var url = require('url');  
-//var qs = require('querystring');
-
-
+var url = require('url'); 
 
 // Parses the body for POST, PUT, DELETE, etc.
 app.use(bodyParser.json());
@@ -335,24 +329,6 @@ app.get('/assets/js/script-ajax.js', function(request, response){
      
 });
 
-app.get('/assets/js/script-ajax-copier.js', function(request, response){
-    var path = url.parse(request.url).pathname; 
-    fs.readFile(__dirname + path, function(error, data) {  
-        if (error) {  
-            response.writeHead(404);  
-            response.write(error);  
-            response.end();  
-        } else { 
-            response.writeHead(200, {  
-                'Content-Type': 'application/javascript'
-            });  
-            response.write(data);  
-            response.end();         
-        }  
-    });  
-     
-});
-
 //end load js file
 
 //load png file
@@ -425,6 +401,23 @@ app.get('/assets/img/info.png', function(request, response){
     });  
 });
 
+app.get('/mesImages/exemple.jpg', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'image/png'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+});
+
 //end load png file
 
 //end GET pages
@@ -442,13 +435,13 @@ app.post('/assets/js/script-copier.js', function(request, response, next){
             var fileName = request.body.name;
             var fileContent = request.body.content;
 
-           const { spawn } = require('child_process');
-           const process = spawn('python', ['./assets/python/CoperFileWriter.py ', fileName, fileContent]);
-           process.stdout.on('data', (data) => {
+            const { spawn } = require('child_process');
+            const process = spawn('python', ['./assets/python/CoperFileWriter.py ', fileName, fileContent]);
+            process.stdout.on('data', (data) => {
                console.log(data.toString());
-           });
+            });
 
-           response.end();         
+            response.end();         
        }  
    });  
 
