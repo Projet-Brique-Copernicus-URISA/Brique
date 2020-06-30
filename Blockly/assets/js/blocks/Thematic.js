@@ -12,7 +12,7 @@
 /** POLLUTION block definition */
 Blockly.Blocks['thematic_atmosphere_pollution_particulate'] = {
     init: function () {
-        this.setOutput(true, 'String');
+        this.setOutput(true, 'theme');
         this.setColour(30);
         this.appendDummyInput().appendField('Pollution (particules fines)');
     }
@@ -29,7 +29,7 @@ Blockly.JavaScript['thematic_atmosphere_pollution_particulate'] = function () {
 /** OZONE block definition */
 Blockly.Blocks['thematic_atmosphere_ozone'] = {
     init: function () {
-        this.setOutput(true, 'String');
+        this.setOutput(true, 'theme');
         this.setColour(30);
         this.appendDummyInput().appendField('Couche d\'ozone');
     }
@@ -46,7 +46,7 @@ Blockly.JavaScript['thematic_atmosphere_ozone'] = function () {
 /** TEMPERATURE block definition */
 Blockly.Blocks['thematic_atmosphere_temperature'] = {
     init: function () {
-        this.setOutput(true, 'String');
+        this.setOutput(true, 'theme');
         this.setColour(30);
         this.appendDummyInput().appendField('Température');
     }
