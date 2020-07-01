@@ -92,7 +92,9 @@ var createCopernicusRequest = function(topic, date, area){
 
     //to create the python script file
     doAjaxRequest_download("copernicus_request.py", req_final);
+    console.log("create file : ok");
 
     //to execute the python script
-
+    doAjaxRequest_executePython("copernicus_request.py");
+    console.log("execute sript : ok");
 }
