@@ -34,7 +34,9 @@
     <script src="assets/js/blocks/display.js"></script>
     <script src="assets/js/blocks/file-manager.js"></script>
     <script src="assets/js/blocks/Thematic.js"></script>
+    <script src="assets/js/blocks/Date.js"></script>
     <script src="assets/js/ihm.js"></script>
+    <script src="assets/js/script-ajax.js"></script>
     <script src="assets/js/upload.js"></script>
 
     <!-- End Scripts URISA -->
@@ -52,7 +54,17 @@
             </div>
             <div id="blocklyDiv" style="height: 100%; width: 100%;"></div>
             <div class="info-pan">
-                <div class="button-info"><img src="assets/img/info.png" alt="info"></div>
+                <div id="button-info-info" class="button-info">
+                    <img src="assets/img/info.png" alt="info">
+                </div>
+                <div id="button-info-download" class="button-info">
+                    <img src="assets/img/download.png" alt="info">
+                </div>
+                <div id="button-info-upload" class="button-info">
+                    <label for="button-input-upload">
+                        <img src="assets/img/folder.png" alt="info"> </label>
+                    <input id="button-input-upload" class="button-info" type="file">
+                </div>
                 <div class="info-content">
                     <p>
                         Nec sane haec sola pernicies orientem diversis cladibus adfligebat. Namque et Isauri, quibus est
@@ -71,8 +83,6 @@
             <div class="button-box">
                 <button id="button-start">Start</button>
                 <button id="button-stop">Stop</button>
-                <!--<input type="file" id="input">
-                    <a href="assets/img/info.png" download="Image.png">Test téléchargement</a>-->
             </div>
             <div id="display"></div>
         </div>
@@ -388,12 +398,26 @@
         <sep></sep>
         <category id="catMypics" colour="180" custom="VARIABLE" name="Mes images"></category>
         <category id="catAreas" colour="100" name="Zones">
+            <block type="area_world"></block>
+            <block type="area_europe"></block>
+            <block type="area_france"></block>
             <block type="area_paris"></block>
-            <block type="area_newyork"></block>
+            <block type="area_nouvelleaquitaine"></block>
+            <block type="area_gb"></block>
+            <block type="area_germany"></block>
+            <block type="area_iber"></block>
+            <block type="area_italy"></block>
+            <block type="area_scandinavia"></block>
             <block type="area_custom"></block>
         </category>
         <category id="catThematics" colour="30" name="Thématiques">
-            <block type="thematic_pollution"></block>
+            <block type="thematic_atmosphere_pollution_particulate"></block>
+            <block type="thematic_atmosphere_ozone"></block>
+            <block type="thematic_atmosphere_temperature"></block>
+        </category>
+        <category id="catDate" colour="75" name="Date">
+            <block type="block_date"></block>
+            <block type="block_period"></block>
         </category>
         <category id="catDisplay" colour="270" name="Affichage">
             <block type="display"></block>
@@ -412,6 +436,7 @@
             <block type="file_writer_current_repository"></block>
         </category>
         <category id="catCopernicus" colour="230" name="Copernicus">
+            <block type="do_request"></block>
             <block type="copernicus_request_full_parameters_1_pic"></block>
             <block type="copernicus_request_full_entrance_1_pic"></block>
             <block type="copernicus_request_full_parameters"></block>

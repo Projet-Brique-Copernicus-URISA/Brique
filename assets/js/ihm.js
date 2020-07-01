@@ -36,9 +36,18 @@ $( document ).ready(function() {
 
     $('.info-content').hide();
 
-    $('.button-info').click(
+    $('#button-info-info').click(
         function(){
             $('.info-content').toggle();
+        }
+    );
+
+    $('#button-info-download').click(
+        function(){
+            var workspace = Blockly.getMainWorkspace();
+            var xml = Blockly.Xml.workspaceToDom(workspace);
+            xml = Blockly.Xml.domToPrettyText(xml);
+            doAjaxRequest_download("projet.txt", xml);
         }
     );
 });
