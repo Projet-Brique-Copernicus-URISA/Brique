@@ -77,11 +77,16 @@ Blockly.JavaScript['display_path'] = function (block) {
 
 /**
  * A COMMENTER
+ * 
+ * mesImages/Copernicus/POLLUTION/EUROPE/01-04-2020.png
  *
  * @param {String} path
  */
-function displayPicture(path) {
-    console.log("image");
+function displayPicture(path) { 
+    setTimeout("disp(\"" + path + "\")", timeout * 1000);
+}
+
+function disp(path){
     canvas.style.backgroundColor = 'transparent';
     canvas.style.border = 'none';
     canvas.style.padding = 0;
@@ -89,7 +94,7 @@ function displayPicture(path) {
 }
 
 function displayDuring(path, time) {
-    setTimeout("displayPicture(\"" + path + "\")", timeout * 1000);
+    displayPicture(path);
     timeout += time;
     setTimeout(removePicture, timeout * 1000);
 }
