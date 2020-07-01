@@ -47,7 +47,7 @@ var getHttpRequest = function() {
  * @param {*} fileName file's name
  * @param {*} fileContent file's content
  */
-function doAjaxRequest_download(fileName, fileContent) {
+function doAjaxRequest_download(fileName, fileContent) { // HAD TO CHANGE FUNCTION NAME
     var datapassed = {name: fileName, content : fileContent};
 
     $.ajax({
@@ -89,3 +89,4 @@ function doAjaxRequest_copernicus() {
     httpRequest.open('GET', '/assets/js/script-test.js', true);
     httpRequest.send();
 }
+

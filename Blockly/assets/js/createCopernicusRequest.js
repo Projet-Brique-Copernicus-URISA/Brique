@@ -7,23 +7,41 @@
  */
 var createCopernicusRequest = function(topic, date, area){
     //beginning of the python request code
-    var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\"";
+    var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
     
     // variables for the request
+    var downloadedFileName = "download.nc";//i have to change this line
     var req_format = "'netcdf'";
     var req_isOk = true; 
+    var dateIsSplit = true;
 
     //to select the correct topic and the correct data set
     var req_topic = '';
+    var req_otherContent = '';
     switch (topic){
-        case 'thematic_atmosphere_pollution_particulate':
+        case "'thematic_atmosphere_pollution_particulate'":
             req_topic = 'cams-europe-air-quality-forecasts';
+            req_otherContent = "'variable': 'particulate_matter_2.5um',\n" 
+                + '\'model\': [\n' + '\'ensemble\',\n' + '],\n'
+                + '\'level\': \'0\',\n'
+                + '\'type\': \'forecast\',\n'
+                + '\'time\': \'00:00\',\n'
+                + '\'leadtime_hour\': \'4\',\n';
+            dateIsSplit = false;
             break;
+
         case 'thematic_atmosphere_ozone':
-            req_topic = 'cams-global-reanalysis-eac4-monthly';
+            req_topic = "'cams-global-reanalysis-eac4-monthly'";
+            req_otherContent = "\t\t" + "'variable': 'total_column_ozone',\n" 
+                + "\t\t" + "'product_type': 'monthly_mean',\n";
+            dateIsSplit = true;
             break;
+
         case 'thematic_atmosphere_temperature':
-            req_topic = 'cams-global-reanalysis-eac4';
+            req_topic = "'cams-global-reanalysis-eac4'";
+            req_otherContent = "'variable': '2m_temperature',\n" 
+                + "'time': '00:00',\n";
+            dateIsSplit = false;
             break;
         default:
             alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
@@ -37,7 +55,7 @@ var createCopernicusRequest = function(topic, date, area){
         var date_day = date.getDate(); //1-31
         var date_month = date.getMonth(); //0-11
         var date_year = date.getFullYear();
-        req_date = "'month': '" + date_month + "',\n'year': '" + date_year + "',\n"
+        req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
             + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
     } else {// if !dateIsSplit 
         //so date is a PeriodValue object
@@ -45,8 +63,8 @@ var createCopernicusRequest = function(topic, date, area){
         var date_end = date.end;
 
         //it's maybe not correct due to the month (0-11)
-        req_date = date_start.getFullYear +"-"+ date_start.getMonth +"-"+ date_start.getDate
-            +"/"+ date_end.getFullYear +"-"+ date_end.getMonth +"-"+ date_end.getDate;
+        req_date = "'date': '" + date_start.getFullYear +"-"+ date_start.getMonth +"-"+ date_start.getDate
+            +"/"+ date_end.getFullYear +"-"+ date_end.getMonth +"-"+ date_end.getDate +"',\n";
     }
 
     //compute the coordonate of the area
@@ -56,14 +74,25 @@ var createCopernicusRequest = function(topic, date, area){
     var area_e = area.east;
     var area_w = area.west;
 
-    var req_area = area_n +", "+ area_w +", "+ area_s +",\n"+ area_e;
+    var req_area = "\t\t" + "'area': [\n" 
+        + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
 
     //compute the final request
-    if(req_isOK){
-
+    if(req_isOk){
+        var req_final = req_beginning + req_topic 
+            + ",\n\t{\n" + req_otherContent 
+            + req_date
+            + req_area
+            + '\t\t\'format\': ' + req_format +",\n"
+            + "\t},\n\t'"
+            + downloadedFileName + "')";
+    } else {
+        alert("Error : when compute the request | problème lors de la formation de la requête");
     }
 
-    console.log(date);
-    console.log(zone);
-    console.log(theme);
+    //to create the python script file
+    doAjaxRequest_download("copernicus_request.py", req_final);
+
+    //to execute the python script
+
 }
