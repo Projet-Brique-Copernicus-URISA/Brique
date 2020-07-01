@@ -80,12 +80,17 @@ Blockly.JavaScript['display_path'] = function (block) {
  * @param {String} path
  */
 function displayPicture(path) {
-    var img = document.createElement("img");
-    img.setAttribute("src", path);
-    var body = document.getElementById("display");
-    body.style.padding = 0;
-    while (body.hasChildNodes()) {
-        body.removeChild(body.lastChild);
-    }
-    body.appendChild(img);
+    var canvas = document.getElementById("canvas-display");
+    canvas.style.backgroundColor = 'transparent';
+    canvas.style.border = 'none';
+    canvas.style.padding = 0;
+    var ctx = canvas.getContext("2d");
+    //ctx.imageSmoothingEnabled = false;
+    var img = new Image();
+    img.src = path;
+    img.onload = function () {
+        ctx.beginPath();
+        ctx.drawImage(img, 0, 0);
+        ctx.closePath();
+    };
 }

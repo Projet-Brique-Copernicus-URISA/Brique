@@ -96,18 +96,9 @@ body, .main {
     justify-content: center;
 }
 
-.right-pan #display{
-    width : 100%;
-    height : auto;
-    padding-top : 75%;
+.right-pan #canvas-display{
     background-color : #ddd;
     border : 2px solid white ;
-}
-
-.right-pan #display img{
-    max-width : 100%;
-    height : auto;
-    margin:0;
 }
 
 * {
