@@ -96,7 +96,7 @@ Blockly.JavaScript['copernicus_request_full_entrance_1_pic'] = function (block) 
     var block_area = Blockly.JavaScript.valueToCode(block, 'AREA', Blockly.JavaScript.ORDER_ATOMIC);
 
     var test_code = "\"mesImages/exemple.jpg\"";
-    var code = "createCopernicusRequest(" + block_topic +", "+ block_date +", "+ block_area +")";
+    var code = "launchCopernicusRequest(" + block_topic +", "+ block_date +", "+ block_area +")";
 
     return [code, Blockly.JavaScript.ORDER_MEMBER];
 };

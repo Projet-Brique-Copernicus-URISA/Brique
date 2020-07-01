@@ -92,12 +92,11 @@ function doAjaxRequest_copernicus() {
 
 /**
  * Do an ajax post request to the server to execute the python script
- * in order to create a file
+ * in order to execute a python script
  *
  * @param {*} fileName file's name
- * @param {*} fileContent file's content
  */
-function doAjaxRequest_executePython(fileName) { // HAD TO CHANGE FUNCTION NAME
+function doAjaxRequest_executePython(fileName) {
     var datapassed = {name: fileName};
 
     $.ajax({

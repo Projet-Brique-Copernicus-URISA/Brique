@@ -329,7 +329,7 @@ app.get('/assets/js/blocks/Thematic.js', function(request, response){
      
 });
 
-app.get('/assets/js/createCopernicusRequest.js', function(request, response){
+app.get('/assets/js/copernicusRequest.js', function(request, response){
     var path = url.parse(request.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
         if (error) {  

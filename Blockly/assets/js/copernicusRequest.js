@@ -1,11 +1,31 @@
 /**
+ * to create and run the python script which do the request to the copernicus API
+ * according to the parameters topic, date, and area
  *
+ * @param {*} topic 
+ * @param {*} date
+ * @param {*} area
+ */
+var launchCopernicusRequest = function(topic, date, area){
+    //to create correct code of the python script
+    var req_final = createCopernicusRequest(topic, date, area);
+
+    //to create the python script file
+    doAjaxRequest_download("copernicus_request.py", req_final);
+
+    //to execute the python script
+    doAjaxRequest_executePython("copernicus_request.py");
+}
+
+/**
+ * to create correct code of the python script
  *
  * @param {*} topic
  * @param {*} date
  * @param {*} area
+ * @returns
  */
-var createCopernicusRequest = function(topic, date, area){
+var createCopernicusRequest = function (topic, date, area){
     //beginning of the python request code
     var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
     
@@ -90,9 +110,5 @@ var createCopernicusRequest = function(topic, date, area){
         alert("Error : when compute the request | problème lors de la formation de la requête");
     }
 
-    //to create the python script file
-    doAjaxRequest_download("copernicus_request.py", req_final);
-
-    //to execute the python script
-    doAjaxRequest_executePython("copernicus_request.py");
+    return req_final;
 }
