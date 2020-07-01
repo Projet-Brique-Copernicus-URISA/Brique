@@ -484,30 +484,15 @@ app.post('/assets/js/script-copier.js', function(request, response, next){
 });
 
 app.post('/executePython', function(request, response, next){
-    /*
-    var path = url.parse(request.url).pathname; 
-    fs.readFile(__dirname + path, function(error, data) {  
-        if (error) {  
-            response.writeHead(404);  
-            response.write(error);  
-            response.end();  
-        } else {
-            */
-             var fileName = request.body.name;
-             //var fileContent = request.body.content;
+    var fileName = request.body.name;
  
-             const { spawn } = require('child_process');
-             const process = spawn('python', ['copernicus_request.py']);
-             process.stdout.on('data', (data) => {
-                console.log(data.toString());
-             });
+    const { spawn } = require('child_process');
+    const process = spawn('python', ['copernicus_request.py']);
+    process.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
  
-             response.end();       
-             /*  
-        }  
-    });  
-    */
- 
+    response.end();    
 });
 
 //end POST pages
