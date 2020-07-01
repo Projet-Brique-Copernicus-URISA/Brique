@@ -15,6 +15,9 @@ var launchCopernicusRequest = function(topic, date, area){
 
     //to execute the python script
     doAjaxRequest_executePython("copernicus_request.py");
+
+    //clean and move downloaded file in tmp/
+    doAjaxRequest_requestClean();
 }
 
 /**

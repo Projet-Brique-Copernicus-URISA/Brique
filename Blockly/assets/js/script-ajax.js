@@ -114,3 +114,16 @@ function doAjaxRequest_executePython(fileName) {
         }
     });
 }
+
+/**
+ * Do an ajax get request to the server to execute the python script
+ * in order to move download.nc to tmp/ and delete copernicus_request.py ( which is useless now )
+ *
+ */
+function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
+    //to get the correct httpRequest object 
+    var httpRequest = getHttpRequest();
+
+    httpRequest.open('GET', '/moveAndClean', true);
+    httpRequest.send();
+}
