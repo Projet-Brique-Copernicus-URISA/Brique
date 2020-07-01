@@ -39,7 +39,7 @@ var createCopernicusRequest = function (topic, date, area){
     var req_topic = '';
     var req_otherContent = '';
     switch (topic){
-        case "'thematic_atmosphere_pollution_particulate'":
+        case 'thematic_atmosphere_pollution_particulate':
             req_topic = 'cams-europe-air-quality-forecasts';
             req_otherContent = "'variable': 'particulate_matter_2.5um',\n" 
                 + '\'model\': [\n' + '\'ensemble\',\n' + '],\n'
@@ -78,13 +78,12 @@ var createCopernicusRequest = function (topic, date, area){
         req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
             + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
     } else {// if !dateIsSplit 
-        //so date is a PeriodValue object
-        var date_start = date.start;
-        var date_end = date.end;
 
-        //it's maybe not correct due to the month (0-11)
-        req_date = "'date': '" + date_start.getFullYear +"-"+ date_start.getMonth +"-"+ date_start.getDate
-            +"/"+ date_end.getFullYear +"-"+ date_end.getMonth +"-"+ date_end.getDate +"',\n";
+        if(date.constructor.name == "Date"){//if the request need a period but it only have one date
+            req_date = computeDatePeriod(date, date);
+        }else{//if the date is a PeriodValue object
+            req_date = computeDatePeriod(date.start, date.end);
+        }
     }
 
     //compute the coordonate of the area
@@ -111,4 +110,17 @@ var createCopernicusRequest = function (topic, date, area){
     }
 
     return req_final;
+}
+
+/**
+ *
+ *
+ * @param {*} date_start
+ * @param {*} date_end
+ * @returns
+ */
+function computeDatePeriod(date_start, date_end){
+    //it's maybe not correct due to the month (0-11)
+    return("'date': '" + date_start.getFullYear +"-"+ date_start.getMonth +"-"+ date_start.getDate
+        +"/"+ date_end.getFullYear +"-"+ date_end.getMonth +"-"+ date_end.getDate +"',\n");
 }

@@ -24,7 +24,7 @@ app.get('/index.html', function(req, res){
             res.end();  
         } else {  
             res.writeHead(200, {  
-                'Content-Type': 'text/html'  
+                'Content-Type': 'text/html; charset=utf8'  
             });  
             res.write(data);  
             res.end();  
