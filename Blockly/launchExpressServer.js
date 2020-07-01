@@ -238,6 +238,24 @@ app.get('/assets/js/blocks/Area.js', function(request, response){
      
 });
 
+app.get('/assets/js/blocks/Date.js', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'application/javascript'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+     
+});
+
 
 app.get('/assets/js/blocks/copernicus.js', function(request, response){
     var path = url.parse(request.url).pathname; 
@@ -294,6 +312,24 @@ app.get('/assets/js/blocks/file-manager.js', function(request, response){
 });
 
 app.get('/assets/js/blocks/Thematic.js', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'application/javascript'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+     
+});
+
+app.get('/assets/js/createCopernicusRequest.js', function(request, response){
     var path = url.parse(request.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
         if (error) {  

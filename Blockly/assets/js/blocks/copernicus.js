@@ -64,13 +64,13 @@ Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Requete Copernicus pour 1 image");
-        this.appendValueInput("NAME")
+        this.appendValueInput("DATE")
             .setCheck('date')
             .appendField("date :");
-        this.appendValueInput("NAME")
+        this.appendValueInput("THEME")
             .setCheck("theme")
             .appendField("thématique :");
-        this.appendValueInput("NAME")
+        this.appendValueInput("AREA")
             .setCheck("area")
             .appendField("zone géographique :");
         this.setOutput(true, 'picture');
@@ -85,12 +85,24 @@ Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
 Blockly.JavaScript['copernicus_request_full_entrance_1_pic'] = function (block) {
     var number_name = block.getFieldValue('NAME');
     var text_name = block.getFieldValue('NAME');
-    var text_name = block.getFieldValue('NAME');
+    //var text_name = block.getFieldValue('NAME');
     var dropdown_name = block.getFieldValue('NAME');
-    var dropdown_name = block.getFieldValue('NAME');
+    //var dropdown_name = block.getFieldValue('NAME');
     // TODO: Assemble JavaScript into code variable.
     var path = block.getFieldValue('path');
-    return ["\"mesImages/exemple.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
+
+    var block_date = Blockly.JavaScript.valueToCode(block, 'DATE', Blockly.JavaScript.ORDER_ATOMIC);
+    var block_topic = Blockly.JavaScript.valueToCode(block, 'THEME', Blockly.JavaScript.ORDER_ATOMIC);
+    var block_area = Blockly.JavaScript.valueToCode(block, 'AREA', Blockly.JavaScript.ORDER_ATOMIC);
+
+    var test_code = "\"mesImages/exemple.jpg\"";
+    var code = "";
+
+    console.log("date : " + block_date);
+    console.log("topic : " + block_topic);
+    console.log("area : " + block_area);
+
+    return [code, Blockly.JavaScript.ORDER_MEMBER];
 };
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
