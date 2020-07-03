@@ -5,3 +5,4 @@ npm install fs
 #npm install http
 npm install url
 #npm install querystring
+npm install netcdfjs
