@@ -21,7 +21,7 @@ Blockly.Blocks['thematic_atmosphere_pollution_particulate'] = {
 /** POLLUTION block associated method */
 Blockly.JavaScript['thematic_atmosphere_pollution_particulate'] = function () {
     var code = '\'thematic_atmosphere_pollution_particulate\'';
-    return code;
+    return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 // OZONE thematic_atmosphere_ozone
@@ -38,7 +38,7 @@ Blockly.Blocks['thematic_atmosphere_ozone'] = {
 /** OZONE block associated method */
 Blockly.JavaScript['thematic_atmosphere_ozone'] = function () {
     var code = '\'thematic_atmosphere_ozone\'';
-    return code;
+    return  [code, Blockly.JavaScript.ORDER_NONE];
 };
 
 //TEMPERATURE thematic_atmosphere_temperature
@@ -55,5 +55,5 @@ Blockly.Blocks['thematic_atmosphere_temperature'] = {
 /** TEMPERATURE block associated method */
 Blockly.JavaScript['thematic_atmosphere_temperature'] = function () {
     var code = '\'thematic_atmosphere_temperature\'';
-    return code;
+    return  [code, Blockly.JavaScript.ORDER_NONE];
 };

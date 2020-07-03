@@ -47,7 +47,7 @@ var getHttpRequest = function() {
  * @param {*} fileName file's name
  * @param {*} fileContent file's content
  */
-function doAjaxRequest_download(fileName, fileContent) {
+function doAjaxRequest_download(fileName, fileContent) { // HAD TO CHANGE FUNCTION NAME
     var datapassed = {name: fileName, content : fileContent};
 
     $.ajax({
@@ -88,4 +88,60 @@ function doAjaxRequest_copernicus() {
 
     httpRequest.open('GET', '/assets/js/script-test.js', true);
     httpRequest.send();
+}
+
+/**
+ * Do an ajax post request to the server to execute the python script
+ * in order to execute a python script
+ *
+ * @param {*} fileName file's name
+ */
+function doAjaxRequest_executePython(fileName) {
+    var datapassed = {name: fileName};
+
+    $.ajax({
+        url: 'http://localhost:8082/executePython',
+        async: false,
+        type: 'POST',
+        dataType: 'json',
+        data : JSON.stringify(datapassed),
+        contentType: "application/json",
+        success: function(data) {
+            console.log("success :" + data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('error ' + textStatus + " " + errorThrown);
+        }
+    });
+}
+
+/**
+ * Do an ajax get request to the server to execute the python script
+ * in order to move download.nc to tmp/ and delete copernicus_request.py ( which is useless now )
+ *
+ */
+function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
+    /*
+    //to get the correct httpRequest object 
+    var httpRequest = getHttpRequest();
+
+    httpRequest.open('GET', 'http://localhost:8082/moveAndClean', true);
+    httpRequest.send();
+    */
+
+   var datapassed = {name: "oui"};
+   $.ajax({
+    url: 'http://localhost:8082/moveAndClean',
+    async: false,
+    type: 'POST',
+    dataType: 'json',
+    data : JSON.stringify(datapassed),
+    contentType: "application/json",
+    success: function(data) {
+        console.log("success :" + data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.log('error ' + textStatus + " " + errorThrown);
+    }
+});
 }

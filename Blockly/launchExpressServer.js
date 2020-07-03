@@ -24,7 +24,7 @@ app.get('/index.html', function(req, res){
             res.end();  
         } else {  
             res.writeHead(200, {  
-                'Content-Type': 'text/html'  
+                'Content-Type': 'text/html; charset=utf8'  
             });  
             res.write(data);  
             res.end();  
@@ -238,6 +238,24 @@ app.get('/assets/js/blocks/Area.js', function(request, response){
      
 });
 
+app.get('/assets/js/blocks/Date.js', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'application/javascript'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+     
+});
+
 
 app.get('/assets/js/blocks/copernicus.js', function(request, response){
     var path = url.parse(request.url).pathname; 
@@ -294,6 +312,24 @@ app.get('/assets/js/blocks/file-manager.js', function(request, response){
 });
 
 app.get('/assets/js/blocks/Thematic.js', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'application/javascript'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+     
+});
+
+app.get('/assets/js/copernicusRequest.js', function(request, response){
     var path = url.parse(request.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
         if (error) {  
@@ -420,6 +456,17 @@ app.get('/mesImages/exemple.jpg', function(request, response){
 
 //end load png file
 
+//app.get('/moveAndClean', function(request, response, next){
+app.post('/moveAndClean', function(request, response, next){
+    const { spawn } = require('child_process');
+    const process = spawn('python', ['./assets/python/moveAndClean.py ', "download.nc", "tmp/", "copernicus_request.py"]);
+    process.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+ 
+    response.end();         
+ });
+
 //end GET pages
 
 //POST pages
@@ -445,6 +492,19 @@ app.post('/assets/js/script-copier.js', function(request, response, next){
        }  
    });  
 
+});
+
+app.post('/executePython', function(request, response, next){
+    var fileName = request.body.name;
+ 
+    const { spawn } = require('child_process');
+    //const process = spawn('python', ['copernicus_request.py']);
+    const process = spawn('python', [fileName]);
+    process.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+ 
+    response.end();    
 });
 
 //end POST pages

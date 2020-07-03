@@ -15,7 +15,7 @@ Blockly.Blocks['block_date'] = {
             .appendField("/")
             .appendField(new Blockly.FieldNumber(new Date().getMonth() + 1, 1, 12), "MONTH")
             .appendField("/")
-            .appendField(new Blockly.FieldNumber(new Date().getFullYear(), 2010, new Date().getFullYear()), "YEAR");
+            .appendField(new Blockly.FieldNumber(new Date().getFullYear(), 1970, new Date().getFullYear()), "YEAR");
         this.setOutput(true, "date");
         this.setColour(75);
         this.setTooltip("JJ/MM/AAAA");
