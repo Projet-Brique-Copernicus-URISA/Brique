@@ -121,9 +121,27 @@ function doAjaxRequest_executePython(fileName) {
  *
  */
 function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
+    /*
     //to get the correct httpRequest object 
     var httpRequest = getHttpRequest();
 
-    httpRequest.open('GET', '/moveAndClean', true);
+    httpRequest.open('GET', 'http://localhost:8082/moveAndClean', true);
     httpRequest.send();
+    */
+
+   var datapassed = {name: "oui"};
+   $.ajax({
+    url: 'http://localhost:8082/moveAndClean',
+    async: false,
+    type: 'POST',
+    dataType: 'json',
+    data : JSON.stringify(datapassed),
+    contentType: "application/json",
+    success: function(data) {
+        console.log("success :" + data);
+    },
+    error: function(jqXHR, textStatus, errorThrown) {
+        console.log('error ' + textStatus + " " + errorThrown);
+    }
+});
 }

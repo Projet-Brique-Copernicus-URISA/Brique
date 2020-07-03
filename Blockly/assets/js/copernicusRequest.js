@@ -11,13 +11,13 @@ var launchCopernicusRequest = function(topic, date, area){
     var req_final = createCopernicusRequest(topic, date, area);
 
     //to create the python script file
-    doAjaxRequest_download("copernicus_request.py", req_final);
+    doAjaxRequest_download("tmp/copernicus_request.py", req_final);
 
     //to execute the python script
-    doAjaxRequest_executePython("copernicus_request.py");
+    doAjaxRequest_executePython("tmp/copernicus_request.py");
 
     //clean and move downloaded file in tmp/
-    doAjaxRequest_requestClean();
+    //doAjaxRequest_requestClean();
 }
 
 /**
@@ -33,7 +33,7 @@ var createCopernicusRequest = function (topic, date, area){
     var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
     
     // variables for the request
-    var downloadedFileName = "download.nc";//i have to change this line
+    var downloadedFileName = "tmp/download.nc";//i have to change this line
     var req_format = "'netcdf'";
     var req_isOk = true; 
     var dateIsSplit = true;

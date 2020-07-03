@@ -456,7 +456,8 @@ app.get('/mesImages/exemple.jpg', function(request, response){
 
 //end load png file
 
-app.get('/moveAndClean', function(request, response, next){
+//app.get('/moveAndClean', function(request, response, next){
+app.post('/moveAndClean', function(request, response, next){
     const { spawn } = require('child_process');
     const process = spawn('python', ['./assets/python/moveAndClean.py ', "download.nc", "tmp/", "copernicus_request.py"]);
     process.stdout.on('data', (data) => {
@@ -497,7 +498,8 @@ app.post('/executePython', function(request, response, next){
     var fileName = request.body.name;
  
     const { spawn } = require('child_process');
-    const process = spawn('python', ['copernicus_request.py']);
+    //const process = spawn('python', ['copernicus_request.py']);
+    const process = spawn('python', [fileName]);
     process.stdout.on('data', (data) => {
         console.log(data.toString());
     });
