@@ -41,12 +41,20 @@ body, .main {
     left : 0;
 }
 
-.left-pan .info-pan .button-info {
+.button-info {
     position: absolute;
-    bottom: 25px;
+    z-index:1000;
     width: 45px;
     height:45px;
-    z-index:1000;
+}
+
+#button-max {   
+    right: 50px;
+    top: 65px;      
+}
+
+.left-pan .info-pan .button-info {
+    bottom: 25px;
 }
 
 .left-pan .info-pan #button-info-info {
@@ -55,6 +63,7 @@ body, .main {
 
 .left-pan .info-pan #button-info-download {
     left: 75px;
+
 }
 
 .left-pan .info-pan #button-info-upload {
@@ -75,7 +84,7 @@ body, .main {
     overflow:auto;
 }
 
-.left-pan .info-pan .button-info img {
+.button-info img {
     max-width: 100%;
     height:auto;
 }

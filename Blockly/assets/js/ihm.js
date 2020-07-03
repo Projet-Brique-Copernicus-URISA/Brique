@@ -14,18 +14,18 @@
  * @version 0.1
  */
 
- /** Initialise the ihm interface actions */
-$( document ).ready(function() {
+/** Initialise the ihm interface actions */
+$(document).ready(function () {
 
     $('.button-info').hover(
-        function(){
+        function () {
             $(this).animate({
                 opacity: '0.7',
                 height: '55px',
                 width: '55px'
             });
         },
-        function(){
+        function () {
             $(this).animate({
                 opacity: '1',
                 height: '45px',
@@ -37,17 +37,27 @@ $( document ).ready(function() {
     $('.info-content').hide();
 
     $('#button-info-info').click(
-        function(){
+        function () {
             $('.info-content').toggle();
         }
     );
 
     $('#button-info-download').click(
-        function(){
+        function () {
             var workspace = Blockly.getMainWorkspace();
             var xml = Blockly.Xml.workspaceToDom(workspace);
             xml = Blockly.Xml.domToPrettyText(xml);
             doAjaxRequest_download("projet.txt", xml);
         }
     );
+
+    $('#button-max').click(
+        function () {
+            alert("Zoom");
+        }
+    );
+
+    $('#canvas-display').dblclick(function () {
+        alert("Zoom");
+    });
 });

@@ -78,7 +78,6 @@ Blockly.JavaScript['display_path'] = function (block) {
 /**
  * A COMMENTER
  * 
- * mesImages/Copernicus/POLLUTION/EUROPE/01-04-2020.png
  *
  * @param {String} path
  */
