@@ -127,3 +127,31 @@ function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PA
     httpRequest.open('GET', '/moveAndClean', true);
     httpRequest.send();
 }
+
+
+/**
+ *
+ *
+ * @param {*} ncFileName
+ * @param {*} varName
+ * @param {*} graphTitle
+ * @param {*} imageName
+ */
+function doAjaxRequest_convertNcToPng(ncFileName, varName, graphTitle, imageName) {
+    var datapassed = {fileName: ncFileName, varName: varName, title: graphTitle, newFileName: imageName};
+    
+    $.ajax({
+        url: 'http://localhost:8082/convertNcToPng',
+        async: false,
+        type: 'POST',
+        dataType: 'json',
+        data : JSON.stringify(datapassed),
+        contentType: "application/json",
+        success: function(data) {
+            console.log("success :" + data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('error from convertNcToPng : ' + textStatus + " " + errorThrown);
+        }
+    });
+}

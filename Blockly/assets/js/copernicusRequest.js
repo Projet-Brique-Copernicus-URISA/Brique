@@ -17,7 +17,13 @@ var launchCopernicusRequest = function(topic, date, area){
     doAjaxRequest_executePython("copernicus_request.py");
 
     //clean and move downloaded file in tmp/
-    doAjaxRequest_requestClean();
+    doAjaxRequest_requestClean(); //change function name and place
+
+    //convert nc to png
+    varName = "gtco3"; //this line have to be set in an other place
+    graphTitle = "titre";
+    imageName = "./tmp/image.png";
+    doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName); //change function name and place
 }
 
 /**

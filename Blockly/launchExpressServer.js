@@ -518,6 +518,21 @@ app.post('/executePython', function(request, response, next){
     response.end();    
 });
 
+app.post('/convertNcToPng', function(request, response, next){
+    var fileName = request.body.fileName;
+    var varName = request.body.varName;
+    var title = request.body.title;
+    var newFileName = request.body.newFileName;
+
+    const { spawn } = require('child_process');
+    const process = spawn('python', ['./assets/python/ncToPng.py ', fileName, varName, title, newFileName]);
+    process.stdout.on('data', (data) => {
+        console.log(data.toString());
+    });
+ 
+    response.end();         
+ });
+
 //end POST pages
 
 app.listen(port, function(){
