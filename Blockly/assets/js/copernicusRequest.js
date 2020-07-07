@@ -54,13 +54,14 @@ var createCopernicusRequest = function (topic, date, area){
     var req_otherContent = '';
     switch (topic){
         case 'thematic_atmosphere_pollution_particulate':
-            req_topic = 'cams-europe-air-quality-forecasts';
-            req_otherContent = "'variable': 'particulate_matter_2.5um',\n" 
-                + '\'model\': [\n' + '\'ensemble\',\n' + '],\n'
-                + '\'level\': \'0\',\n'
-                + '\'type\': \'forecast\',\n'
-                + '\'time\': \'00:00\',\n'
-                + '\'leadtime_hour\': \'4\',\n';
+            req_topic = "'cams-europe-air-quality-forecasts'";
+            req_otherContent = "\t\t" + "'variable': 'particulate_matter_2.5um',\n" 
+                + "\t\t" + '\'model\': [\n' 
+                + "\t\t" + '\'ensemble\',\n' + "\t\t" + '],\n'
+                + "\t\t" + '\'level\': \'0\',\n'
+                + "\t\t" + '\'type\': \'forecast\',\n'
+                + "\t\t" + '\'time\': \'00:00\',\n'
+                + "\t\t" + '\'leadtime_hour\': \'4\',\n';
             dateIsSplit = false;
             break;
 
@@ -73,8 +74,8 @@ var createCopernicusRequest = function (topic, date, area){
 
         case 'thematic_atmosphere_temperature':
             req_topic = "'cams-global-reanalysis-eac4'";
-            req_otherContent = "'variable': '2m_temperature',\n" 
-                + "'time': '00:00',\n";
+            req_otherContent = "\t\t" + "'variable': '2m_temperature',\n" 
+                + "\t\t" + "'time': '00:00',\n";
             dateIsSplit = false;
             break;
         default:
@@ -107,15 +108,15 @@ var createCopernicusRequest = function (topic, date, area){
     var area_e = area.east;
     var area_w = area.west;
 
-    var req_area = "\t\t" + "'area': [\n" 
+    var req_area = "'area': [\n" 
         + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
 
     //compute the final request
     if(req_isOk){
         var req_final = req_beginning + req_topic 
             + ",\n\t{\n" + req_otherContent 
-            + req_date
-            + req_area
+            + "\t\t" + req_date
+            + "\t\t" + req_area
             + '\t\t\'format\': ' + req_format +",\n"
             + "\t},\n\t'"
             + downloadedFileName + "')";

@@ -1,17 +1,13 @@
 import cdsapi
 c = cdsapi.Client()
 c.retrieve(
-	cams-europe-air-quality-forecasts,
+	'cams-global-reanalysis-eac4-monthly',
 	{
-'variable': 'particulate_matter_2.5um',
-'model': [
-'ensemble',
-],
-'level': '0',
-'type': 'forecast',
-'time': '00:00',
-'leadtime_hour': '4',
-'date': '2003-7-1/2003-7-1',
+		'variable': 'total_column_ozone',
+		'product_type': 'monthly_mean',
+				'month': '8',
+		'year': '2003',
+		'day': '5',
 		'area': [
 			0, 0, 0, 0,
 		],
@@ -54,5 +50,5 @@ m.drawparallels(np.arange(-90.,90.,30.),labels=[1,0,0,0])
 m.drawmeridians(np.arange(-180.,180.,60.),labels=[0,0,0,1])
 
 # Add a colorbar and title, and then show the plot.
-plt.title('thematic_atmosphere_pollution_particulate');
-plt.savefig('1-7-2003.png', bbox_inches=0)
+plt.title('thematic_atmosphere_ozone');
+plt.savefig('5-8-2003.png', bbox_inches=0)
