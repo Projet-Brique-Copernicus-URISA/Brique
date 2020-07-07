@@ -95,6 +95,7 @@ function doAjaxRequest_copernicus() {
  * in order to execute a python script
  *
  * @param {*} fileName file's name
+ * @returns {String} execution done message
  */
 function doAjaxRequest_executePython(fileName) {
     var datapassed = {name: fileName};
@@ -113,12 +114,15 @@ function doAjaxRequest_executePython(fileName) {
             console.log('error ' + textStatus + " " + errorThrown);
         }
     });
+
+    return 'execute python done';
 }
 
 /**
  * Do an ajax get request to the server to execute the python script
  * in order to move download.nc to tmp/ and delete copernicus_request.py ( which is useless now )
  *
+ * @returns {String} execution done message
  */
 function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
     //to get the correct httpRequest object 
@@ -126,18 +130,23 @@ function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PA
 
     httpRequest.open('GET', '/moveAndClean', true);
     httpRequest.send();
+
+    return 'clean done'
 }
 
 
 /**
- *
- *
+ * Do an ajax get request to the server to execute the python script
+ * in order to convert .nc file to .png
+ * 
  * @param {*} ncFileName
  * @param {*} varName
  * @param {*} graphTitle
  * @param {*} imageName
+ * @returns {String} execution done message
  */
 function doAjaxRequest_convertNcToPng(ncFileName, varName, graphTitle, imageName) {
+    //create the data which is the post message content
     var datapassed = {fileName: ncFileName, varName: varName, title: graphTitle, newFileName: imageName};
     
     $.ajax({
@@ -154,4 +163,6 @@ function doAjaxRequest_convertNcToPng(ncFileName, varName, graphTitle, imageName
             console.log('error from convertNcToPng : ' + textStatus + " " + errorThrown);
         }
     });
+
+    return 'convert nc to png done';
 }

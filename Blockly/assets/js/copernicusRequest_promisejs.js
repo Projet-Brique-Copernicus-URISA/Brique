@@ -9,26 +9,59 @@
 var launchCopernicusRequest = function(topic, date, area){
     //to create correct code of the python script
     var req_final = createCopernicusRequest(topic, date, area);
-    var scriptContent_process = createContentForProcessPart(topic, date, area);
-    var scriptComplete = req_final + "\n\n" + scriptContent_process;
 
     //to create the python script file
-    //doAjaxRequest_download("copernicus_request.py", req_final);
-    doAjaxRequest_download("copernicus_request.py", scriptComplete);
+    doAjaxRequest_download("copernicus_request.py", req_final);
+
+    const promiseExecute = new Promise((resolve, reject) => {
+        //doAjaxRequest_executePython("copernicus_request.py");
+        resolve();
+    });
+
+    const promiseClean = new Promise((resolve, reject) => {
+        //doAjaxRequest_requestClean();
+        resolve();
+    });
+
+
 
     //to execute the python script
-    doAjaxRequest_executePython("copernicus_request.py");
+    //doAjaxRequest_executePython("copernicus_request.py");
 
-    /*
     //clean and move downloaded file in tmp/
-    doAjaxRequest_requestClean(); //change function name and place
+    //doAjaxRequest_requestClean(); //change function name and place
 
     //convert nc to png
     varName = "gtco3"; //this line have to be set in an other place
     graphTitle = "titre";
     imageName = "./tmp/image.png";
-    doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName); //change function name and place
-    */
+    //doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName); //change function name and place
+
+    const promiseConvert = new Promise((resolve, reject) => {
+        //doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName);
+        resolve();
+    });
+
+    //execute promises
+    
+    promiseExecute.then((value) => {
+        doAjaxRequest_executePython("copernicus_request.py");
+        console.log(value);
+        promiseClean.then((value2) => {
+            doAjaxRequest_requestClean();
+            console.log(value2);
+            promiseConvert.then((value3) => {
+                doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName);
+                console.log(value3)
+            })
+        })
+    })
+    
+   /*
+   Promise.all([promiseExecute(), promiseClean(), promiseConvert()]).then(
+       result => console.log(result)
+   )
+   */
 }
 
 /**
@@ -135,67 +168,6 @@ var createCopernicusRequest = function (topic, date, area){
  */
 function computeDatePeriod(date_start, date_end){
     //it's maybe not correct due to the month (0-11)
-    return("'date': '" + date_start.getFullYear() +"-"+ date_start.getMonth() +"-"+ date_start.getDate()
-        +"/"+ date_end.getFullYear() +"-"+ date_end.getMonth() +"-"+ date_end.getDate() +"',\n");
-}
-
-/**
- *
- *
- * @param {*} topic
- * @param {*} date
- * @param {*} area
- * @returns
- */
-function createContentForProcessPart(topic, date, area){
-    var scriptContent = '';
-    
-    var varName = "gtco3";
-    var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear();
-
-    //add "import" part
-    scriptContent += "import netCDF4 \n"
-        + "import numpy as np\n"
-        + "import matplotlib.pylab as plt\n"
-        + "from matplotlib import cm\n"
-        + "from mpl_toolkits.basemap import Basemap,shiftgrid\n"
-        + "import sys, os\n\n";
-    
-    //add "set variables" part
-    scriptContent += "# set up the figure\nplt.figure()\n"
-        + "#Get value from nc file\n"
-        + "url='download.nc'\n"
-        + "file = netCDF4.Dataset(url)\n"
-        + "lat  = file.variables['latitude'][:]\n"
-        + "lon  = file.variables['longitude'][:]\n"
-        + "data = file.variables['"+ varName +"'][0,:,:]\n\n" // to change
-
-    //add "set figure and map" part
-    scriptContent += "#Setup figure and map\n"
-        + "fig=plt.figure(figsize=(12, 8))\n"
-        + "m=Basemap(projection='mill',lat_ts=10,llcrnrlon=lon.min(),"
-        + "  urcrnrlon=lon.max(),llcrnrlat=lat.min(),urcrnrlat=lat.max(),"
-        + "  resolution='c')\n\n";
-
-    //add "plot the field" part
-    scriptContent += "# convert the lat/lon values to x/y projections.\n"
-        + "x, y = m(*np.meshgrid(lon,lat))\n\n"
-        + "# plot the field using the fast pcolormesh routine set the colormap to jet.\n"
-        + "m.pcolormesh(x,y,data,shading='flat',cmap=plt.cm.jet)\n"
-        + "m.colorbar(location='right')\n\n";
-
-    //add "set background" part
-    scriptContent += "# Add a coastline and axis values.\n"
-        + "m.drawcoastlines()\n"
-        + "#m.fillcontinents()\n"
-        + "m.drawmapboundary()\n"
-        + "m.drawparallels(np.arange(-90.,90.,30.),labels=[1,0,0,0])\n"
-        + "m.drawmeridians(np.arange(-180.,180.,60.),labels=[0,0,0,1])\n\n";
-
-    //add the last part
-    scriptContent += "# Add a colorbar and title, and then show the plot.\n"
-        + "plt.title('" + topic + "');\n"  //to change
-        + "plt.savefig(" +"'"+ imageName +".png', bbox_inches=0)\n"
-
-    return scriptContent;
+    return("'date': '" + date_start.getFullYear +"-"+ date_start.getMonth +"-"+ date_start.getDate
+        +"/"+ date_end.getFullYear +"-"+ date_end.getMonth +"-"+ date_end.getDate +"',\n");
 }
