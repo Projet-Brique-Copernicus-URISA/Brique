@@ -32,7 +32,7 @@ var createCopernicusRequest = function (topic, date, area){
     var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
     
     // variables for the request
-    var downloadedFileName = "tmp/download.nc";//i have to change this line
+    var downloadedFileName = "download.nc";//i have to change this line
     var req_format = "'netcdf'";
     var req_isOk = true; 
     var dateIsSplit = true;

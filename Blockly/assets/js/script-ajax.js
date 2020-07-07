@@ -133,6 +133,7 @@ function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PA
     httpRequest.send();
 
     return 'clean done'
+    */
 }
 
 
