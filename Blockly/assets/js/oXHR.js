@@ -2,7 +2,7 @@
  * @file GETXMLHTTPREQUEST
  */
 
-function getXMLHttpRequest() {
+function getXMLHttpRequestCSV() {
     var xhr = null;
     if (window.XMLHttpRequest || window.ActiveXObject) {
         if (window.ActiveXObject) {

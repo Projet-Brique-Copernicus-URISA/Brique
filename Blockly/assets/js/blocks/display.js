@@ -10,7 +10,7 @@
 Blockly.Blocks['display'] = {
     init: function () {
         this.appendValueInput("picture_to_display")
-            .setCheck(["String", "picture"])
+            .setCheck(["String", "picture", "file"])
             .appendField("Afficher");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
@@ -31,7 +31,7 @@ Blockly.JavaScript['display'] = function (block) {
 Blockly.Blocks['display_duration'] = {
     init: function () {
         this.appendValueInput("picture_to_display")
-            .setCheck(["String", "picture"])
+            .setCheck(["String", "picture", "file"])
             .appendField("Afficher");
         this.appendDummyInput()
             .appendField("pendant")
@@ -74,7 +74,24 @@ Blockly.JavaScript['display_path'] = function (block) {
     return code;
 };
 
+function getExtension(path){
+    return path.split('.').pop();
+}
 
+function isPicture(path){
+    const pictExt = ["jpg", "jpeg", "png", "gif"];
+    if (pictExt.indexOf(getExtension(path)) >= 0){
+        return true;
+    }
+    return false;
+}
+
+function isCSV(path){
+    if (getExtension(path) == "csv"){
+        return true;
+    }
+    return false;
+}
 /**
  * A COMMENTER
  * 
@@ -82,15 +99,19 @@ Blockly.JavaScript['display_path'] = function (block) {
  *
  * @param {String} path
  */
-function displayPicture(path) { 
+function displayPicture(path) {
     setTimeout("disp(\"" + path + "\")", timeout * 1000);
 }
 
-function disp(path){
-    canvas.style.backgroundColor = 'transparent';
-    canvas.style.border = 'none';
-    canvas.style.padding = 0;
-    img.src = path;
+function disp(path) {
+    if (isPicture(path)) {
+        canvas.style.backgroundColor = 'transparent';
+        canvas.style.border = 'none';
+        canvas.style.padding = 0;
+        img.src = path;
+    } else if (isCSV(path)){
+        readCSVFile(makeChart, path);
+    }
 }
 
 function displayDuring(path, time) {

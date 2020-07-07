@@ -5,6 +5,8 @@
     <title>Copernicus</title>
     <link rel="stylesheet" href="assets/css/style.css">
 
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    
     <!-- Scripts Blockly -->
 
     <script src="Blockly/blockly_compressed.js"></script>
@@ -17,7 +19,8 @@
     <!-- Scripts JQuery -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/0.71/jquery.csv-0.71.min.js"></script>
+    
     <!-- End Scripts JQuery -->
 
     <!-- Script oXmr -->
@@ -38,7 +41,8 @@
     <script src="assets/js/ihm.js"></script>
     <script src="assets/js/script-ajax.js"></script>
     <script src="assets/js/upload.js"></script>
-    <script src ="assets/js/copernicusRequest.js"></script>
+    <script src="assets/js/copernicusRequest.js"></script>
+    <script src="assets/js/chart-maker.js"></script>
 
     <!-- End Scripts URISA -->
 
@@ -86,6 +90,7 @@
                 <button id="button-stop">Stop</button>
             </div>
             <canvas id="canvas-display" height="500" width="650"></canvas>
+            <canvas id="canvas-chart" height="500" width="650"></canvas>
         </div>
     </div>
 
@@ -431,10 +436,6 @@
             <block type="select_repository"></block>
             <block type="read_next_file"></block>
             <block type="is_there_a_next_file"></block>
-            <block type="file_writer"></block>
-            <block type="file_writer_2"></block>
-            <block type="file_writer_select_repository"></block>
-            <block type="file_writer_current_repository"></block>
         </category>
         <category id="catCopernicus" colour="230" name="Copernicus">
             <block type="do_request"></block>
