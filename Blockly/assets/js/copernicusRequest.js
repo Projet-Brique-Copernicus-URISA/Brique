@@ -13,22 +13,10 @@ var launchCopernicusRequest = function(topic, date, area){
     var scriptComplete = req_final + "\n\n" + scriptContent_process;
 
     //to create the python script file
-    //doAjaxRequest_download("copernicus_request.py", req_final);
     doAjaxRequest_download("copernicus_request.py", scriptComplete);
 
     //to execute the python script
     doAjaxRequest_executePython("copernicus_request.py");
-
-    /*
-    //clean and move downloaded file in tmp/
-    doAjaxRequest_requestClean(); //change function name and place
-
-    //convert nc to png
-    varName = "gtco3"; //this line have to be set in an other place
-    graphTitle = "titre";
-    imageName = "./tmp/image.png";
-    doAjaxRequest_convertNcToPng("./tmp/download.nc", varName, graphTitle, imageName); //change function name and place
-    */
 }
 
 /**
@@ -196,7 +184,16 @@ function createContentForProcessPart(topic, date, area){
     //add the last part
     scriptContent += "# Add a colorbar and title, and then show the plot.\n"
         + "plt.title('" + topic + "');\n"  //to change
-        + "plt.savefig(" +"'"+ imageName +".png', bbox_inches=0)\n"
+        + "plt.savefig(" +"'./tmp/"+ imageName +".png', bbox_inches=0)\n\n"
 
+    //add "clean and move part"
+    /*
+    scriptContent += "import shutil, os, sys\n\n"
+        + "#move download.nc to /tmp\n"
+        + "shutil.move('" + imageName + ".png', 'tmp/')\n\n"
+        + "#remove copernicus_request.py and download.nc\n"
+        + "os.remove('download.nc')\n"
+        //+ "os.remove('copernicus_request.py')\n"
+        */
     return scriptContent;
 }
