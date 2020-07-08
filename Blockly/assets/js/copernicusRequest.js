@@ -88,7 +88,7 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + "'time_reference': 'true_solar_time',\n";
             
             dateIsSplit = false; // for this request, 2004 is the lower year value // and it has to be 06 not 6
-            downloadedFileName = "download.csv";
+            downloadedFileName = "./tmp/download.csv";
             req_format = "'csv'";
             api_origin = 'atmosphere';
             
@@ -123,9 +123,17 @@ var createCopernicusRequest = function (topic, date, area){
     var area_s = area.south;
     var area_e = area.east;
     var area_w = area.west;
+    var req_area = "";
 
-    var req_area = "'area': [\n" 
-        + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
+    if(api_origin == 'climate'){
+        req_area = "'location': {"
+            + "\t'latitude': 0.00002,"
+            + "\t'longitude': -0.00002,"
+            + "\t},";
+    } else {
+        req_area = "'area': [\n" 
+            + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
+    }
 
     //add the api key to the script
     switch(api_origin){
@@ -133,7 +141,7 @@ var createCopernicusRequest = function (topic, date, area){
             api_url = "https://ads.atmosphere.copernicus.eu/api/v2";
             api_key = "1825:3bfdb1b4-8a37-4009-b6e5-e5c69d96ea68"; // to change with urisa account key
             break;
-        case 'climate':url:
+        case 'climate':
             api_url = "https://cds.climate.copernicus.eu/api/v2";
             api_key = "49162:5ee6baf1-bb6c-4b49-bceb-829ec042ff47"; // to change with urisa account key
             break;
