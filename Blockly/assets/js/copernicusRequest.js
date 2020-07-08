@@ -16,7 +16,7 @@ var launchCopernicusRequest = function(topic, date, area){
     doAjaxRequest_download("copernicus_request.py", scriptComplete);
 
     //to execute the python script
-    doAjaxRequest_executePython("copernicus_request.py");
+    //doAjaxRequest_executePython("copernicus_request.py");
 }
 
 /**
@@ -75,11 +75,16 @@ var createCopernicusRequest = function (topic, date, area){
     var req_date = '';
 
     if(dateIsSplit){
-        var date_day = date.getDate(); //1-31
-        var date_month = date.getMonth(); //0-11
-        var date_year = date.getFullYear();
-        req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
-            + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
+        if(date.constructor.name == 'PeriodValue'){
+            alert("Error: the topic can't take a period only a date | la thématique ne peut pas prendre de période, juste une date seul");
+            req_isOk = false;
+        } else {
+            var date_day = refactorDate(date.getDate()); //1-31
+            var date_month = refactoDate(date.getMonth()); //0-11
+            var date_year = date.getFullYear();
+            req_date = "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
+                + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
+        }
     } else {// if !dateIsSplit 
 
         if(date.constructor.name == "Date"){//if the request need a period but it only have one date
@@ -124,8 +129,9 @@ var createCopernicusRequest = function (topic, date, area){
  */
 function computeDatePeriod(date_start, date_end){
     //it's maybe not correct due to the month (0-11)
-    return("'date': '" + date_start.getFullYear() +"-"+ date_start.getMonth() +"-"+ date_start.getDate()
-        +"/"+ date_end.getFullYear() +"-"+ date_end.getMonth() +"-"+ date_end.getDate() +"',\n");
+    return("'date': '" + date_start.getFullYear() +"-"+ refactorDate(date_start.getMonth())
+        +"-"+ refactorDate(date_start.getDate()) +"/"+ date_end.getFullYear() 
+        +"-"+ refactorDate(date_end.getMonth()) +"-"+ refactorDate(date_end.getDate()) +"',\n");
 }
 
 /**
@@ -140,7 +146,8 @@ function createContentForProcessPart(topic, date, area){
     var scriptContent = '';
     
     var varName = "gtco3";
-    var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear();
+    //var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear(); //probleme here if PeriodValue is not supported
+    var imageName = "testName";
 
     //add "import" part
     scriptContent += "import netCDF4 \n"
@@ -196,4 +203,11 @@ function createContentForProcessPart(topic, date, area){
         //+ "os.remove('copernicus_request.py')\n"
         */
     return scriptContent;
+}
+
+function refactorDate(num){
+    if(num < 10){
+        num = "0"+num;
+    }
+    return num;
 }

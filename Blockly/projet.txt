@@ -1,14 +1,25 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
   <block type="copernicus_request_full_entrance_1_pic" id="iRj#y2{+$Ly5(Sl*TeI~" x="69" y="66">
     <value name="DATE">
-      <block type="block_date" id="axxYXM/Q;f+P8@R2qhLQ">
-        <field name="DAY">1</field>
-        <field name="MONTH">7</field>
-        <field name="YEAR">2003</field>
+      <block type="block_period" id="rP2ZS3Lv^ZSnS?ctNWfs">
+        <value name="START">
+          <block type="block_date" id="axxYXM/Q;f+P8@R2qhLQ">
+            <field name="DAY">1</field>
+            <field name="MONTH">7</field>
+            <field name="YEAR">2003</field>
+          </block>
+        </value>
+        <value name="END">
+          <block type="block_date" id="nZFupM_6I^T)e$;/-^QF">
+            <field name="DAY">9</field>
+            <field name="MONTH">7</field>
+            <field name="YEAR">2003</field>
+          </block>
+        </value>
       </block>
     </value>
     <value name="THEME">
-      <block type="thematic_atmosphere_ozone" id="ox^d,[%bXq6QH}oz_3yV"></block>
+      <block type="thematic_atmosphere_pollution_particulate" id="82qz0ctHyr|vfHj!bi3!"></block>
     </value>
     <value name="AREA">
       <block type="area_world" id="^;982Av%u]TCKRB^=R*+"></block>
