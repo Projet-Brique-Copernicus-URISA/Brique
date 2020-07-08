@@ -110,6 +110,27 @@ body, .main {
     border : 2px solid white ;
 }
 
+#element-right-pan:-webkit-full-screen {
+	width: 100%;
+	height: 100%;
+	background-color: lightblue;
+	margin: 0;
+}
+
+#element-right-pan:-moz-full-screen {
+	background-color: lightblue;
+	margin: 0;
+}
+#element-right-pan:-ms-fullscreen {
+	background-color: lightblue;
+	margin: 0;
+}
+
+#element-right-pan:fullscreen { 
+	background-color: lightblue;
+	margin: 0;
+}
+
 * {
     box-sizing: border-box;
     margin: 0;
