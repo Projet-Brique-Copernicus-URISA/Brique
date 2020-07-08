@@ -1,3 +1,4 @@
+var req_isOk = true; 
 /**
  * to create and run the python script which do the request to the copernicus API
  * according to the parameters topic, date, and area
@@ -34,8 +35,7 @@ var createCopernicusRequest = function (topic, date, area){
     // variables for the request
     var downloadedFileName = "";//i have to change the name of the downloaded file
     var req_format = "";
-    var req_isOk = true; 
-    var dateIsSplit = true;
+    //var req_isOk = true; 
 
     //to select the correct topic and the correct data set
     var req_topic = '';
@@ -87,7 +87,7 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + "'time_step': '1month', #time step to change\n"
                 + "\t\t" + "'time_reference': 'true_solar_time',\n";
             
-            dateIsSplit = false; // for this request, 2004 is the lower year value // and it has to be 06 not 6
+            dateIsSplit = false; // for this request, 2004 is the lower year value 
             downloadedFileName = "./tmp/download.csv";
             req_format = "'csv'";
             api_origin = 'atmosphere';
@@ -100,22 +100,7 @@ var createCopernicusRequest = function (topic, date, area){
     }
     
     //compute the date for the request 
-    var req_date = '';
-
-    if(dateIsSplit){
-        var date_day = date.getDate(); //1-31
-        var date_month = date.getMonth(); //0-11
-        var date_year = date.getFullYear();
-        req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
-            + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
-    } else {// if !dateIsSplit 
-
-        if(date.constructor.name == "Date"){//if the request need a period but it only have one date
-            req_date = computeDatePeriod(date, date);
-        }else{//if the date is a PeriodValue object
-            req_date = computeDatePeriod(date.start, date.end);
-        }
-    }
+    var req_date = computeReqDate(topic, date);
 
     //compute the coordonate of the area
     // is the name important in the request ?
@@ -187,6 +172,98 @@ function computeDatePeriod(date_start, date_end){
     //it's maybe not correct due to the month (0-11)
     return("'date': '" + date_start.getFullYear() +"-"+ date_start.getMonth() +"-"+ date_start.getDate()
         +"/"+ date_end.getFullYear() +"-"+ date_end.getMonth() +"-"+ date_end.getDate() +"',\n");
+}
+
+/**
+ *
+ *
+ * @param {*} topic
+ * @param {*} date
+ * @returns
+ */
+function computeReqDate(topic, date){
+    //necessary variables
+    var req_date = "";
+    var dateIsSplit = true;
+    var dateIsOk = true;
+    var dateIsPeriod = date.constructor.name == "PeriodValue";
+
+    //get good variables if date is a period or not
+    var dateToTest = date;
+    var dateToTest_end = true; //if the date is not a period, the variable still a boolean and it simplify the final date's check
+    var minDate, maxDate; //this variable is the minimum value of the date to be valid
+    if(dateIsPeriod){
+        dateToTest = date.start; //dateToTest become start date of the period
+        dateToTest_end = date.end; //if the date is a period, the variable become a date in order to check it 
+    }
+
+    //check if the date is valid according to the request possiblities
+    switch (topic){
+        case 'thematic_atmosphere_pollution_particulate':
+            minDate = new Date('2017', '06');
+            maxDate = new Date('2020', '06', '08');//maybe today's date
+            dateIsSplit = false;
+            break;
+
+        case 'thematic_atmosphere_ozone':
+            minDate = new Date('2003');
+            maxDate = new Date('2019');
+            dateIsSplit = true;
+            break;
+
+        case 'thematic_atmosphere_temperature':
+            minDate = new Date('2003');
+            maxDate = new Date('2019');
+            dateIsSplit = false;
+            break;
+
+        case 'thematic_atmosphere_solar_radiation':
+            minDate = new Date('2004');
+            maxDate = new Date('2020', '06', '06');//maybe today's date
+            dateIsSplit = false;
+            break;
+
+        default:
+            alert("Error : date is not valid, request aborted | la date n'est pas valide, requête annulée");
+            req_isOK = false;
+    }
+    if(dateIsPeriod){
+        dateToTest_end = compareDate(dateToTest_end, minDate, maxDate);
+    }
+    dateIsOk = compareDate(dateToTest, minDate, maxDate) && dateToTest_end;
+
+    //compute the date if it is valid
+    if(dateIsOk){
+        if(dateIsSplit){
+            var date_day = date.getDate(); //1-31
+            var date_month = date.getMonth(); //0-11
+            var date_year = date.getFullYear();
+            req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
+                + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
+        } else {// if !dateIsSplit 
+            if(dateIsPeriod){//if the date is a PeriodValue object
+                req_date = computeDatePeriod(date.start, date.end);
+            }else{//if the request need a period but it only have one date
+                req_date = computeDatePeriod(date, date);
+            }
+        }
+    } else {
+        alert("Error : date is not valid, request aborted | la date n'est pas valide, requête annulée");
+    }
+
+    return req_date;
+}
+
+
+/**
+ *
+ *
+ * @param {*} dateToTest
+ * @param {*} minDate
+ */
+function compareDate(dateToTest, minDate, maxDate){
+    return ((maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime())
+        && (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()));
 }
 
 /**
