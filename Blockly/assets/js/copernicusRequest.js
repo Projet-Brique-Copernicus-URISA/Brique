@@ -8,9 +8,12 @@
  */
 var launchCopernicusRequest = function(topic, date, area){
     //to create correct code of the python script
+    /*
     var req_final = createCopernicusRequest(topic, date, area);
     var scriptContent_process = createContentForProcessPart(topic, date, area);
     var scriptComplete = req_final + "\n\n" + scriptContent_process;
+    */
+    var scriptComplete = createCopernicusRequest(topic, date, area);
 
     //to create the python script file
     doAjaxRequest_download("copernicus_request.py", scriptComplete);
@@ -27,19 +30,17 @@ var launchCopernicusRequest = function(topic, date, area){
  * @param {*} area
  * @returns
  */
-var createCopernicusRequest = function (topic, date, area){
-    //beginning of the python request code
-    var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
-    
+var createCopernicusRequest = function (topic, date, area){    
     // variables for the request
-    var downloadedFileName = "download.nc";//i have to change this line
-    var req_format = "'netcdf'";
+    var downloadedFileName = "";//i have to change the name of the downloaded file
+    var req_format = "";
     var req_isOk = true; 
     var dateIsSplit = true;
 
     //to select the correct topic and the correct data set
     var req_topic = '';
     var req_otherContent = '';
+    var api_origin = '';
     switch (topic){
         case 'thematic_atmosphere_pollution_particulate':
             req_topic = "'cams-europe-air-quality-forecasts'";
@@ -50,22 +51,49 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + '\'type\': \'forecast\',\n'
                 + "\t\t" + '\'time\': \'00:00\',\n'
                 + "\t\t" + '\'leadtime_hour\': \'4\',\n';
+            
             dateIsSplit = false;
+            downloadedFileName = "download.nc";
+            req_format = "'netcdf'";
+            api_origin = 'atmosphere';
             break;
 
         case 'thematic_atmosphere_ozone':
             req_topic = "'cams-global-reanalysis-eac4-monthly'";
             req_otherContent = "\t\t" + "'variable': 'total_column_ozone',\n" 
                 + "\t\t" + "'product_type': 'monthly_mean',\n";
+
+            req_format = "'netcdf'";
+            downloadedFileName = "download.nc";
             dateIsSplit = true;
+            api_origin = 'atmosphere';
             break;
 
         case 'thematic_atmosphere_temperature':
             req_topic = "'cams-global-reanalysis-eac4'";
             req_otherContent = "\t\t" + "'variable': '2m_temperature',\n" 
                 + "\t\t" + "'time': '00:00',\n";
+
+            req_format = "'netcdf'";
+            downloadedFileName = "download.nc";
             dateIsSplit = false;
+            api_origin = 'atmosphere';
             break;
+
+        case 'thematic_atmosphere_solar_radiation':
+            req_topic = "'cams-solar-radiation-timeseries'";
+            req_otherContent = "\t\t" + "'sky_type': 'observed_cloud',\n" 
+                + "\t\t" + "'altitude': '-999.', #default value\n"
+                + "\t\t" + "'time_step': '1month', #time step to change\n"
+                + "\t\t" + "'time_reference': 'true_solar_time',\n";
+            
+            dateIsSplit = false; // for this request, 2004 is the lower year value // and it has to be 06 not 6
+            downloadedFileName = "download.csv";
+            req_format = "'csv'";
+            api_origin = 'atmosphere';
+            
+            break;
+
         default:
             alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
             req_isOK = false;
@@ -99,6 +127,25 @@ var createCopernicusRequest = function (topic, date, area){
     var req_area = "'area': [\n" 
         + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
 
+    //add the api key to the script
+    switch(api_origin){
+        case 'atmosphere':
+            api_url = "https://ads.atmosphere.copernicus.eu/api/v2";
+            api_key = "1825:3bfdb1b4-8a37-4009-b6e5-e5c69d96ea68"; // to change with urisa account key
+            break;
+        case 'climate':url:
+            api_url = "https://cds.climate.copernicus.eu/api/v2";
+            api_key = "49162:5ee6baf1-bb6c-4b49-bceb-829ec042ff47"; // to change with urisa account key
+            break;
+        default:
+            alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
+            req_isOK = false;
+    }
+
+    var req_beginning = "import cdsapi\n"
+        + "c = cdsapi.Client(url='" + api_url + "', key='" + api_key + "')\n"
+        + "c.retrieve(\n\t";
+
     //compute the final request
     if(req_isOk){
         var req_final = req_beginning + req_topic 
@@ -112,7 +159,13 @@ var createCopernicusRequest = function (topic, date, area){
         alert("Error : when compute the request | problème lors de la formation de la requête");
     }
 
-    return req_final;
+    //add process part of the script
+    var scriptContent_process = "";
+    if(req_format == "'netcdf'"){
+        scriptContent_process = createContentForProcessPart(topic, date, area);
+    }
+
+    return req_final + "\n\n" + scriptContent_process;
 }
 
 /**
