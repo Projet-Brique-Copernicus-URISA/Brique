@@ -262,8 +262,8 @@ function computeReqDate(topic, date){
  * @param {*} minDate
  */
 function compareDate(dateToTest, minDate, maxDate){
-    return ((maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime())
-        && (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()));
+    //console.log( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ) );
+    return ( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ));
 }
 
 /**
