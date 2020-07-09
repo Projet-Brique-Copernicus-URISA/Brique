@@ -1,4 +1,7 @@
 var req_isOk = true; 
+var downloadedFileName = "";//i have to change the name of the downloaded file
+var req_format = "";
+
 /**
  * to create and run the python script which do the request to the copernicus API
  * according to the parameters topic, date, and area
@@ -33,8 +36,8 @@ var launchCopernicusRequest = function(topic, date, area){
  */
 var createCopernicusRequest = function (topic, date, area){    
     // variables for the request
-    var downloadedFileName = "";//i have to change the name of the downloaded file
-    var req_format = "";
+    //var downloadedFileName = "";//i have to change the name of the downloaded file
+    //var req_format = "";
     //var req_isOk = true; 
 
     //to select the correct topic and the correct data set
@@ -88,7 +91,7 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + "'time_reference': 'true_solar_time',\n";
             
             dateIsSplit = false; // for this request, 2004 is the lower year value 
-            downloadedFileName = "./tmp/download.csv";
+            downloadedFileName = "download.csv";
             req_format = "'csv'";
             api_origin = 'atmosphere';
             
@@ -110,11 +113,11 @@ var createCopernicusRequest = function (topic, date, area){
     var area_w = area.west;
     var req_area = "";
 
-    if(api_origin == 'climate'){
+    if(req_format == "'csv'"){
         req_area = "'location': {"
             + "\t'latitude': 0.00002,"
             + "\t'longitude': -0.00002,"
-            + "\t},";
+            + "\t},\n";
     } else {
         req_area = "'area': [\n" 
             + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
@@ -169,9 +172,20 @@ var createCopernicusRequest = function (topic, date, area){
  * @returns
  */
 function computeDatePeriod(date_start, date_end){
-    //it's maybe not correct due to the month (0-11)
-    return("'date': '" + date_start.getFullYear() +"-"+ date_start.getMonth() +"-"+ date_start.getDate()
-        +"/"+ date_end.getFullYear() +"-"+ date_end.getMonth() +"-"+ date_end.getDate() +"',\n");
+    var start_year = date_start.getFullYear();
+    var end_year = date_end.getFullYear();
+    var start_month = date_start.getMonth() + 1;
+    var end_month = date_end.getMonth() + 1;
+    var start_day = date_start.getDate();
+    var end_day = date_end.getDate();
+
+    //if the case of csv file, file name is the date, so it's easier (but not better) to compute it here thanks to the var
+    if(req_format == "'csv'"){
+        downloadedFileName = "./tmp/" + start_day +"-"+ start_month +"-"+ start_year
+            + "_" + end_day +"-"+ end_month +"-"+ end_year +".csv"; 
+    }
+    return("'date': '" + start_year +"-"+ start_month +"-"+ start_day
+        +"/"+ end_year +"-"+ end_month +"-"+ end_day +"',\n");
 }
 
 /**
@@ -236,7 +250,7 @@ function computeReqDate(topic, date){
     if(dateIsOk){
         if(dateIsSplit){
             var date_day = date.getDate(); //1-31
-            var date_month = date.getMonth(); //0-11
+            var date_month = date.getMonth()+1; //0-11
             var date_year = date.getFullYear();
             req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
                 + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
