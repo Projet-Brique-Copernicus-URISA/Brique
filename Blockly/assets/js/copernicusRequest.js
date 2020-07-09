@@ -361,7 +361,7 @@ function createContentForProcessPart(topic, date, area){
  * @param {*} area
  */
 function createContentForStorePart(topic, date, area){
-    var zone = "WORLD"; // has to follow area value
+    var zone = area.name; // has to follow area value
 
     var scriptContent = "import os\nimport shutil \n"
         + "dirOrigin = './tmp/'\n"

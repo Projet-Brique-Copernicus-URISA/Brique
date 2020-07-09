@@ -56,7 +56,7 @@ plt.savefig('./tmp/01-07-2003.png', bbox_inches=0)
 import os
 import shutil 
 dirOrigin = './tmp/'
-dirDest = './mesImages/Copernicus/thematic_atmosphere_ozone/WORLD/'
+dirDest = './mesImages/Copernicus/thematic_atmosphere_ozone/world/'
 if not os.path.isdir(dirDest):
 	 os.makedirs(dirDest)
 	 print('Creation reussie du repertoire', dirDest)
