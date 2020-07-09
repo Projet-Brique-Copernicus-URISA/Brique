@@ -249,8 +249,8 @@ function computeReqDate(topic, date){
     //compute the date if it is valid
     if(dateIsOk){
         if(dateIsSplit){
-            var date_day = date.getDate(); //1-31
-            var date_month = date.getMonth()+1; //0-11
+            var date_day = refactorDate(date.getDate()); //1-31
+            var date_month = refactorDate(date.getMonth()+1); //0-11
             var date_year = date.getFullYear();
             req_date = "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
                 + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
@@ -293,7 +293,7 @@ function createContentForProcessPart(topic, date, area){
     
     var varName = "gtco3";
     //var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear(); //probleme here if PeriodValue is not supported
-    var imageName = "testName";
+    var imageName = refactorDate(date.getDate()) +"-"+ refactorDate(date.getMonth()) +"-"+ date.getFullYear();
 
     //add "import" part
     scriptContent += "import netCDF4 \n"

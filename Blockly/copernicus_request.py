@@ -5,7 +5,10 @@ c.retrieve(
 	{
 		'variable': 'total_column_ozone',
 		'product_type': 'monthly_mean',
-				'area': [
+		'month': '07',
+		'year': '2003',
+		'day': '01',
+		'area': [
 			0, 0, 0, 0,
 		],
 		'format': 'netcdf',
@@ -48,5 +51,5 @@ m.drawmeridians(np.arange(-180.,180.,60.),labels=[0,0,0,1])
 
 # Add a colorbar and title, and then show the plot.
 plt.title('thematic_atmosphere_ozone');
-plt.savefig('./tmp/testName.png', bbox_inches=0)
+plt.savefig('./tmp/01-06-2003.png', bbox_inches=0)
 
