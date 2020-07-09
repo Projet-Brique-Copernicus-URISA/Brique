@@ -103,31 +103,7 @@ var createCopernicusRequest = function (topic, date, area){
     }
     
     //compute the date for the request 
-<<<<<<< HEAD
-    var req_date = '';
-
-    if(dateIsSplit){
-        if(date.constructor.name == 'PeriodValue'){
-            alert("Error: the topic can't take a period only a date | la thématique ne peut pas prendre de période, juste une date seul");
-            req_isOk = false;
-        } else {
-            var date_day = refactorDate(date.getDate()); //1-31
-            var date_month = refactoDate(date.getMonth()); //0-11
-            var date_year = date.getFullYear();
-            req_date = "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
-                + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
-        }
-    } else {// if !dateIsSplit 
-
-        if(date.constructor.name == "Date"){//if the request need a period but it only have one date
-            req_date = computeDatePeriod(date, date);
-        }else{//if the date is a PeriodValue object
-            req_date = computeDatePeriod(date.start, date.end);
-        }
-    }
-=======
     var req_date = computeReqDate(topic, date);
->>>>>>> csvRequest
 
     //compute the coordonate of the area
     // is the name important in the request ?
@@ -196,12 +172,6 @@ var createCopernicusRequest = function (topic, date, area){
  * @returns
  */
 function computeDatePeriod(date_start, date_end){
-<<<<<<< HEAD
-    //it's maybe not correct due to the month (0-11)
-    return("'date': '" + date_start.getFullYear() +"-"+ refactorDate(date_start.getMonth())
-        +"-"+ refactorDate(date_start.getDate()) +"/"+ date_end.getFullYear() 
-        +"-"+ refactorDate(date_end.getMonth()) +"-"+ refactorDate(date_end.getDate()) +"',\n");
-=======
     var start_year = date_start.getFullYear();
     var end_year = date_end.getFullYear();
     var start_month = date_start.getMonth() + 1;
@@ -282,7 +252,7 @@ function computeReqDate(topic, date){
             var date_day = date.getDate(); //1-31
             var date_month = date.getMonth()+1; //0-11
             var date_year = date.getFullYear();
-            req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
+            req_date = "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
                 + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
         } else {// if !dateIsSplit 
             if(dateIsPeriod){//if the date is a PeriodValue object
@@ -308,7 +278,6 @@ function computeReqDate(topic, date){
 function compareDate(dateToTest, minDate, maxDate){
     //console.log( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ) );
     return ( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ));
->>>>>>> csvRequest
 }
 
 /**
@@ -382,6 +351,12 @@ function createContentForProcessPart(topic, date, area){
     return scriptContent;
 }
 
+/**
+ *
+ *
+ * @param {*} num
+ * @returns
+ */
 function refactorDate(num){
     if(num < 10){
         num = "0"+num;
