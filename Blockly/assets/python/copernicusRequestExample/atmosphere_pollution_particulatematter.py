@@ -11,7 +11,7 @@ c.retrieve(
             'ensemble',
         ],
         'level': '0',
-        'date': '2020-06-09/2020-06-08',
+        'date': '2018-06-08/2018-06-08',
         'type': 'forecast',
         'time': '00:00',
         'leadtime_hour': '4',

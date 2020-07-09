@@ -1,14 +1,14 @@
 <xml xmlns="https://developers.google.com/blockly/xml">
-  <block type="copernicus_request_2" id="CTYo[o2QQ2#DFD,(+mI[" x="147" y="99">
+  <block type="copernicus_request_2" id="CTYo[o2QQ2#DFD,(+mI[" x="77" y="94">
     <value name="DATE">
       <block type="date" id="N0XguBXLh*vUs;5lCDL8">
         <field name="DAY">9</field>
         <field name="MONTH">7</field>
-        <field name="YEAR">2005</field>
+        <field name="YEAR">2018</field>
       </block>
     </value>
     <value name="THEME">
-      <block type="thematic_atmosphere_ozone" id="aE=Y:AOpTw$Ljp58SZxU"></block>
+      <block type="thematic_atmosphere_pollution_particulate" id="Fl7#|^iQy#Ki`krzcwH#"></block>
     </value>
     <value name="AREA">
       <block type="area_world" id="l~bgy%IDmWG0WXnIXiIV"></block>

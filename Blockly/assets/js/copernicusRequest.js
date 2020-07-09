@@ -1,6 +1,7 @@
 var req_isOk = true; 
 var downloadedFileName = "";//i have to change the name of the downloaded file
 var req_format = "";
+var varName = "";//variable used in the process part of the request
 
 /**
  * to create and run the python script which do the request to the copernicus API
@@ -62,6 +63,7 @@ var createCopernicusRequest = function (topic, date, area){
             downloadedFileName = "download.nc";
             req_format = "'netcdf'";
             api_origin = 'atmosphere';
+            varName = 'pm2p5_conc';
             break;
 
         case 'thematic_atmosphere_ozone':
@@ -73,6 +75,7 @@ var createCopernicusRequest = function (topic, date, area){
             downloadedFileName = "download.nc";
             dateIsSplit = true;
             api_origin = 'atmosphere';
+            varName = "gtco3";
             break;
 
         case 'thematic_atmosphere_temperature':
@@ -84,6 +87,7 @@ var createCopernicusRequest = function (topic, date, area){
             downloadedFileName = "download.nc";
             dateIsSplit = false;
             api_origin = 'atmosphere';
+            varName = 't2m';
             break;
 
         case 'thematic_atmosphere_solar_radiation':
@@ -97,7 +101,7 @@ var createCopernicusRequest = function (topic, date, area){
             downloadedFileName = "download.csv";
             req_format = "'csv'";
             api_origin = 'atmosphere';
-            
+            //here varName is not necessary because it's not a netcdf
             break;
 
         default:
@@ -109,23 +113,8 @@ var createCopernicusRequest = function (topic, date, area){
     var req_date = computeReqDate(topic, date);
 
     //compute the coordonate of the area
-    // is the name important in the request ?
-    var area_n = area.north;
-    var area_s = area.south;
-    var area_e = area.east;
-    var area_w = area.west;
-    var req_area = "";
-
-    if(req_format == "'csv'"){
-        req_area = "'location': {"
-            + "\t'latitude': 0.00002,"
-            + "\t'longitude': -0.00002,"
-            + "\t},\n";
-    } else {
-        req_area = "'area': [\n" 
-            + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
-    }
-
+    var req_area = computeReqArea(area);
+    
     //add the api key to the script
     switch(api_origin){
         case 'atmosphere':
@@ -150,7 +139,7 @@ var createCopernicusRequest = function (topic, date, area){
         var req_final = req_beginning + req_topic 
             + ",\n\t{\n" + req_otherContent 
             + "\t\t" + req_date
-            + "\t\t" + req_area
+            + req_area
             + '\t\t\'format\': ' + req_format +",\n"
             + "\t},\n\t'"
             + downloadedFileName + "')";
@@ -179,10 +168,10 @@ var createCopernicusRequest = function (topic, date, area){
 function computeDatePeriod(date_start, date_end){
     var start_year = date_start.getFullYear();
     var end_year = date_end.getFullYear();
-    var start_month = date_start.getMonth() + 1;
-    var end_month = date_end.getMonth() + 1;
-    var start_day = date_start.getDate();
-    var end_day = date_end.getDate();
+    var start_month = refactorDate(date_start.getMonth() + 1);
+    var end_month = refactorDate(date_end.getMonth() + 1);
+    var start_day = refactorDate(date_start.getDate());
+    var end_day = refactorDate(date_end.getDate());
 
     //if the case of csv file, file name is the date, so it's easier (but not better) to compute it here thanks to the var
     if(req_format == "'csv'"){
@@ -254,6 +243,7 @@ function computeReqDate(topic, date){
     //compute the date if it is valid
     if(dateIsOk){
         if(dateIsSplit){
+            console.log(date)
             var date_day = refactorDate(date.getDate()); //1-31
             var date_month = refactorDate(date.getMonth()+1); //0-11
             var date_year = date.getFullYear();
@@ -295,8 +285,8 @@ function compareDate(dateToTest, minDate, maxDate){
  */
 function createContentForProcessPart(topic, date, area){
     var scriptContent = '';
-    
-    var varName = "gtco3";
+
+    //compute the image file name
     //var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear(); //probleme here if PeriodValue is not supported
     var imageName = refactorDate(date.getDate()) +"-"+ refactorDate(date.getMonth()+1) +"-"+ date.getFullYear();
 
@@ -390,4 +380,30 @@ function refactorDate(num){
         num = "0"+num;
     }
     return num;
+}
+
+/**
+ *
+ *
+ * @param {*} area
+ * @returns
+ */
+function computeReqArea(area){
+    var area_n = area.north;
+    var area_s = area.south;
+    var area_e = area.east;
+    var area_w = area.west;
+    var req_area = "";
+
+    if(req_format == "'csv'"){
+        req_area = "\t\t'location': {"
+            + "\t'latitude': 0.00002,"
+            + "\t'longitude': -0.00002,"
+            + "\t},\n";
+    } else if (area.name != "world"){
+        req_area = "\t\t'area': [\n" 
+            + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
+    }
+
+    return req_area;
 }
