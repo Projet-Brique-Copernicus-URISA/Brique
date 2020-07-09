@@ -60,8 +60,8 @@ function doAjaxRequest_download(fileName, fileContent) { // HAD TO CHANGE FUNCTI
         success: function(data) {
             console.log("success :" + data);
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log('error ' + textStatus + " " + errorThrown);
+        error: function(jqXHR, textStatus, errorThrown, data) {
+            console.log('error ' + textStatus + " " + errorThrown + " " + data);
         }
     });
 }

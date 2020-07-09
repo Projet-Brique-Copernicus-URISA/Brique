@@ -53,8 +53,8 @@ Blockly.Blocks['display_duration'] = {
 /** DISPLAY VAR WITH TIMER block associated method */
 Blockly.JavaScript['display_duration'] = function (block) {
     var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
-    var time = block.getFieldValue('time');
-    return "displayDuring(" + picture + "," + time + ");";
+    var time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ATOMIC);
+        return "displayDuring(" + picture + "," + time + ");";
 };
 
 

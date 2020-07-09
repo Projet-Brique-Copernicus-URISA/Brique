@@ -140,7 +140,7 @@ app.get('/assets/js/script-test.js', function(request, response){
             response.write(error);  
             response.end();  
         } else { 
-            const  spawn  = require('child_process');
+            const  spawn  = require('child_process').spawn;
             const process = spawn('python', ['./assets/python/script-test.py']);
             process.stdout.on('data', (data) => {
                 console.log(data.toString());
@@ -153,7 +153,7 @@ app.get('/assets/js/script-test.js', function(request, response){
 });
 
 app.get('/moveAndClean', function(request, response, next){
-    const  spawn  = require('child_process');
+    const  spawn  = require('child_process').spawn;
     const process = spawn('python', ['./assets/python/moveAndClean.py ', "download.nc", "tmp/", "copernicus_request.py"]);
     process.stdout.on('data', (data) => {
         console.log(data.toString());
@@ -187,7 +187,7 @@ app.post('/assets/js/script-copier.js', function(request, response, next){
             var fileName = request.body.name;
             var fileContent = request.body.content;
 
-            const  spawn  = require('child_process');
+            const  spawn  = require('child_process').spawn;
             const process = spawn('python', ['./assets/python/CoperFileWriter.py ', fileName, fileContent]);
             process.stdout.on('data', (data) => {
                console.log(data.toString());
@@ -203,7 +203,7 @@ app.post('/executePython', function(request, response, next){
     var fileName = request.body.name;
     var message = "error empty";
  
-    const  spawn  = require('child_process');
+    const  spawn  = require('child_process').spawn;
     const process = spawn('python', ['copernicus_request.py']);
     process.stdout.on('data', (data) => {
         console.log(data.toString());
@@ -218,7 +218,7 @@ app.post('/convertNcToPng', function(request, response, next){
     var title = request.body.title;
     var newFileName = request.body.newFileName;
 
-    const  spawn  = require('child_process');
+    const  spawn  = require('child_process').spawn;
     const process = spawn('python', ['./assets/python/ncToPng.py ', fileName, varName, title, newFileName]);
     process.stdout.on('data', (data) => {
         console.log(data.toString());
