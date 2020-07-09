@@ -6,6 +6,9 @@
  * @version 0.1
  */
 
+
+let REP = "./mesImages/";
+
 /** DISPLAY VAR block definition */
 Blockly.Blocks['display'] = {
     init: function () {
@@ -15,7 +18,7 @@ Blockly.Blocks['display'] = {
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(270);
+        this.setColour(315);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -27,51 +30,31 @@ Blockly.JavaScript['display'] = function (block) {
     return "displayPicture(" + picture + ")";
 };
 
-/** DISPLAY VAR 2 block definition */
+/** DISPLAY VAR WITH TIMER block definition */
 Blockly.Blocks['display_duration'] = {
     init: function () {
         this.appendValueInput("picture_to_display")
             .setCheck(["String", "picture"])
             .appendField("Afficher");
-        this.appendDummyInput()
+        this.appendValueInput("time")
             .appendField("pendant")
-            .appendField(new Blockly.FieldNumber(0, 1, 60), "time")
+            .setCheck(["Number"]);
+        this.appendDummyInput()
             .appendField("secondes");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(270);
+        this.setColour(315);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
 
-/** DISPLAY VAR 2 block associated method */
+/** DISPLAY VAR WITH TIMER block associated method */
 Blockly.JavaScript['display_duration'] = function (block) {
     var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
     var time = block.getFieldValue('time');
     return "displayDuring(" + picture + "," + time + ");";
-};
-
-/** DISPLAY PATH block definition */
-Blockly.Blocks['display_path'] = {
-    init: function () {
-        this.appendDummyInput()
-            .appendField("Afficher")
-            .appendField(new Blockly.FieldTextInput("mesImages/exemple.jpg"), "path");
-        this.setPreviousStatement(true, null);
-        this.setNextStatement(true, null);
-        this.setColour(270);
-        this.setTooltip("");
-        this.setHelpUrl("");
-    }
-};
-
-/** DISPLAY PATH block associated method */
-Blockly.JavaScript['display_path'] = function (block) {
-    var path = block.getFieldValue('path');
-    var code = "displayPicture(\"" + path + "\");";
-    return code;
 };
 
 
@@ -81,23 +64,35 @@ Blockly.JavaScript['display_path'] = function (block) {
  *
  * @param {String} path
  */
-function displayPicture(path) { 
+function displayPicture(path) {
     setTimeout("disp(\"" + path + "\")", timeout * 1000);
 }
 
-function disp(path){
+/**
+ * 
+ * @param {*} path 
+ */
+function disp(path) {
     canvas.style.backgroundColor = 'transparent';
     canvas.style.border = 'none';
     canvas.style.padding = 0;
-    img.src = path;
+    img.src = REP + path;
 }
 
+/**
+ * 
+ * @param {*} path 
+ * @param {*} time 
+ */
 function displayDuring(path, time) {
     displayPicture(path);
     timeout += time;
     setTimeout(removePicture, timeout * 1000);
 }
 
+/**
+ * 
+ */
 function removePicture() {
     canvas.style.backgroundColor = '#ddd';
     canvas.style.border = '2px solid white';

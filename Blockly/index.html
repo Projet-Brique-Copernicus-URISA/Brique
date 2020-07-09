@@ -38,14 +38,14 @@
     <script src="assets/js/ihm.js"></script>
     <script src="assets/js/script-ajax.js"></script>
     <script src="assets/js/upload.js"></script>
-    <script src ="assets/js/copernicusRequest.js"></script>
+    <script src="assets/js/copernicusRequest.js"></script>
 
     <!-- End Scripts URISA -->
 
 </head>
 
 <body id="body">
-    
+
     <!-- App content-->
 
     <div class="main">
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-        <div class="right-pan" id="element-right-pan" >
+        <div class="right-pan" id="element-right-pan">
             <div id="button-max" class="button-info">
                 <img id="button-min-max" src="assets/img/maximize.png" alt="info">
             </div>
@@ -358,50 +358,12 @@
             </block>
             <block type="lists_sort"></block>
         </category>
-        <category id="catColour" colour="20" name="Couleurs">
-            <block type="colour_picker"></block>
-            <block type="colour_random"></block>
-            <block type="colour_rgb">
-                <value name="RED">
-                    <shadow type="math_number">
-                        <field name="NUM">100</field>
-                    </shadow>
-                </value>
-                <value name="GREEN">
-                    <shadow type="math_number">
-                        <field name="NUM">50</field>
-                    </shadow>
-                </value>
-                <value name="BLUE">
-                    <shadow type="math_number">
-                        <field name="NUM">0</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="colour_blend">
-                <value name="COLOUR1">
-                    <shadow type="colour_picker">
-                        <field name="COLOUR">#ff0000</field>
-                    </shadow>
-                </value>
-                <value name="COLOUR2">
-                    <shadow type="colour_picker">
-                        <field name="COLOUR">#3333ff</field>
-                    </shadow>
-                </value>
-                <value name="RATIO">
-                    <shadow type="math_number">
-                        <field name="NUM">0.5</field>
-                    </shadow>
-                </value>
-            </block>
-        </category>
         <sep></sep>
+        <category id="catMypics" colour="180" custom="VARIABLE" name="Mes images"></category>
         <category id="catVariables" colour="330" custom="VARIABLE" name="Variables"></category>
         <category id="catFunctions" colour="290" custom="PROCEDURE" name="Fonctions"></category>
         <sep></sep>
-        <category id="catMypics" colour="180" custom="VARIABLE" name="Mes images"></category>
-        <category id="catAreas" colour="100" name="Zones">
+        <category id="catAreas" colour="90" name="Zones">
             <block type="area_world"></block>
             <block type="area_europe"></block>
             <block type="area_france"></block>
@@ -414,51 +376,53 @@
             <block type="area_scandinavia"></block>
             <block type="area_custom"></block>
         </category>
-        <category id="catThematics" colour="30" name="Thématiques">
+        <category id="catThematics" colour="45" name="Thématiques">
             <block type="thematic_atmosphere_pollution_particulate"></block>
             <block type="thematic_atmosphere_ozone"></block>
             <block type="thematic_atmosphere_temperature"></block>
             <block type="thematic_atmosphere_solar_radiation"></block>
         </category>
-        <category id="catDate" colour="75" name="Date">
-            <block type="block_date"></block>
-            <block type="block_period"></block>
+        <category id="catDate" colour="0" name="Date">
+            <block type="date"></block>
+            <block type="period"></block>
         </category>
-        <category id="catDisplay" colour="270" name="Affichage">
-            <block type="display"></block>
-            <block type="display_duration"></block>
-            <block type="display_path"></block>
+        <sep></sep>
+        <category id="catDisplay" colour="315" name="Affichage">
+            <block type="display">
+                <value name="picture_to_display">
+                    <shadow type="text">
+                        <field name="TEXT">exemple.jpg</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="display_duration">
+                <value name="picture_to_display">
+                    <shadow type="text">
+                        <field name="TEXT">exemple.jpg</field>
+                    </shadow>
+                </value>
+                <value name="time">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
         </category>
-        <category id="catFileManager" colour="225" name="Fichier">
-            <block type="file_reader"></block>
-            <block type="file_reader_2"></block>
-            <block type="select_repository"></block>
-            <block type="read_next_file"></block>
-            <block type="is_there_a_next_file"></block>
-            <block type="file_writer"></block>
-            <block type="file_writer_2"></block>
-            <block type="file_writer_select_repository"></block>
-            <block type="file_writer_current_repository"></block>
+        <category id="catFileManager" colour="270" name="Fichier">
+            <block type="file_reader">
+                <value name="path">
+                    <shadow type="text">
+                        <field name="TEXT">exemple.jpg</field>
+                    </shadow>
+                </value>
+            </block>
         </category>
-        <category id="catCopernicus" colour="230" name="Copernicus">
-            <block type="do_request"></block>
-            <block type="copernicus_request_full_parameters_1_pic"></block>
-            <block type="copernicus_request_full_entrance_1_pic"></block>
-            <block type="copernicus_request_full_parameters"></block>
-            <block type="copernicus_request_full_entrance"></block>
+        <sep></sep>
+        <category id="catCopernicus" colour="225" name="Copernicus">
+            <block type="copernicus_request_1"></block>
+            <block type="copernicus_request_2"></block>
         </category>
-        <!--<category id="catCustom" colour="420" name="Custom">
-            <block type="load_local_image"></block>
-            <block type="string_length"></block>
-            <block type="display_image"></block>
-            <block type="http_request"></block>
-        </category>
-        <category id="catAnimals" colour="420" name="Animaux">
-            <block type="dog_image"></block>
-            <block type="cat_image"></block>
-            <block type="duck_image"></block>
 
-        </category>-->
     </xml>
 
     <!-- End Blockly configuration -->

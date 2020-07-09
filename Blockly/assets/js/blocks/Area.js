@@ -11,7 +11,7 @@
 Blockly.Blocks['area_world'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Monde');
     }
 };
@@ -21,11 +21,12 @@ Blockly.JavaScript['area_world'] = function () {
     var code = "new Area('world'," + 0 + "," + 0 + "," + 0 + "," + 0 + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
+
 /** EUROPE block definition */
 Blockly.Blocks['area_europe'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Europe');
     }
 };
@@ -40,7 +41,7 @@ Blockly.JavaScript['area_europe'] = function () {
 Blockly.Blocks['area_france'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('France');
     }
 };
@@ -55,7 +56,7 @@ Blockly.JavaScript['area_france'] = function () {
 Blockly.Blocks['area_paris'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('FRANCE - Paris');
     }
 };
@@ -71,7 +72,7 @@ Blockly.JavaScript['area_paris'] = function () {
 Blockly.Blocks['area_nouvelleaquitaine'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('FRANCE - Nouvelle Aquitaine');
     }
 };
@@ -87,7 +88,7 @@ Blockly.JavaScript['area_nouvelleaquitaine'] = function () {
 Blockly.Blocks['area_italy'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Italie');
     }
 };
@@ -102,7 +103,7 @@ Blockly.JavaScript['area_italy'] = function () {
 Blockly.Blocks['area_gb'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Grande Bretagne');
     }
 };
@@ -118,7 +119,7 @@ Blockly.JavaScript['area_gb'] = function () {
 Blockly.Blocks['area_scandinavia'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Scandinavie');
     }
 };
@@ -133,7 +134,7 @@ Blockly.JavaScript['area_scandinavia'] = function () {
 Blockly.Blocks['area_iber'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Péninsule Ibérique');
     }
 };
@@ -148,7 +149,7 @@ Blockly.JavaScript['area_iber'] = function () {
 Blockly.Blocks['area_germany'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput().appendField('Allemagne');
     }
 };
@@ -163,7 +164,7 @@ Blockly.JavaScript['area_germany'] = function () {
 Blockly.Blocks['area_custom'] = {
     init: function () {
         this.setOutput(true, 'area');
-        this.setColour(100);
+        this.setColour(90);
         this.appendDummyInput()
             .appendField('Zone ')
             .appendField(new Blockly.FieldTextInput("ma zone"), "NAME");
@@ -186,11 +187,15 @@ Blockly.JavaScript['area_custom'] = function () {
     let input_south = block.getFieldValue('SOUTH');
     let input_east = block.getFieldValue('EAST');
     let input_west = block.getFieldValue('WEST');
+
     // TODO : TESTER SI LA ZONE EST VALIDE nord > sud et est < ouest
     var code = "new Area(" + input_name + "," + input_north + "," + input_south + "," + input_east + "," + input_west + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+/**
+ * Class AREA
+ */
 class Area {
     constructor(name, north, south, east, west) {
         this.name = name;
@@ -199,5 +204,4 @@ class Area {
         this.east = east;
         this.west = west;
     }
-
 }
