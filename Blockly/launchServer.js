@@ -128,6 +128,23 @@ app.get('/mesImages/*.jpg', function(request, response){
 
 //end load png file
 
+app.get('/mesData/*.csv', function(request, response){
+    var path = url.parse(request.url).pathname; 
+    fs.readFile(__dirname + path, function(error, data) {  
+        if (error) {  
+            response.writeHead(404);  
+            response.write(error);  
+            response.end();  
+        } else { 
+            response.writeHead(200, {  
+                'Content-Type': 'image/png'
+            });  
+            response.write(data);  
+            response.end();         
+        }  
+    });  
+});
+
 //end GET pages
 
 //Call python 
