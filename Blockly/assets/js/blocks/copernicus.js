@@ -6,6 +6,9 @@
  * @version 0.1
  */
 
+
+/* CODE MORT ****************************************************************/
+
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
 Blockly.Blocks['do_request'] = {
     init: function () {
@@ -25,13 +28,15 @@ Blockly.JavaScript['do_request'] = function (block) {
     return "doAjaxRequest_copernicus();";
 };
 
+/* FIN CODE MORT ***********************************************************/
+
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
-Blockly.Blocks['copernicus_request_full_parameters_1_pic'] = {
+Blockly.Blocks['copernicus_request_1'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Requete Copernicus pour 1 image");
-            this.appendDummyInput()
-            .appendField("Date :")
+        this.appendDummyInput()
+            .appendField("date :")
             .appendField(new Blockly.FieldNumber(new Date().getDate(), 1, 31), "DAY")
             .appendField("/")
             .appendField(new Blockly.FieldNumber(new Date().getMonth() + 1, 1, 12), "MONTH")
@@ -39,13 +44,24 @@ Blockly.Blocks['copernicus_request_full_parameters_1_pic'] = {
             .appendField(new Blockly.FieldNumber(new Date().getFullYear(), 1970, new Date().getFullYear()), "YEAR");
         this.appendDummyInput()
             .appendField("thématique :")
-            .appendField(new Blockly.FieldDropdown([["\'thematic_atmosphere_pollution_particulate\'","Pollution (particules fines)"], ["Catastrophe", "CATASTROPHE"], ["Maritime", "MARITIME"]]), "THEME");
+            .appendField(new Blockly.FieldDropdown([["Pollution (particules fines)", "\'thematic_atmosphere_pollution_particulate\'"], ["Couche d\'ozone", "\'thematic_atmosphere_ozone\'"], ["Température", "\'thematic_atmosphere_temperature\'"]]), "THEME");
         this.appendDummyInput()
             .appendField("zone géographique :")
-            .appendField(new Blockly.FieldDropdown([["option", "OPTIONNAME"], ["option", "OPTIONNAME"], ["option", "OPTIONNAME"]]), "NAME");
+            .appendField(new Blockly.FieldDropdown([
+                ["Monde", "new Area(\'world\'," + 0 + "," + 0 + "," + 0 + "," + 0 + ")"],
+                ["Europe", "new Area(\'europe\'," + 75 + "," + 30 + "," + 45 + "," + -25 + ")"],
+                ["France", "new Area(\'france\'," + 52 + "," + 41 + "," + 10 + "," + -6 + ")"],
+                ["FRANCE - Paris", "new Area('paris'," + 49.4 + "," + 48 + "," + 3.7 + "," + 1.3 + ")"],
+                ["FRANCE - Nouvelle Aquitaine","new Area('nouvelleaquitaine'," + 47.3 + "," + 42.5 + "," + 3 + "," + -2 + ")"],
+                ["Italie","new Area('italy'," + 48 + "," + 36 + "," + 20 + "," + 6 + ")"],
+                ["Grande Bretagne","new Area('gb'," + 61.5 + "," + 49 + "," + 4 + "," + -13 + ")"],
+                ["Scandinavie","new Area('scandinavia'," + 72 + "," + 54 + "," + 45 + "," + 2 + ")"],
+                ["Péninsule Ibérique","new Area('iber'," + 44.5 + "," + 35 + "," + 5 + "," + -10.5 + ")"],
+                ["Allemagne","new Area('germany'," + 55.5 + "," + 45.5 + "," + 16 + "," + 5 + ")"]
+            ]), "AREA");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(225);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -53,19 +69,23 @@ Blockly.Blocks['copernicus_request_full_parameters_1_pic'] = {
 
 
 /** COPERNICUS REQUEST FULL PARAMETERS block associated method */
-Blockly.JavaScript['copernicus_request_full_parameters_1_pic'] = function (block) {
-    var number_name = block.getFieldValue('NAME');
-    var text_name = block.getFieldValue('NAME');
-    var text_name = block.getFieldValue('NAME');
-    var dropdown_name = block.getFieldValue('NAME');
-    var dropdown_name = block.getFieldValue('NAME');
-    // TODO: Assemble JavaScript into code variable.
-    var path = block.getFieldValue('path');
-    return ["\"mesImages/exemple.jpg\"", Blockly.JavaScript.ORDER_MEMBER];
+Blockly.JavaScript['copernicus_request_1'] = function (block) {
+    
+    var number_day = block.getFieldValue('DAY');
+    var number_month = block.getFieldValue('MONTH') - 1;
+    var number_year = block.getFieldValue('YEAR');
+
+    var block_date = "new Date(" + number_year + "," + number_month + "," + number_day + ")";
+    var block_topic = Blockly.JavaScript.valueToCode(block, 'THEME', Blockly.JavaScript.ORDER_ATOMIC);
+    var block_area = Blockly.JavaScript.valueToCode(block, 'AREA', Blockly.JavaScript.ORDER_ATOMIC);
+
+    var code = "launchCopernicusRequest(" + block_topic + ", " + block_date + ", " + block_area + ");";
+
+    return code;
 };
 
 /** COPERNICUS REQUEST FULL PARAMETERS block definition */
-Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
+Blockly.Blocks['copernicus_request_2'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Requete Copernicus pour 1 image");
@@ -80,7 +100,7 @@ Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
             .appendField("zone géographique :");
         this.setPreviousStatement(true, null);
         this.setNextStatement(true, null);
-        this.setColour(230);
+        this.setColour(225);
         this.setTooltip("");
         this.setHelpUrl("");
     }
@@ -88,20 +108,12 @@ Blockly.Blocks['copernicus_request_full_entrance_1_pic'] = {
 
 
 /** COPERNICUS REQUEST FULL PARAMETERS block associated method */
-Blockly.JavaScript['copernicus_request_full_entrance_1_pic'] = function (block) {
-    var number_name = block.getFieldValue('NAME');
-    var text_name = block.getFieldValue('NAME');
-    //var text_name = block.getFieldValue('NAME');
-    var dropdown_name = block.getFieldValue('NAME');
-    //var dropdown_name = block.getFieldValue('NAME');
-    // TODO: Assemble JavaScript into code variable.
-    var path = block.getFieldValue('path');
+Blockly.JavaScript['copernicus_request_2'] = function (block) {
 
     var block_date = Blockly.JavaScript.valueToCode(block, 'DATE', Blockly.JavaScript.ORDER_ATOMIC);
     var block_topic = Blockly.JavaScript.valueToCode(block, 'THEME', Blockly.JavaScript.ORDER_ATOMIC);
     var block_area = Blockly.JavaScript.valueToCode(block, 'AREA', Blockly.JavaScript.ORDER_ATOMIC);
 
-    var test_code = "\"mesImages/exemple.jpg\"";
     var code = "launchCopernicusRequest(" + block_topic + ", " + block_date + ", " + block_area + ");";
 
     return code;

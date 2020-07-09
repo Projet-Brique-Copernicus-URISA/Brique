@@ -6,8 +6,8 @@
  * @version 0.1
  */
 
-/** PARIS block definition */
-Blockly.Blocks['block_date'] = {
+/** DATE block definition */
+Blockly.Blocks['date'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Date :")
@@ -17,16 +17,15 @@ Blockly.Blocks['block_date'] = {
             .appendField("/")
             .appendField(new Blockly.FieldNumber(new Date().getFullYear(), 1970, new Date().getFullYear()), "YEAR");
         this.setOutput(true, "date");
-        this.setColour(75);
+        this.setColour(0);
         this.setTooltip("JJ/MM/AAAA");
         this.setHelpUrl("");
     }
 };
 
 
-/**/
-
-Blockly.JavaScript['block_date'] = function (block) {
+/** DATE block associated method */
+Blockly.JavaScript['date'] = function (block) {
     var number_day = block.getFieldValue('DAY');
     var number_month = block.getFieldValue('MONTH') - 1;
     var number_year = block.getFieldValue('YEAR');
@@ -34,7 +33,8 @@ Blockly.JavaScript['block_date'] = function (block) {
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
-Blockly.Blocks['block_period'] = {
+/** PERIOD block definition */
+Blockly.Blocks['period'] = {
     init: function () {
         this.appendDummyInput()
             .appendField("Période");
@@ -45,20 +45,25 @@ Blockly.Blocks['block_period'] = {
             .setCheck("date")
             .appendField("fin :");
         this.setOutput(true, null);
-        this.setColour(75);
+        this.setColour(0);
         this.setTooltip("");
         this.setHelpUrl("");
     }
 };
 
-
-Blockly.JavaScript['block_period'] = function (block) {
+/** PERIOD block associated method */
+Blockly.JavaScript['period'] = function (block) {
     var value_start = Blockly.JavaScript.valueToCode(block, 'START', Blockly.JavaScript.ORDER_ATOMIC);
     var value_end = Blockly.JavaScript.valueToCode(block, 'END', Blockly.JavaScript.ORDER_ATOMIC);
     var code = "doPeriod(" + value_start + "," + value_end + ")";
     return [code, Blockly.JavaScript.ORDER_NONE];
 };
 
+/**
+ * Check if a period is valid before instaciating it
+ * @param {Date} value_start 
+ * @param {Date} value_end 
+ */
 function doPeriod(value_start, value_end){
     if (value_start.getTime() > value_end.getTime()) {
         alert("Période non conforme : " + value_start.toLocaleDateString() + " n'est pas antérieure à " + value_end.toLocaleDateString());
@@ -67,6 +72,9 @@ function doPeriod(value_start, value_end){
     }
 }
 
+/**
+ * Clas PERIODVALUE
+ */
 class PeriodValue {
     constructor(start, end) {
         this.start = start;
