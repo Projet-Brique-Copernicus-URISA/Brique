@@ -51,6 +51,7 @@ $(document).ready(function () {
             var workspace = Blockly.getMainWorkspace();
             var xml = Blockly.Xml.workspaceToDom(workspace);
             xml = Blockly.Xml.domToPrettyText(xml);
+            console.log(xml);
             doAjaxRequest_download("projet.txt", xml);
         }
     );

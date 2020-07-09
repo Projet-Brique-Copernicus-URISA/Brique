@@ -22,6 +22,6 @@ Blockly.Blocks['file_reader'] = {
 };
 
 Blockly.JavaScript['file_reader'] = function (block) {
-    var path = block.getFieldValue('path');
-    return ["\"" + path + "\"", Blockly.JavaScript.ORDER_MEMBER];
+    var path = Blockly.JavaScript.valueToCode(block, 'path', Blockly.JavaScript.ORDER_ATOMIC);
+    return [ path , Blockly.JavaScript.ORDER_MEMBER];
 };
