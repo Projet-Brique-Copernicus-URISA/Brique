@@ -13,7 +13,7 @@ let REP = "./mesImages/";
 Blockly.Blocks['display'] = {
     init: function () {
         this.appendValueInput("picture_to_display")
-            .setCheck(["String", "picture"])
+            .setCheck(["String", "picture", "file"])
             .appendField("Afficher");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
@@ -34,7 +34,7 @@ Blockly.JavaScript['display'] = function (block) {
 Blockly.Blocks['display_duration'] = {
     init: function () {
         this.appendValueInput("picture_to_display")
-            .setCheck(["String", "picture"])
+            .setCheck(["String", "picture", "file"])
             .appendField("Afficher");
         this.appendValueInput("time")
             .appendField("pendant")
@@ -54,10 +54,31 @@ Blockly.Blocks['display_duration'] = {
 Blockly.JavaScript['display_duration'] = function (block) {
     var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
     var time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ATOMIC);
-        return "displayDuring(" + picture + "," + time + ");";
+    return "displayDuring(" + picture + "," + time + ");";
 };
 
+function getExtension(path) {
+    return path.split('.').pop();
+}
 
+function isPicture(path) {
+    const pictExt = ["jpg", "jpeg", "png", "gif"];
+    if (pictExt.indexOf(getExtension(path)) >= 0) {
+        return true;
+    }
+    return false;
+}
+
+function isCSV(path) {
+    if (getExtension(path) == "csv") {
+        return true;
+    }
+    return false;
+}
+
+function isLocal(path){
+   return !(path.split(':')[0] == "http" || path.split(':')[0] == "https");
+}
 /**
  * A COMMENTER
  * 
@@ -72,11 +93,19 @@ function displayPicture(path) {
  * 
  * @param {*} path 
  */
+
 function disp(path) {
-    canvas.style.backgroundColor = 'transparent';
-    canvas.style.border = 'none';
-    canvas.style.padding = 0;
-    img.src = REP + path;
+    if (isPicture(path)) {
+        canvas.style.backgroundColor = 'transparent';
+        canvas.style.border = 'none';
+        canvas.style.padding = 0;
+        if (isLocal(path)){
+            path = REP + path;
+        }
+        img.src = path;
+    } else if (isCSV(path)) {
+        readCSVFile(makeChart, path);
+    }
 }
 
 /**

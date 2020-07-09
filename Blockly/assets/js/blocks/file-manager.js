@@ -14,7 +14,7 @@ Blockly.Blocks['file_reader'] = {
             .setCheck("String")
             .appendField("Lecture fichier");
         this.setInputsInline(true);
-        this.setOutput(true, 'picture');
+        this.setOutput(true, '');
         this.setColour(270);
         this.setTooltip("");
         this.setHelpUrl("");
