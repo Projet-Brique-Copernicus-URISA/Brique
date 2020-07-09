@@ -14,6 +14,7 @@ function readCSVFile(callback, filename) {
         success: function (csvd) {
             var items = $.csv.toObjects(csvd, { "separator": ";" });
             var jsontext = JSON.stringify(items);
+            console.log(jsontext);
             jsonobject = JSON.parse(jsontext);
         },
         dataType: "text",

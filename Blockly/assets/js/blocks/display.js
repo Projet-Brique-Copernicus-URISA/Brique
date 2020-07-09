@@ -7,7 +7,8 @@
  */
 
 
-let REP = "./mesImages/";
+let REPIMAGE = "./mesImages/";
+let REPDATA = "./mesData/";
 
 /** DISPLAY VAR block definition */
 Blockly.Blocks['display'] = {
@@ -100,11 +101,11 @@ function disp(path) {
         canvas.style.border = 'none';
         canvas.style.padding = 0;
         if (isLocal(path)){
-            path = REP + path;
+            path = REPIMAGE + path;
         }
         img.src = path;
     } else if (isCSV(path)) {
-        readCSVFile(makeChart, path);
+        readCSVFile(makeChart, REPDATA + path);
     }
 }
 
