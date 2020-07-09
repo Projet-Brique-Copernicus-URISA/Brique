@@ -160,6 +160,8 @@ var createCopernicusRequest = function (topic, date, area){
     if(req_format == "'netcdf'"){
         scriptContent_process = createContentForProcessPart(topic, date, area);
     }
+    //add store part of the script
+    scriptContent_process += createContentForStorePart(topic, date, area);
 
     return req_final + "\n\n" + scriptContent_process;
 }
@@ -293,7 +295,7 @@ function createContentForProcessPart(topic, date, area){
     
     var varName = "gtco3";
     //var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear(); //probleme here if PeriodValue is not supported
-    var imageName = refactorDate(date.getDate()) +"-"+ refactorDate(date.getMonth()) +"-"+ date.getFullYear();
+    var imageName = refactorDate(date.getDate()) +"-"+ refactorDate(date.getMonth()+1) +"-"+ date.getFullYear();
 
     //add "import" part
     scriptContent += "import netCDF4 \n"
@@ -348,6 +350,29 @@ function createContentForProcessPart(topic, date, area){
         + "os.remove('download.nc')\n"
         //+ "os.remove('copernicus_request.py')\n"
         */
+    return scriptContent;
+}
+
+/**
+ *
+ *
+ * @param {*} topic
+ * @param {*} date
+ * @param {*} area
+ */
+function createContentForStorePart(topic, date, area){
+    var zone = "WORLD"; // has to follow area value
+
+    var scriptContent = "import os\nimport shutil \n"
+        + "dirOrigin = './tmp/'\n"
+        + "dirDest = './mesImages/Copernicus/" + topic + "/" + zone + "/'\n"
+        + "if not os.path.isdir(dirDest):\n"
+        + "\t os.makedirs(dirDest)\n"
+        + "\t print('Creation reussie du repertoire', dirDest)\n"
+        + "files = os.listdir(dirOrigin)\n"
+        + "for f in files:\n"
+        + "\t shutil.move( os.path.join(dirOrigin, f), os.path.join(dirDest, f) )";
+    
     return scriptContent;
 }
 

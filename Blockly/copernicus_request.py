@@ -51,5 +51,15 @@ m.drawmeridians(np.arange(-180.,180.,60.),labels=[0,0,0,1])
 
 # Add a colorbar and title, and then show the plot.
 plt.title('thematic_atmosphere_ozone');
-plt.savefig('./tmp/01-06-2003.png', bbox_inches=0)
+plt.savefig('./tmp/01-07-2003.png', bbox_inches=0)
 
+import os
+import shutil 
+dirOrigin = './tmp/'
+dirDest = './mesImages/Copernicus/thematic_atmosphere_ozone/WORLD/'
+if not os.path.isdir(dirDest):
+	 os.makedirs(dirDest)
+	 print('Creation reussie du repertoire', dirDest)
+files = os.listdir(dirOrigin)
+for f in files:
+	 shutil.move( os.path.join(dirOrigin, f), os.path.join(dirDest, f) )
