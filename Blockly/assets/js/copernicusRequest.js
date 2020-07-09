@@ -23,7 +23,10 @@ var launchCopernicusRequest = function(topic, date, area){
     doAjaxRequest_download("copernicus_request.py", scriptComplete);
 
     //to execute the python script
-    //doAjaxRequest_executePython("copernicus_request.py");
+    doAjaxRequest_executePython("copernicus_request.py");
+
+    $('#disp-request').html('La requête est envoyée...');
+    setTimeout("$(\'#disp-request\').html(\'\');", 10000);
 }
 
 /**

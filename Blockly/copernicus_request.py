@@ -5,9 +5,9 @@ c.retrieve(
 	{
 		'variable': 'total_column_ozone',
 		'product_type': 'monthly_mean',
-		'month': '07',
-		'year': '2005',
-		'day': '09',
+		'month': '05',
+		'year': '2008',
+		'day': '17',
 		'area': [
 			0, 0, 0, 0,
 		],
@@ -51,7 +51,7 @@ m.drawmeridians(np.arange(-180.,180.,60.),labels=[0,0,0,1])
 
 # Add a colorbar and title, and then show the plot.
 plt.title('thematic_atmosphere_ozone');
-plt.savefig('./tmp/09-07-2005.png', bbox_inches=0)
+plt.savefig('./tmp/17-05-2008.png', bbox_inches=0)
 
 import os
 import shutil 
