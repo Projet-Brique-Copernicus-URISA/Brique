@@ -103,7 +103,6 @@ var createCopernicusRequest = function (topic, date, area){
     }
     
     //compute the date for the request 
-<<<<<<< HEAD
     var req_date = '';
 
     if(dateIsSplit){
@@ -125,9 +124,7 @@ var createCopernicusRequest = function (topic, date, area){
             req_date = computeDatePeriod(date.start, date.end);
         }
     }
-=======
     var req_date = computeReqDate(topic, date);
->>>>>>> csvRequest
 
     //compute the coordonate of the area
     // is the name important in the request ?
