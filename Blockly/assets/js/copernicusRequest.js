@@ -1,3 +1,7 @@
+var req_isOk = true; 
+var downloadedFileName = "";//i have to change the name of the downloaded file
+var req_format = "";
+
 /**
  * to create and run the python script which do the request to the copernicus API
  * according to the parameters topic, date, and area
@@ -8,9 +12,12 @@
  */
 var launchCopernicusRequest = function(topic, date, area){
     //to create correct code of the python script
+    /*
     var req_final = createCopernicusRequest(topic, date, area);
     var scriptContent_process = createContentForProcessPart(topic, date, area);
     var scriptComplete = req_final + "\n\n" + scriptContent_process;
+    */
+    var scriptComplete = createCopernicusRequest(topic, date, area);
 
     //to create the python script file
     doAjaxRequest_download("copernicus_request.py", scriptComplete);
@@ -27,19 +34,16 @@ var launchCopernicusRequest = function(topic, date, area){
  * @param {*} area
  * @returns
  */
-var createCopernicusRequest = function (topic, date, area){
-    //beginning of the python request code
-    var req_beginning = "import cdsapi\nc = cdsapi.Client()\nc.retrieve(\n\t";
-    
+var createCopernicusRequest = function (topic, date, area){    
     // variables for the request
-    var downloadedFileName = "download.nc";//i have to change this line
-    var req_format = "'netcdf'";
-    var req_isOk = true; 
-    var dateIsSplit = true;
+    //var downloadedFileName = "";//i have to change the name of the downloaded file
+    //var req_format = "";
+    //var req_isOk = true; 
 
     //to select the correct topic and the correct data set
     var req_topic = '';
     var req_otherContent = '';
+    var api_origin = '';
     switch (topic){
         case 'thematic_atmosphere_pollution_particulate':
             req_topic = "'cams-europe-air-quality-forecasts'";
@@ -50,28 +54,56 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + '\'type\': \'forecast\',\n'
                 + "\t\t" + '\'time\': \'00:00\',\n'
                 + "\t\t" + '\'leadtime_hour\': \'4\',\n';
+            
             dateIsSplit = false;
+            downloadedFileName = "download.nc";
+            req_format = "'netcdf'";
+            api_origin = 'atmosphere';
             break;
 
         case 'thematic_atmosphere_ozone':
             req_topic = "'cams-global-reanalysis-eac4-monthly'";
             req_otherContent = "\t\t" + "'variable': 'total_column_ozone',\n" 
                 + "\t\t" + "'product_type': 'monthly_mean',\n";
+
+            req_format = "'netcdf'";
+            downloadedFileName = "download.nc";
             dateIsSplit = true;
+            api_origin = 'atmosphere';
             break;
 
         case 'thematic_atmosphere_temperature':
             req_topic = "'cams-global-reanalysis-eac4'";
             req_otherContent = "\t\t" + "'variable': '2m_temperature',\n" 
                 + "\t\t" + "'time': '00:00',\n";
+
+            req_format = "'netcdf'";
+            downloadedFileName = "download.nc";
             dateIsSplit = false;
+            api_origin = 'atmosphere';
             break;
+
+        case 'thematic_atmosphere_solar_radiation':
+            req_topic = "'cams-solar-radiation-timeseries'";
+            req_otherContent = "\t\t" + "'sky_type': 'observed_cloud',\n" 
+                + "\t\t" + "'altitude': '-999.', #default value\n"
+                + "\t\t" + "'time_step': '1month', #time step to change\n"
+                + "\t\t" + "'time_reference': 'true_solar_time',\n";
+            
+            dateIsSplit = false; // for this request, 2004 is the lower year value 
+            downloadedFileName = "download.csv";
+            req_format = "'csv'";
+            api_origin = 'atmosphere';
+            
+            break;
+
         default:
             alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
             req_isOK = false;
     }
     
     //compute the date for the request 
+<<<<<<< HEAD
     var req_date = '';
 
     if(dateIsSplit){
@@ -93,6 +125,9 @@ var createCopernicusRequest = function (topic, date, area){
             req_date = computeDatePeriod(date.start, date.end);
         }
     }
+=======
+    var req_date = computeReqDate(topic, date);
+>>>>>>> csvRequest
 
     //compute the coordonate of the area
     // is the name important in the request ?
@@ -100,9 +135,36 @@ var createCopernicusRequest = function (topic, date, area){
     var area_s = area.south;
     var area_e = area.east;
     var area_w = area.west;
+    var req_area = "";
 
-    var req_area = "'area': [\n" 
-        + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
+    if(req_format == "'csv'"){
+        req_area = "'location': {"
+            + "\t'latitude': 0.00002,"
+            + "\t'longitude': -0.00002,"
+            + "\t},\n";
+    } else {
+        req_area = "'area': [\n" 
+            + "\t\t\t" + area_n +", "+ area_w +", "+ area_s +", " + area_e +",\n\t\t],\n";
+    }
+
+    //add the api key to the script
+    switch(api_origin){
+        case 'atmosphere':
+            api_url = "https://ads.atmosphere.copernicus.eu/api/v2";
+            api_key = "1825:3bfdb1b4-8a37-4009-b6e5-e5c69d96ea68"; // to change with urisa account key
+            break;
+        case 'climate':
+            api_url = "https://cds.climate.copernicus.eu/api/v2";
+            api_key = "49162:5ee6baf1-bb6c-4b49-bceb-829ec042ff47"; // to change with urisa account key
+            break;
+        default:
+            alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
+            req_isOK = false;
+    }
+
+    var req_beginning = "import cdsapi\n"
+        + "c = cdsapi.Client(url='" + api_url + "', key='" + api_key + "')\n"
+        + "c.retrieve(\n\t";
 
     //compute the final request
     if(req_isOk){
@@ -117,7 +179,13 @@ var createCopernicusRequest = function (topic, date, area){
         alert("Error : when compute the request | problème lors de la formation de la requête");
     }
 
-    return req_final;
+    //add process part of the script
+    var scriptContent_process = "";
+    if(req_format == "'netcdf'"){
+        scriptContent_process = createContentForProcessPart(topic, date, area);
+    }
+
+    return req_final + "\n\n" + scriptContent_process;
 }
 
 /**
@@ -128,10 +196,119 @@ var createCopernicusRequest = function (topic, date, area){
  * @returns
  */
 function computeDatePeriod(date_start, date_end){
+<<<<<<< HEAD
     //it's maybe not correct due to the month (0-11)
     return("'date': '" + date_start.getFullYear() +"-"+ refactorDate(date_start.getMonth())
         +"-"+ refactorDate(date_start.getDate()) +"/"+ date_end.getFullYear() 
         +"-"+ refactorDate(date_end.getMonth()) +"-"+ refactorDate(date_end.getDate()) +"',\n");
+=======
+    var start_year = date_start.getFullYear();
+    var end_year = date_end.getFullYear();
+    var start_month = date_start.getMonth() + 1;
+    var end_month = date_end.getMonth() + 1;
+    var start_day = date_start.getDate();
+    var end_day = date_end.getDate();
+
+    //if the case of csv file, file name is the date, so it's easier (but not better) to compute it here thanks to the var
+    if(req_format == "'csv'"){
+        downloadedFileName = "./tmp/" + start_day +"-"+ start_month +"-"+ start_year
+            + "_" + end_day +"-"+ end_month +"-"+ end_year +".csv"; 
+    }
+    return("'date': '" + start_year +"-"+ start_month +"-"+ start_day
+        +"/"+ end_year +"-"+ end_month +"-"+ end_day +"',\n");
+}
+
+/**
+ *
+ *
+ * @param {*} topic
+ * @param {*} date
+ * @returns
+ */
+function computeReqDate(topic, date){
+    //necessary variables
+    var req_date = "";
+    var dateIsSplit = true;
+    var dateIsOk = true;
+    var dateIsPeriod = date.constructor.name == "PeriodValue";
+
+    //get good variables if date is a period or not
+    var dateToTest = date;
+    var dateToTest_end = true; //if the date is not a period, the variable still a boolean and it simplify the final date's check
+    var minDate, maxDate; //this variable is the minimum value of the date to be valid
+    if(dateIsPeriod){
+        dateToTest = date.start; //dateToTest become start date of the period
+        dateToTest_end = date.end; //if the date is a period, the variable become a date in order to check it 
+    }
+
+    //check if the date is valid according to the request possiblities
+    switch (topic){
+        case 'thematic_atmosphere_pollution_particulate':
+            minDate = new Date('2017', '06');
+            maxDate = new Date('2020', '06', '08');//maybe today's date
+            dateIsSplit = false;
+            break;
+
+        case 'thematic_atmosphere_ozone':
+            minDate = new Date('2003');
+            maxDate = new Date('2019');
+            dateIsSplit = true;
+            break;
+
+        case 'thematic_atmosphere_temperature':
+            minDate = new Date('2003');
+            maxDate = new Date('2019');
+            dateIsSplit = false;
+            break;
+
+        case 'thematic_atmosphere_solar_radiation':
+            minDate = new Date('2004');
+            maxDate = new Date('2020', '06', '06');//maybe today's date
+            dateIsSplit = false;
+            break;
+
+        default:
+            alert("Error : date is not valid, request aborted | la date n'est pas valide, requête annulée");
+            req_isOK = false;
+    }
+    if(dateIsPeriod){
+        dateToTest_end = compareDate(dateToTest_end, minDate, maxDate);
+    }
+    dateIsOk = compareDate(dateToTest, minDate, maxDate) && dateToTest_end;
+
+    //compute the date if it is valid
+    if(dateIsOk){
+        if(dateIsSplit){
+            var date_day = date.getDate(); //1-31
+            var date_month = date.getMonth()+1; //0-11
+            var date_year = date.getFullYear();
+            req_date = "\t\t" + "'month': '" + date_month + "',\n\t\t'year': '" + date_year + "',\n\t\t"
+                + "'day': '" + date_day + "',\n"; // i'm not really sure to add the day, TO TEST, because every request don't have the day 
+        } else {// if !dateIsSplit 
+            if(dateIsPeriod){//if the date is a PeriodValue object
+                req_date = computeDatePeriod(date.start, date.end);
+            }else{//if the request need a period but it only have one date
+                req_date = computeDatePeriod(date, date);
+            }
+        }
+    } else {
+        alert("Error : date is not valid, request aborted | la date n'est pas valide, requête annulée");
+    }
+
+    return req_date;
+}
+
+
+/**
+ *
+ *
+ * @param {*} dateToTest
+ * @param {*} minDate
+ */
+function compareDate(dateToTest, minDate, maxDate){
+    //console.log( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ) );
+    return ( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ));
+>>>>>>> csvRequest
 }
 
 /**

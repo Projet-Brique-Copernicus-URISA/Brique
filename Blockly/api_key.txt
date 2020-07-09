@@ -1,0 +1,4 @@
+url: https://cds.climate.copernicus.eu/api/v2
+key: 49162:5ee6baf1-bb6c-4b49-bceb-829ec042ff47
+url: https://ads.atmosphere.copernicus.eu/api/v2
+key: 1825:3bfdb1b4-8a37-4009-b6e5-e5c69d96ea68

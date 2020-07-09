@@ -20,6 +20,14 @@
     </value>
     <value name="THEME">
       <block type="thematic_atmosphere_pollution_particulate" id="82qz0ctHyr|vfHj!bi3!"></block>
+      <block type="block_date" id="axxYXM/Q;f+P8@R2qhLQ">
+        <field name="DAY">1</field>
+        <field name="MONTH">7</field>
+        <field name="YEAR">2005</field>
+      </block>
+    </value>
+    <value name="THEME">
+      <block type="thematic_atmosphere_solar_radiation" id="wY[BT,Hfbwncm%~hg{i]"></block>
     </value>
     <value name="AREA">
       <block type="area_world" id="^;982Av%u]TCKRB^=R*+"></block>

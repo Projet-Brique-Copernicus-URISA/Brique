@@ -61,6 +61,10 @@ body, .main {
     left: 140px;
 }
 
+.left-pan .info-pan #button-input-upload {
+    display: none;
+}
+
 .left-pan .info-pan .info-content {
     position: absolute;
     bottom: 100px;
@@ -92,18 +96,9 @@ body, .main {
     justify-content: center;
 }
 
-.right-pan #display{
-    width : 100%;
-    height : auto;
-    padding-top : 75%;
+.right-pan #canvas-display{
     background-color : #ddd;
     border : 2px solid white ;
-}
-
-.right-pan #display img{
-    max-width : 100%;
-    height : auto;
-    margin:0;
 }
 
 * {

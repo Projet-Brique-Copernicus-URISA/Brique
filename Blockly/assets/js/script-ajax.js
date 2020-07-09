@@ -125,13 +125,15 @@ function doAjaxRequest_executePython(fileName) {
  * @returns {String} execution done message
  */
 function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
+    /*
     //to get the correct httpRequest object 
     var httpRequest = getHttpRequest();
 
-    httpRequest.open('GET', '/moveAndClean', true);
+    httpRequest.open('GET', 'http://localhost:8082/moveAndClean', true);
     httpRequest.send();
 
     return 'clean done'
+    */
 }
 
 

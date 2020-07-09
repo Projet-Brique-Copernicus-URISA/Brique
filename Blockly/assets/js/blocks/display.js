@@ -35,7 +35,7 @@ Blockly.Blocks['display_duration'] = {
             .appendField("Afficher");
         this.appendDummyInput()
             .appendField("pendant")
-            .appendField(new Blockly.FieldNumber(0, 1, 60), "NAME")
+            .appendField(new Blockly.FieldNumber(0, 1, 60), "time")
             .appendField("secondes");
         this.setInputsInline(true);
         this.setPreviousStatement(true, null);
@@ -49,7 +49,8 @@ Blockly.Blocks['display_duration'] = {
 /** DISPLAY VAR 2 block associated method */
 Blockly.JavaScript['display_duration'] = function (block) {
     var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
-    return "displayPicture(" + picture + ")";
+    var time = block.getFieldValue('time');
+    return "displayDuring(" + picture + "," + time + ");";
 };
 
 /** DISPLAY PATH block definition */
@@ -76,16 +77,34 @@ Blockly.JavaScript['display_path'] = function (block) {
 
 /**
  * A COMMENTER
+ * 
+ * mesImages/Copernicus/POLLUTION/EUROPE/01-04-2020.png
  *
  * @param {String} path
  */
-function displayPicture(path) {
-    var img = document.createElement("img");
-    img.setAttribute("src", path);
-    var body = document.getElementById("display");
-    body.style.padding = 0;
-    while (body.hasChildNodes()) {
-        body.removeChild(body.lastChild);
-    }
-    body.appendChild(img);
+function displayPicture(path) { 
+    setTimeout("disp(\"" + path + "\")", timeout * 1000);
+}
+
+function disp(path){
+    canvas.style.backgroundColor = 'transparent';
+    canvas.style.border = 'none';
+    canvas.style.padding = 0;
+    img.src = path;
+}
+
+function displayDuring(path, time) {
+    displayPicture(path);
+    timeout += time;
+    setTimeout(removePicture, timeout * 1000);
+}
+
+function removePicture() {
+    canvas.style.backgroundColor = '#ddd';
+    canvas.style.border = '2px solid white';
+    ctx.fillStyle = '#ddd';
+    ctx.beginPath();
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.closePath();
+    ctx.fill();
 }

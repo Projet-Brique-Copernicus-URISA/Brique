@@ -6,17 +6,19 @@
  * @version 0.2
  */
 
+let canvas;
+let ctx;
+let timeout;
+let img;
+
 /** Initialise the method that change the Blockly code to Javascript code and execute it */
 $(document).ready(function () {
 
-  var buttonStart = document.getElementById("button-start");
-  var code;
-  buttonStart.onclick = function () {
-   code = Blockly.JavaScript.workspaceToCode(workspace);
-    console.log("********************** CODE START **********************");
-    console.log(code);
-    console.log("********************** CODE END **********************");
-    try { eval(code); } catch (e) { alert(e); };
+  canvas = document.getElementById("canvas-display");
+  ctx = canvas.getContext("2d");
+  img = new Image();
+  img.onload = function () {
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   };
 
   var workspace = Blockly.inject('blocklyDiv', {
@@ -27,5 +29,14 @@ $(document).ready(function () {
     Blockly.Variables.createVariable(button.getTargetWorkspace(), null, 'picture');
   });
 
-
+  var buttonStart = document.getElementById("button-start");
+  var code;
+  buttonStart.onclick = function () {
+    timeout = 0;
+    code = Blockly.JavaScript.workspaceToCode(workspace);
+    console.log("********************** CODE START **********************");
+    console.log(code);
+    console.log("********************** CODE END **********************");
+    try { eval(code); } catch (e) { alert(e); };
+  };
 });
