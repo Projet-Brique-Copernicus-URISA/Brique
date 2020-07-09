@@ -318,8 +318,11 @@ function createContentForProcessPart(topic, date, area){
     scriptContent += "# convert the lat/lon values to x/y projections.\n"
         + "x, y = m(*np.meshgrid(lon,lat))\n\n"
         + "# plot the field using the fast pcolormesh routine set the colormap to jet.\n"
-        + "m.pcolormesh(x,y,data,shading='flat',cmap=plt.cm.jet)\n"
         + "m.colorbar(location='right')\n\n";
+
+    if(topic == 'thematic_atmosphere_pollution_particulate'){//this topic dont work and have to be fixed
+        scriptContent += "m.pcolormesh(x,y,np.squeeze(data),shading='flat',cmap=plt.cm.jet)\n";
+    } //in order to not block the execution, we change this line in the script but the image is the not correct
 
     //add "set background" part
     scriptContent += "# Add a coastline and axis values.\n"
