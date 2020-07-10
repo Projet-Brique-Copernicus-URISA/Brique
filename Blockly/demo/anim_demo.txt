@@ -1,0 +1,135 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="controls_repeat_ext" id="^l,n(-:N:+cdDD5R@*DF" x="158" y="79">
+    <value name="TIMES">
+      <shadow type="math_number" id="cH:RGSP_`DOQq+Y[pGM-">
+        <field name="NUM">10</field>
+      </shadow>
+    </value>
+    <statement name="DO">
+      <block type="display_duration" id="GtPj13foqx5/p?.|[^-K">
+        <value name="picture_to_display">
+          <shadow type="text" id="JeC^#wT5k?~YZ.F=bFC,">
+            <field name="TEXT">exemple.jpg</field>
+          </shadow>
+          <block type="file_reader" id="EM_.+|8;1#@G=4C0jlZh">
+            <value name="path">
+              <shadow type="text" id="3P}S!T-5xqIzCes_qro3">
+                <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-03-02.png</field>
+              </shadow>
+            </value>
+          </block>
+        </value>
+        <value name="time">
+          <shadow type="math_number" id="b_yc|~j4ZS%#cm(4_`q!">
+            <field name="NUM">0.2</field>
+          </shadow>
+        </value>
+        <next>
+          <block type="display_duration" id="kT=|luD^UYTgs1q8=icA">
+            <value name="picture_to_display">
+              <shadow type="text">
+                <field name="TEXT">exemple.jpg</field>
+              </shadow>
+              <block type="file_reader" id="zgkns?!X@~6ho/YNh/UO">
+                <value name="path">
+                  <shadow type="text" id="}v|T#!:9Xy%8j/,1.AgI">
+                    <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-03-17.png</field>
+                  </shadow>
+                </value>
+              </block>
+            </value>
+            <value name="time">
+              <shadow type="math_number" id="6{/lf_Kd:@Ei,dCKv3sa">
+                <field name="NUM">0.2</field>
+              </shadow>
+            </value>
+            <next>
+              <block type="display_duration" id=")7jN]PpYt=q}res%FHQx">
+                <value name="picture_to_display">
+                  <shadow type="text">
+                    <field name="TEXT">exemple.jpg</field>
+                  </shadow>
+                  <block type="file_reader" id="?C%jgE0CM_7f]D^7Wp{E">
+                    <value name="path">
+                      <shadow type="text" id="$;__:!W|.ilK3i{!Sf!U">
+                        <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-04-01.png</field>
+                      </shadow>
+                    </value>
+                  </block>
+                </value>
+                <value name="time">
+                  <shadow type="math_number" id="H?M3Vj72a)$|xO6KxQ0Y">
+                    <field name="NUM">0.2</field>
+                  </shadow>
+                </value>
+                <next>
+                  <block type="display_duration" id=":Kc6Z+9WPo42x/_ITIl(">
+                    <value name="picture_to_display">
+                      <shadow type="text">
+                        <field name="TEXT">exemple.jpg</field>
+                      </shadow>
+                      <block type="file_reader" id=";7C=0bb=f9:mF+8TM3U!">
+                        <value name="path">
+                          <shadow type="text" id="9#QQx5LAK1AsVxqMtavs">
+                            <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-04-16.png</field>
+                          </shadow>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="time">
+                      <shadow type="math_number" id="2s7ZVNr|+v7@SgekNm=B">
+                        <field name="NUM">0.2</field>
+                      </shadow>
+                    </value>
+                    <next>
+                      <block type="display_duration" id="HDi#zh5Cy8?dRvpy^m%M">
+                        <value name="picture_to_display">
+                          <shadow type="text">
+                            <field name="TEXT">exemple.jpg</field>
+                          </shadow>
+                          <block type="file_reader" id="~tKQAC$dVfvJ#!Df#)EE">
+                            <value name="path">
+                              <shadow type="text" id="AXgQ!EA?J,b28#|#./^|">
+                                <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-05-01.png</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="time">
+                          <shadow type="math_number" id="GGKGP.J);2WxrC9m;JA6">
+                            <field name="NUM">0.2</field>
+                          </shadow>
+                        </value>
+                        <next>
+                          <block type="display_duration" id="56q61|`Q65$`d7yp9Dz|">
+                            <value name="picture_to_display">
+                              <shadow type="text">
+                                <field name="TEXT">exemple.jpg</field>
+                              </shadow>
+                              <block type="file_reader" id="4_]Zf;dF4dh+X21)vA*e">
+                                <value name="path">
+                                  <shadow type="text" id="bs;NI3}+_(}9cZt8s3Zr">
+                                    <field name="TEXT">Copernicus/POLLUTION/EUROPE/2020-05-16.png</field>
+                                  </shadow>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="time">
+                              <shadow type="math_number" id="DI+o|/NJRXOqsS8TnW^z">
+                                <field name="NUM">0.2</field>
+                              </shadow>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
