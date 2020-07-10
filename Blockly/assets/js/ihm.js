@@ -111,7 +111,7 @@ function isInMax() {
 
 $(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
 	if(isInMax()) {
-        $('#canvas-display').css("height", "1000px");
+        $('#canvas-display').css("height", (window.innerHeight - 50).toString() + "px");
         $('#button-min-max').attr("src", "assets/img/minimize.png");
 	}
 	else {
