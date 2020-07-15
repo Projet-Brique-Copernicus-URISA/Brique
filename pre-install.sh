@@ -6,3 +6,9 @@ npm install fs
 npm install url
 #npm install querystring
 npm install netcdfjs
+
+pip install cdsapi
+pip install netCDF4
+pip install numpy
+pip install matplotlib
+pip install basemap
