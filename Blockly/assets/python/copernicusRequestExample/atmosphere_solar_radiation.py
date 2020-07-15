@@ -13,7 +13,7 @@ c.retrieve(
         },
         'altitude': '-999.', #default value
         'date': '2020-06-09/2020-06-09',
-        'time_step': '1month', #time step to change
+        'time_step': '1month', #time step 
         'time_reference': 'true_solar_time',
         'format': 'csv',
     },

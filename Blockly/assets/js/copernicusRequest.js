@@ -155,6 +155,9 @@ var createCopernicusRequest = function (topic, date, area){
     //add store part of the script
     scriptContent_process += createContentForStorePart(topic, date, area);
 
+    //add clean part of the script
+    scriptContent_process += createContentForCleanPart(topic, date, area); //i don't think parameters are necessary here
+
     return req_final + "\n\n" + scriptContent_process;
 }
 
@@ -243,7 +246,6 @@ function computeReqDate(topic, date){
     //compute the date if it is valid
     if(dateIsOk){
         if(dateIsSplit){
-            console.log(date)
             var date_day = refactorDate(date.getDate()); //1-31
             var date_month = refactorDate(date.getMonth()+1); //0-11
             var date_year = date.getFullYear();
@@ -305,7 +307,8 @@ function createContentForProcessPart(topic, date, area){
         + "file = netCDF4.Dataset(url)\n"
         + "lat  = file.variables['latitude'][:]\n"
         + "lon  = file.variables['longitude'][:]\n"
-        + "data = file.variables['"+ varName +"'][0,:,:]\n\n" // to change
+        + "data = file.variables['"+ varName +"'][0,:,:]\n" // to change
+        + "file.close()\n\n";
 
     //add "set figure and map" part
     scriptContent += "#Setup figure and map\n"
@@ -341,15 +344,7 @@ function createContentForProcessPart(topic, date, area){
         + "plt.title('" + topic + "');\n"  //to change
         + "plt.savefig(" +"'./tmp/"+ imageName +".png', bbox_inches=0)\n\n"
 
-    //add "clean and move part"
-    /*
-    scriptContent += "import shutil, os, sys\n\n"
-        + "#move download.nc to /tmp\n"
-        + "shutil.move('" + imageName + ".png', 'tmp/')\n\n"
-        + "#remove copernicus_request.py and download.nc\n"
-        + "os.remove('download.nc')\n"
-        //+ "os.remove('copernicus_request.py')\n"
-        */
+    
     return scriptContent;
 }
 
@@ -362,10 +357,11 @@ function createContentForProcessPart(topic, date, area){
  */
 function createContentForStorePart(topic, date, area){
     var zone = area.name; // has to follow area value
+    var dirDest = "'./mesImages/Copernicus/" + topic + "/" + zone + "/'\n";    
 
     var scriptContent = "import os\nimport shutil \n"
         + "dirOrigin = './tmp/'\n"
-        + "dirDest = './mesImages/Copernicus/" + topic + "/" + zone + "/'\n"
+        + "dirDest = " + dirDest
         + "if not os.path.isdir(dirDest):\n"
         + "\t os.makedirs(dirDest)\n"
         + "\t print('Creation reussie du repertoire', dirDest)\n"
@@ -413,4 +409,21 @@ function computeReqArea(area){
     }
 
     return req_area;
+}
+
+/**
+ *
+ *
+ * @param {*} topic
+ * @param {*} date
+ * @param {*} area
+ * @returns
+ */
+function createContentForCleanPart(topic, date, area){
+    var reqContent = "\n\nimport shutil, os, sys\n\n"; //maybe only keep "import os"   
+    if(req_format == "'netcdf'"){
+        reqContent += "os.remove('download.nc')\n";
+    }
+    reqContent += "os.remove('copernicus_request.py')\n"
+    return reqContent;
 }
