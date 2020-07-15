@@ -119,11 +119,11 @@ var createCopernicusRequest = function (topic, date, area){
     switch(api_origin){
         case 'atmosphere':
             api_url = "https://ads.atmosphere.copernicus.eu/api/v2";
-            api_key = "1825:3bfdb1b4-8a37-4009-b6e5-e5c69d96ea68"; // to change with urisa account key
+            api_key = api_key_atmosphere;
             break;
         case 'climate':
             api_url = "https://cds.climate.copernicus.eu/api/v2";
-            api_key = "49162:5ee6baf1-bb6c-4b49-bceb-829ec042ff47"; // to change with urisa account key
+            api_key = api_key_climate;
             break;
         default:
             alert("Error : request not valid topic, request aborted | le thème n'est pas valide, requête annulée");
