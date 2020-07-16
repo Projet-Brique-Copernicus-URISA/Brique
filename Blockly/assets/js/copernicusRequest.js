@@ -7,17 +7,12 @@ var varName = "";//variable used in the process part of the request
  * to create and run the python script which do the request to the copernicus API
  * according to the parameters topic, date, and area
  *
- * @param {*} topic 
- * @param {*} date
- * @param {*} area
+ * @param {*} topic topic of request's data
+ * @param {*} date date of request's data
+ * @param {*} area area of request's data (example: coordinates, latitude and logitude, ...)
  */
 var launchCopernicusRequest = function(topic, date, area){
     //to create correct code of the python script
-    /*
-    var req_final = createCopernicusRequest(topic, date, area);
-    var scriptContent_process = createContentForProcessPart(topic, date, area);
-    var scriptComplete = req_final + "\n\n" + scriptContent_process;
-    */
     var scriptComplete = createCopernicusRequest(topic, date, area);
 
     //to create the python script file
@@ -26,6 +21,7 @@ var launchCopernicusRequest = function(topic, date, area){
     //to execute the python script
     doAjaxRequest_executePython("copernicus_request.py");
 
+    //to send a feedback on the front page
     $('#disp-request').html('La requête est envoyée...');
     setTimeout("$(\'#disp-request\').html(\'\');", 10000);
 }
@@ -33,21 +29,18 @@ var launchCopernicusRequest = function(topic, date, area){
 /**
  * to create correct code of the python script
  *
- * @param {*} topic
- * @param {*} date
- * @param {*} area
- * @returns
+ * @param {*} topic topic of request's data
+ * @param {*} date date of request's data
+ * @param {*} area area of request's data (example: coordinates, latitude and logitude, ...)
+ * @returns content, code of the script which download, compute, process and store data
  */
 var createCopernicusRequest = function (topic, date, area){    
-    // variables for the request
-    //var downloadedFileName = "";//i have to change the name of the downloaded file
-    //var req_format = "";
-    //var req_isOk = true; 
-
     //to select the correct topic and the correct data set
     var req_topic = '';
     var req_otherContent = '';
     var api_origin = '';
+
+    //switch to get correct real request's parameters according to the topic
     switch (topic){
         case 'thematic_atmosphere_pollution_particulate':
             req_topic = "'cams-europe-air-quality-forecasts'";
@@ -97,7 +90,7 @@ var createCopernicusRequest = function (topic, date, area){
                 + "\t\t" + "'time_step': '1month', #time step to change\n"
                 + "\t\t" + "'time_reference': 'true_solar_time',\n";
             
-            dateIsSplit = false; // for this request, 2004 is the lower year value 
+            dateIsSplit = false;
             downloadedFileName = "download.csv";
             req_format = "'csv'";
             api_origin = 'atmosphere';
@@ -153,20 +146,21 @@ var createCopernicusRequest = function (topic, date, area){
         scriptContent_process = createContentForProcessPart(topic, date, area);
     }
     //add store part of the script
-    scriptContent_process += createContentForStorePart(topic, date, area);
+    scriptContent_process += createContentForStorePart(topic, area);
 
     //add clean part of the script
-    scriptContent_process += createContentForCleanPart(topic, date, area); //i don't think parameters are necessary here
+    scriptContent_process += createContentForCleanPart();
 
     return req_final + "\n\n" + scriptContent_process;
 }
 
 /**
+ * to compute date's synthax for the request according to the date parameter if the date have a splitted synthax
+ * and compute the downloaded file name. Date could be a single date or a period
  *
- *
- * @param {*} date_start
- * @param {*} date_end
- * @returns
+ * @param {*} date_start date of request's data (period start date if it's not a single date)
+ * @param {*} date_end period end date if it's a period or same date value if it's a single date
+ * @returns date's synthax for the request
  */
 function computeDatePeriod(date_start, date_end){
     var start_year = date_start.getFullYear();
@@ -186,11 +180,13 @@ function computeDatePeriod(date_start, date_end){
 }
 
 /**
+ * to compute date's synthax for the request according to the date parameter 
+ * if the date don't have a splitted synthax and check if the date is correct.
+ * Date could be a single date or a period 
  *
- *
- * @param {*} topic
- * @param {*} date
- * @returns
+ * @param {*} topic topic of request's data
+ * @param {*} date date of request's data
+ * @returns date's synthax for the request
  */
 function computeReqDate(topic, date){
     //necessary variables
@@ -267,29 +263,29 @@ function computeReqDate(topic, date){
 
 
 /**
+ * to compare two date. Return true if the date is between minimum and maximum
  *
- *
- * @param {*} dateToTest
- * @param {*} minDate
+ * @param {*} dateToTest date to test
+ * @param {*} minDate minimum date
+ * @param {*} maxDate maximum date
+ * @returns true if the date is between minimum and maximum
  */
 function compareDate(dateToTest, minDate, maxDate){
-    //console.log( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ) );
     return ( ( (maxDate > dateToTest) || (maxDate.getTime() === dateToTest.getTime()) ) && ( (minDate < dateToTest) || (minDate.getTime() === dateToTest.getTime()) ));
 }
 
 /**
+ * to create the part of the script's content that handles the processing according to the parameter
  *
- *
- * @param {*} topic
- * @param {*} date
- * @param {*} area
- * @returns
+ * @param {*} topic topic of request's data
+ * @param {*} date date of request's data
+ * @param {*} area area of request's data (example: coordinates, latitude and logitude, ...)
+ * @returns part of the script's content that handles the processing
  */
 function createContentForProcessPart(topic, date, area){
     var scriptContent = '';
 
     //compute the image file name
-    //var imageName = date.getDate() +"-"+ date.getMonth() +"-"+ date.getFullYear(); //probleme here if PeriodValue is not supported
     var imageName = refactorDate(date.getDate()) +"-"+ refactorDate(date.getMonth()+1) +"-"+ date.getFullYear();
 
     //add "import" part
@@ -349,13 +345,13 @@ function createContentForProcessPart(topic, date, area){
 }
 
 /**
+ * to create the part of the script's content that store te processed data according to the parameter
  *
- *
- * @param {*} topic
- * @param {*} date
- * @param {*} area
+ * @param {*} topic topic of request's data
+ * @param {*} area area of request's data (example: coordinates, latitude and logitude, ...)
+ * @returns part of the script's content that store te processed data
  */
-function createContentForStorePart(topic, date, area){
+function createContentForStorePart(topic, area){
     var zone = area.name; // has to follow area value
     var dirDest = "'./mesImages/Copernicus/" + topic + "/" + zone + "/'\n";    
 
@@ -373,10 +369,10 @@ function createContentForStorePart(topic, date, area){
 }
 
 /**
+ * to refactor the date because in the request if the value is under 10, the synthax is "01" instead of "1" 
  *
- *
- * @param {*} num
- * @returns
+ * @param {*} num date value
+ * @returns refactored date value
  */
 function refactorDate(num){
     if(num < 10){
@@ -386,10 +382,10 @@ function refactorDate(num){
 }
 
 /**
+ * to compute area's synthax for the request according to the area parameter
  *
- *
- * @param {*} area
- * @returns
+ * @param {*} area area of request's data (example: coordinates, latitude and logitude, ...)
+ * @returns computed area's synthax for the request
  */
 function computeReqArea(area){
     var area_n = area.north;
@@ -412,14 +408,12 @@ function computeReqArea(area){
 }
 
 /**
+ * to create the part of the script's content that handles the cleaning 
+ * (remove useless file after downloading, computing, processing and storing)
  *
- *
- * @param {*} topic
- * @param {*} date
- * @param {*} area
- * @returns
+ * @returns part of the script's content that handles the cleaning 
  */
-function createContentForCleanPart(topic, date, area){
+function createContentForCleanPart(){
     var reqContent = "\n\nimport shutil, os, sys\n\n"; //maybe only keep "import os"   
     if(req_format == "'netcdf'"){
         reqContent += "os.remove('download.nc')\n";
