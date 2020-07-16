@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 
-var port = 8082 ;
+import { server_port } from 'assets/js/server_port.js';
+//var port = 8082 ;
+var port = server_port;
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
