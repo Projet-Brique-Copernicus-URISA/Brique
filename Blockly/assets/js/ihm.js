@@ -6,20 +6,8 @@
  * @version 0.1
  */
 
-/** 
- * @file IHM management
- * @author Noa Ammirati
- * @author Maxime Dumonteil
- * @author Mathis Lecoeuvre
- * @version 0.1
- */
-
-var zoom;
-
 /** Initialise the ihm interface actions */
 $(document).ready(function () {
-
-    zoom = false;
 
     $('.button-info').hover(
         function () {
@@ -67,6 +55,9 @@ $(document).ready(function () {
     });
 });
 
+/**
+ * Do the zoom action (fullscreen or unfullscreen the display window).
+ */
 function doZoom() {
     if (isInMax()){
         minimize();
@@ -75,6 +66,9 @@ function doZoom() {
     }
 }
 
+/**
+ * Fullscreen the display window.
+ */
 function maximize() {
     var elem = document.getElementById('element-right-pan');
     if (elem.requestFullscreen) {
@@ -89,6 +83,9 @@ function maximize() {
     }
 }
 
+/**
+ * Unfullscreen the display window
+ */
 function minimize() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -101,6 +98,10 @@ function minimize() {
     }
 }
 
+/**
+ * To know is the display window is in fullscreen mode.
+ * @returns true if the display window is in fullscreen mode.
+ */
 function isInMax() {
     var full_screen_element = document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || null;
     if (full_screen_element === null)
@@ -109,6 +110,7 @@ function isInMax() {
         return true;
 }
 
+/** Called there is a change in fullscreen mode */
 $(document).on('fullscreenchange webkitfullscreenchange mozfullscreenchange MSFullscreenChange', function() {
 	if(isInMax()) {
         $('#canvas-display').css("height", (window.innerHeight - 50).toString() + "px");

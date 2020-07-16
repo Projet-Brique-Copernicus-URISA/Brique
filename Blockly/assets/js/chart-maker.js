@@ -1,11 +1,17 @@
-
+/** 
+ * @file Chart maker
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.2
+ */
 
 
 /**
+ * Read a specified csv file via its filename and call a method when done.
  *
- *
- * @param {*} callback
- * @param {*} filename
+ * @param {*} callback the method called when done
+ * @param {*} filename of the csv file
  */
 function readCSVFile(callback, filename) {
     let jsonobject;
@@ -23,6 +29,11 @@ function readCSVFile(callback, filename) {
     });
 }
 
+/**
+ * Build and display a chart is the display window.
+ * 
+ * @param {*} data for the chart
+ */
 function makeChart(data) {
     var labels = data.map(function (e) {
         return e.ObservationPeriod;

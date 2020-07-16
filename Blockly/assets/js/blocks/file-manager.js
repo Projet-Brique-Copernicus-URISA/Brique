@@ -6,8 +6,7 @@
  * @version 0.1
  */
 
-// TODO : COMMENTAIRES
-
+/** FILE READER block definition */
 Blockly.Blocks['file_reader'] = {
     init: function () {
         this.appendValueInput("path")
@@ -21,6 +20,7 @@ Blockly.Blocks['file_reader'] = {
     }
 };
 
+/** FILE READER block associated method */
 Blockly.JavaScript['file_reader'] = function (block) {
     var path = Blockly.JavaScript.valueToCode(block, 'path', Blockly.JavaScript.ORDER_ATOMIC);
     return [ path , Blockly.JavaScript.ORDER_MEMBER];

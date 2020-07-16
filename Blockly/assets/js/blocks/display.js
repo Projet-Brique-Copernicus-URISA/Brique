@@ -53,23 +53,38 @@ Blockly.Blocks['display_duration'] = {
 
 /** DISPLAY VAR WITH TIMER block associated method */
 Blockly.JavaScript['display_duration'] = function (block) {
-    var picture = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
+    var pictlure = Blockly.JavaScript.valueToCode(block, 'picture_to_display', Blockly.JavaScript.ORDER_ATOMIC);
     var time = Blockly.JavaScript.valueToCode(block, 'time', Blockly.JavaScript.ORDER_ATOMIC);
     return "displayDuring(" + picture + "," + time + ");";
 };
 
+/**
+ * Compute a file's name in order to find its extension.
+ * @param {*} path the file's name
+ * @returns the extension of the file
+ */
 function getExtension(path) {
     return path.split('.').pop();
 }
 
+/**
+ * Compute a file's name in order to know if it is a picture or not.
+ * @param {*} path the file's name
+ * @return true if the file is a picture
+ */
 function isPicture(path) {
-    const pictExt = ["jpg", "jpeg", "png", "gif"];
+    const pictExt = ["jpg", "jpeg", "png", "gif", "pdf", "tif", "svg"];
     if (pictExt.indexOf(getExtension(path)) >= 0) {
         return true;
     }
     return false;
 }
 
+/**
+ * Compute a file's name in order to know if it is a csv file or not.
+ * @param {*} path the file's name
+ * @return true if the file is a csv
+ */
 function isCSV(path) {
     if (getExtension(path) == "csv") {
         return true;
@@ -77,22 +92,25 @@ function isCSV(path) {
     return false;
 }
 
+/**
+ * Compute a file's name in order to know if it is a local file or not.
+ * @param {*} path the file's name
+ * @return true if the file is local
+ */
 function isLocal(path){
    return !(path.split(':')[0] == "http" || path.split(':')[0] == "https");
 }
 /**
- * A COMMENTER
- * 
- *
- * @param {String} path
+ * Display a picture/graph via its file's name at the correct moment.
+ * @param {String} path the file's name
  */
 function displayPicture(path) {
     setTimeout("disp(\"" + path + "\")", timeout * 1000);
 }
 
 /**
- * 
- * @param {*} path 
+ * Display a picture/graph via it's file's name.
+ * @param {*} path the file's name
  */
 
 function disp(path) {
@@ -110,9 +128,9 @@ function disp(path) {
 }
 
 /**
- * 
- * @param {*} path 
- * @param {*} time 
+ * Display a picture/graph via it's file's name during a specified amount of time.
+ * @param {*} path the file's name
+ * @param {*} time amount of time specified in seconds
  */
 function displayDuring(path, time) {
     displayPicture(path);
@@ -121,7 +139,7 @@ function displayDuring(path, time) {
 }
 
 /**
- * 
+ * Remove anything that is displayed at the time is the display window.
  */
 function removePicture() {
     canvas.style.backgroundColor = '#ddd';

@@ -29,7 +29,7 @@ body, .main {
 }
 
 .left-pan .blocklyToolboxDiv{
-    padding-top : 200px;
+    padding-top : 100px;
     width : 200px;
 }
 
@@ -76,12 +76,13 @@ body, .main {
 
 .left-pan .info-pan .info-content {
     position: absolute;
-    bottom: 100px;
+    bottom: 50px;
     padding : 0 15px;
     width: 100%;
     height:300px;
     z-index:1000;
     overflow:auto;
+    text-align: justify;
 }
 
 .button-info img {

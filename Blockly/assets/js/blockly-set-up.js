@@ -1,4 +1,4 @@
-2/** 
+/** 
  * @file Blocky Set Up
  * @author Noa Ammirati
  * @author Maxime Dumonteil
@@ -6,10 +6,10 @@
  * @version 0.2
  */
 
-let canvas;
-let ctx;
-let timeout;
-let img;
+var canvas;
+var ctx;
+var timeout;
+var img;
 
 /** Initialise the method that change the Blockly code to Javascript code and execute it */
 $(document).ready(function () {

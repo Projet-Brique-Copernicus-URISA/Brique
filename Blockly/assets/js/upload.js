@@ -6,9 +6,7 @@
  * @version 0.1
  */
 
-// TODO : COMMENTAIRES a intégrer
-
-
+/** Upload a file and set up the BLockly code in the workspace */
 $(document).ready(function () {
     var input = document.getElementById("button-input-upload");
 
