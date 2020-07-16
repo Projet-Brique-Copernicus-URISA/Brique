@@ -1,5 +1,13 @@
+/** 
+ * @file upload
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
 var req_isOk = true; 
-var downloadedFileName = "";//i have to change the name of the downloaded file
+var downloadedFileName = "";
 var req_format = "";
 var varName = "";//variable used in the process part of the request
 

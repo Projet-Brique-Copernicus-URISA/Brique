@@ -1,5 +1,13 @@
 #!/usr/bin/env node
 
+/** 
+ * @file upload
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
 var port = 8082 ;
 var bodyParser = require('body-parser');
 var express = require('express');
@@ -12,7 +20,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //GET pages
-
+// for the main page
 app.get('/', function(req, res){
     var path = "/index.html"//url.parse(req.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
@@ -150,7 +158,7 @@ app.get('/mesData/*.csv', function(request, response){
 //end GET pages
 
 //Call python 
-
+// to test copernicus request
 app.get('/assets/js/script-test.js', function(request, response){
     var path = url.parse(request.url).pathname; 
     fs.readFile(__dirname + path, function(error, data) {  
@@ -171,6 +179,7 @@ app.get('/assets/js/script-test.js', function(request, response){
      
 });
 
+// to store data and remove useless files
 app.get('/moveAndClean', function(request, response, next){
     const  spawn  = require('child_process').spawn;
     const process = spawn('python', ['./assets/python/moveAndClean.py ', "download.nc", "tmp/", "copernicus_request.py"]);
@@ -181,6 +190,7 @@ app.get('/moveAndClean', function(request, response, next){
     response.end();         
 });
 
+/*
 app.get('/test-netcdfjs', function(request, response, next){
     const fs = require('fs');
     const NetCDFReader = require('netcdfjs');
@@ -193,8 +203,9 @@ app.get('/test-netcdfjs', function(request, response, next){
 
     response.end();
 });
+*/
 
-
+// to write a file
 app.post('/assets/js/script-copier.js', function(request, response, next){
    var path = url.parse(request.url).pathname; 
    fs.readFile(__dirname + path, function(error, data) {  
@@ -218,6 +229,7 @@ app.post('/assets/js/script-copier.js', function(request, response, next){
 
 });
 
+//to execute copernicus_request.py, which have to download, compute, process, store data and remove useless file
 app.post('/executePython', function(request, response, next){
     var fileName = request.body.name;
     var message = "error empty";
@@ -231,6 +243,7 @@ app.post('/executePython', function(request, response, next){
     response.end();    
 });
 
+// to convert netCDF file to png file
 app.post('/convertNcToPng', function(request, response, next){
     var fileName = request.body.fileName;
     var varName = request.body.varName;
@@ -248,6 +261,7 @@ app.post('/convertNcToPng', function(request, response, next){
 
 //end Call python
 
+//to send a feedback in the terminal when the server start
 app.listen(port, function(){
     console.log('Le serveur fonctionne sur le port '+ port) ;
 }) ;

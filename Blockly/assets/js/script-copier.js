@@ -1,3 +1,15 @@
+/** 
+ * @file IHM
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
+/**
+ * to write a new file
+ */
+
 var fileName = request.body.name;
 var fileContent = request.body.content;
 

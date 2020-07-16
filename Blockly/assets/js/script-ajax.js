@@ -1,3 +1,11 @@
+/** 
+ * @file IHM
+ * @author Noa Ammirati
+ * @author Maxime Dumonteil
+ * @author Mathis Lecoeuvre
+ * @version 0.1
+ */
+
 /**
  * to forecast different browser ( mozilla, internet explorer, ... )
  *
@@ -118,25 +126,6 @@ function doAjaxRequest_executePython(fileName) {
 
     return 'execute python done';
 }
-
-/**
- * Do an ajax get request to the server to execute the python script
- * in order to move download.nc to tmp/ and delete copernicus_request.py ( which is useless now )
- *
- * @returns {String} execution done message
- */
-function doAjaxRequest_requestClean() { //MAYBE SWITCH TO A POST REQUEST WITH PARAMETERS
-    /*
-    //to get the correct httpRequest object 
-    var httpRequest = getHttpRequest();
-
-    httpRequest.open('GET', 'http://localhost:8082/moveAndClean', true);
-    httpRequest.send();
-
-    return 'clean done'
-    */
-}
-
 
 /**
  * Do an ajax get request to the server to execute the python script
