@@ -1,0 +1,3 @@
+La date du jour estÿ: 17/07/2020 
+Entrez la nouvelle dateÿ: (jj-mm-aa) Le systŠme ne peut accepter la date entr‚e.
+Entrez la nouvelle dateÿ: (jj-mm-aa) 
