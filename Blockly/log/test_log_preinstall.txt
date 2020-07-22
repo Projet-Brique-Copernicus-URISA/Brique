@@ -1,0 +1,29 @@
+22/07/2020 
+"- - - express"  
+"- - - body-parser"  
+"- - - fs"  
+"- - - url"  
+"- - - cdsapi"  
+Requirement already satisfied: cdsapi in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (0.3.0)
+Requirement already satisfied: requests>=2.5.0 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from cdsapi) (2.24.0)
+Requirement already satisfied: tqdm in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from cdsapi) (4.48.0)
+Requirement already satisfied: chardet<4,>=3.0.2 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from requests>=2.5.0->cdsapi) (3.0.4)
+Requirement already satisfied: certifi>=2017.4.17 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from requests>=2.5.0->cdsapi) (2020.6.20)
+Requirement already satisfied: urllib3!=1.25.0,!=1.25.1,<1.26,>=1.21.1 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from requests>=2.5.0->cdsapi) (1.25.9)
+Requirement already satisfied: idna<3,>=2.5 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from requests>=2.5.0->cdsapi) (2.10)
+"- - - netCDF4"  
+Requirement already satisfied: netCDF4 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (1.5.3)
+Requirement already satisfied: numpy>=1.7 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from netCDF4) (1.19.1)
+Requirement already satisfied: cftime in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from netCDF4) (1.2.1)
+"- - - numpy"  
+Requirement already satisfied: numpy in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (1.19.1)
+"- - - matplotlib"  
+Requirement already satisfied: matplotlib in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (3.1.3)
+Requirement already satisfied: kiwisolver>=1.0.1 in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (from matplotlib) (1.1.0)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,>=2.0.1 in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (from matplotlib) (2.4.6)
+Requirement already satisfied: numpy>=1.11 in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from matplotlib) (1.19.1)
+Requirement already satisfied: python-dateutil>=2.1 in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (from matplotlib) (2.8.1)
+Requirement already satisfied: cycler>=0.10 in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (from matplotlib) (0.10.0)
+Requirement already satisfied: setuptools in c:\users\maximedumonteil\appdata\local\programs\python\python38-32\lib\site-packages (from kiwisolver>=1.0.1->matplotlib) (47.1.0)
+Requirement already satisfied: six>=1.5 in c:\users\maximedumonteil\appdata\roaming\python\python38\site-packages (from python-dateutil>=2.1->matplotlib) (1.14.0)
+"- - - basemap"  
