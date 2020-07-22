@@ -23,3 +23,6 @@ CALL pip install numpy >> Blockly/log/log_preinstall.txt
 
 CALL echo "- - - matplotlib"  >> Blockly/log/log_preinstall.txt
 CALL pip install matplotlib >> Blockly/log/log_preinstall.txt
+
+CALL echo "- - - basemap"  >> Blockly/log/log_preinstall.txt
+CALL pip install basemap >> Blockly/log/log_preinstall.txt
