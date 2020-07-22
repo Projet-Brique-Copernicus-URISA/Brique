@@ -190,21 +190,6 @@ app.get('/moveAndClean', function(request, response, next){
     response.end();         
 });
 
-/*
-app.get('/test-netcdfjs', function(request, response, next){
-    const fs = require('fs');
-    const NetCDFReader = require('netcdfjs');
-
-    // http://www.unidata.ucar.edu/software/netcdf/examples/files.html
-    const data = fs.readFileSync('./tmp/download.nc');
-
-    var reader = new NetCDFReader(data); // read the header
-    console.log(reader.getDataVariable('time')); // go to offset and read it
-
-    response.end();
-});
-*/
-
 // to write a file
 app.post('/assets/js/script-copier.js', function(request, response, next){
    var path = url.parse(request.url).pathname; 
