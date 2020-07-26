@@ -14,7 +14,6 @@
 #
 #   You should have received a copy of the GNU General Public License
 #   along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
 date /t >> Blockly/log/log_preinstall.txt
 
 echo "- - - express"  >> Blockly/log/log_preinstall.txt
